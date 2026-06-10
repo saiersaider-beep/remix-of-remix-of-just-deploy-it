@@ -419,8 +419,14 @@ function EverywhereSection() {
   return (
     <section className="py-24 bg-surface/40">
       <div className="mx-auto max-w-[1400px] px-6 grid lg:grid-cols-2 gap-16 items-center">
-        <div className="relative">
-          <img src={everywhereImg} alt="Listen everywhere" loading="lazy" width={768} height={768} className="w-full max-w-md mx-auto" />
+        <div className="relative max-w-md mx-auto lg:mx-0">
+          <div className="absolute -inset-6 bg-gradient-to-br from-amber-500/40 via-primary/30 to-pink-500/40 blur-3xl rounded-[2rem] -z-10 animate-float-slow" />
+          <div className="absolute -inset-px rounded-[1.75rem] bg-gradient-to-br from-amber-400 via-primary to-pink-500 opacity-90" />
+          <div className="relative rounded-[1.65rem] overflow-hidden ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] rotate-[-3deg] hover:rotate-0 transition-transform duration-700 will-change-transform">
+            <img src={everywhereImg} alt="Écoute partout — Lomé" loading="lazy" width={1024} height={1024} className="block w-full h-auto object-cover" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/10 mix-blend-overlay" />
+            <div className="pointer-events-none absolute -top-1/3 -left-1/3 w-2/3 h-2/3 bg-white/15 blur-3xl rotate-12" />
+          </div>
         </div>
         <div>
           <p className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Tess of The Road · 3030</p>
@@ -463,8 +469,14 @@ function PlaylistSection() {
             </Link>
           </div>
         </div>
-        <div className="order-1 lg:order-2 relative">
-          <img src={playlistImg} alt="Mobile playlist" loading="lazy" width={768} height={768} className="w-full max-w-md mx-auto" />
+        <div className="order-1 lg:order-2 relative max-w-md mx-auto lg:mx-0 lg:ml-auto">
+          <div className="absolute -inset-6 bg-gradient-to-br from-rose-500/40 via-primary/30 to-cyan-400/30 blur-3xl rounded-[2rem] -z-10 animate-float-slow" style={{ animationDelay: "1s" }} />
+          <div className="absolute -inset-px rounded-[1.75rem] bg-gradient-to-br from-rose-400 via-primary to-cyan-400 opacity-90" />
+          <div className="relative rounded-[1.65rem] overflow-hidden ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] rotate-[3deg] hover:rotate-0 transition-transform duration-700 will-change-transform">
+            <img src={playlistImg} alt="Partage ta musique" loading="lazy" width={1024} height={1024} className="block w-full h-auto object-cover" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/10 mix-blend-overlay" />
+            <div className="pointer-events-none absolute -top-1/3 -right-1/3 w-2/3 h-2/3 bg-white/15 blur-3xl -rotate-12" />
+          </div>
         </div>
       </div>
     </section>
@@ -532,8 +544,14 @@ function CreatorsSection() {
   return (
     <section className="py-24">
       <div className="mx-auto max-w-[1400px] px-6 grid lg:grid-cols-2 gap-16 items-center">
-        <div className="relative">
-          <img src={manRock} alt="Climbing creator" loading="lazy" width={768} height={768} className="w-full max-w-md mx-auto" />
+        <div className="relative max-w-md mx-auto lg:mx-0">
+          <div className="absolute -inset-6 bg-gradient-to-br from-primary/40 via-amber-500/30 to-emerald-500/30 blur-3xl rounded-[2rem] -z-10 animate-float-slow" style={{ animationDelay: "2s" }} />
+          <div className="absolute -inset-px rounded-[1.75rem] bg-gradient-to-br from-primary via-amber-400 to-emerald-400 opacity-90" />
+          <div className="relative rounded-[1.65rem] overflow-hidden ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] rotate-[-3deg] hover:rotate-0 transition-transform duration-700 will-change-transform">
+            <img src={manRock} alt="Producteur togolais en studio" loading="lazy" width={1024} height={1024} className="block w-full h-auto object-cover" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/10 mix-blend-overlay" />
+            <div className="pointer-events-none absolute -top-1/3 -left-1/3 w-2/3 h-2/3 bg-white/15 blur-3xl rotate-12" />
+          </div>
         </div>
         <div>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold leading-tight">

@@ -1,0 +1,2063 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.875rem;
+  /* Light — VinaSound palette tirée du logo (orange #E85A2C × bleu royal #2E6FB8) */
+  --background: #FCFAF6;
+  --background-secondary: #FFFFFF;
+  --foreground: #1A1410;
+  --surface: #FFFFFF;
+  --surface-solid: #FFFFFF;
+  --surface-foreground: #1A1410;
+  --card: #FFFFFF;
+  --card-foreground: #1A1410;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1410;
+
+  /* VinaSound signature — exactement les couleurs du logo */
+  --primary: #E85A2C;
+  --primary-foreground: #FFFFFF;
+  --primary-glow: #F47A3E;
+  --accent-emerald: #10B981;
+  --accent-sunset: #F4A14B;
+  --accent-purple: #2E6FB8;
+  --accent-neon: #F4A14B;
+  --accent-cyan: #2E6FB8;
+  --brand-orange: #E85A2C;
+  --brand-orange-glow: #F47A3E;
+  --brand-blue: #2E6FB8;
+  --brand-blue-glow: #4A8BD4;
+
+  --secondary: #FBF1E8;
+  --secondary-foreground: #2A1A10;
+  --muted: #F4ECE2;
+  --muted-foreground: #6B584A;
+  --accent: #2E6FB8;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #ECE2D2;
+  --input: #ECE2D2;
+  --ring: #E85A2C;
+
+  --gradient-primary: linear-gradient(135deg, #F47A3E 0%, #E85A2C 100%);
+  --gradient-afro: linear-gradient(135deg, #F4A14B 0%, #E85A2C 55%, #2E6FB8 100%);
+  --gradient-emerald: #10B981;
+  --gradient-neon: linear-gradient(135deg, #F4A14B 0%, #E85A2C 100%);
+  --gradient-brand: linear-gradient(135deg, #E85A2C 0%, #2E6FB8 100%);
+  --gradient-mesh:
+    radial-gradient(at 18% 18%, rgba(232,90,44,0.16) 0px, transparent 50%),
+    radial-gradient(at 82% 12%, rgba(46,111,184,0.14) 0px, transparent 50%),
+    radial-gradient(at 72% 82%, rgba(244,122,62,0.12) 0px, transparent 50%),
+    radial-gradient(at 12% 88%, rgba(46,111,184,0.10) 0px, transparent 50%);
+
+  --shadow-glow: 0 0 24px -6px rgba(232, 90, 44, 0.38);
+  --shadow-glow-pink: 0 0 24px -6px rgba(232, 90, 44, 0.35);
+  --shadow-glow-purple: 0 0 24px -6px rgba(46, 111, 184, 0.32);
+  --shadow-glow-emerald: 0 0 24px -6px rgba(16, 185, 129, 0.30);
+  --shadow-glow-blue: 0 0 24px -6px rgba(46, 111, 184, 0.38);
+  --shadow-elegant: 0 1px 2px rgba(26, 20, 16, 0.06), 0 8px 24px rgba(46, 111, 184, 0.08);
+  --shadow-3d: 0 1px 2px rgba(26, 20, 16, 0.06), 0 10px 28px rgba(232, 90, 44, 0.14);
+
+  --ease-cinema: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-fast: 180ms;
+  --motion-base: 280ms;
+  --motion-slow: 600ms;
+  --hover-lift: translateY(-1px);
+  --hover-scale: 1.01;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--border);
+}
+.glass-strong {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--border);
+}
+.glass-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.bg-surface\/40 { background-color: rgba(255, 255, 255, 0.55); }
+.bg-surface\/60 { background-color: rgba(255, 255, 255, 0.75); }
+.bg-surface\/80 { background-color: rgba(255, 255, 255, 0.90); }
+.bg-background\/95 { background-color: rgba(247, 247, 248, 0.95); }
+.bg-background\/70 { background-color: rgba(247, 247, 248, 0.78); }
+
+/* Dark — Premium cinematic with 4-tier depth layering + amber neon */
+:root.dark {
+  /* Depth tiers: bg → secondary → card → hover */
+  --background: #050505;
+  --background-secondary: #0B0B0B;
+  --foreground: #FFFFFF;
+  --surface: #111111;
+  --surface-solid: #111111;
+  --surface-hover: #181818;
+  --surface-foreground: #FFFFFF;
+  --card: #111111;
+  --card-foreground: #FFFFFF;
+  --popover: #181818;
+  --popover-foreground: #FFFFFF;
+
+  --primary: #F47A3E;
+  --primary-foreground: #1A1410;
+  --primary-glow: #FF9358;
+  --accent-emerald: #10B981;
+  --accent-sunset: #E85D2A;
+  --accent-purple: #4A8BD4;
+  --accent-neon: #F47A3E;
+  --accent-cyan: #4A8BD4;
+  --brand-blue: #4A8BD4;
+  --brand-blue-glow: #6BA3E0;
+
+  --secondary: #181818;
+  --secondary-foreground: #FFFFFF;
+  --muted: #181818;
+  /* Premium text contrast — 72% for secondary, 45% for labels */
+  --muted-foreground: rgba(255, 255, 255, 0.72);
+  --label-color: rgba(255, 255, 255, 0.45);
+  --accent: #4A8BD4;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(244, 122, 62, 0.18);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #F47A3E;
+
+  --gradient-primary: linear-gradient(135deg, #F47A3E 0%, #E85D2A 100%);
+  --gradient-afro: linear-gradient(135deg, #F47A3E 0%, #4A8BD4 100%);
+  --gradient-emerald: #10B981;
+  --gradient-neon: linear-gradient(135deg, #FFB000 0%, #E85D2A 100%);
+  --gradient-brand: linear-gradient(135deg, #F47A3E 0%, #4A8BD4 100%);
+  --gradient-mesh:
+    radial-gradient(at 18% 22%, rgba(244,122,62,0.12) 0px, transparent 50%),
+    radial-gradient(at 82% 12%, rgba(74,139,212,0.10) 0px, transparent 50%),
+    radial-gradient(at 72% 78%, rgba(232,93,42,0.08) 0px, transparent 55%);
+
+  --shadow-glow: 0 0 40px rgba(244, 122, 62, 0.10);
+  --shadow-glow-pink: 0 0 40px -8px rgba(232, 93, 42, 0.50);
+  --shadow-glow-purple: 0 0 40px -8px rgba(74, 139, 212, 0.45);
+  --shadow-glow-emerald: 0 0 40px -8px rgba(16, 185, 129, 0.40);
+  --shadow-glow-blue: 0 0 40px -8px rgba(74, 139, 212, 0.45);
+  --shadow-elegant:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-3d:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 14px 40px rgba(0, 0, 0, 0.55),
+    0 0 60px rgba(255, 170, 0, 0.06);
+}
+
+.dark .glass {
+  background: rgba(17, 17, 17, 0.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dark .glass-strong {
+  background: rgba(17, 17, 17, 0.82);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.dark .glass-card {
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 10px 30px rgba(0, 0, 0, 0.45);
+}
+.dark .bg-surface\/40 { background-color: rgba(17, 17, 17, 0.55); }
+.dark .bg-surface\/60 { background-color: rgba(17, 17, 17, 0.75); }
+.dark .bg-surface\/80 { background-color: rgba(17, 17, 17, 0.92); }
+.dark .bg-background\/95 { background-color: rgba(5, 5, 5, 0.95); }
+.dark .bg-background\/70 { background-color: rgba(5, 5, 5, 0.78); }
+
+/* Premium reusable utility classes */
+.dark .premium-card {
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 10px 30px rgba(0, 0, 0, 0.45);
+  transition: background 250ms ease, border-color 250ms ease, transform 250ms ease;
+}
+.dark .premium-card:hover {
+  background: #181818;
+  border-color: rgba(255, 170, 0, 0.18);
+}
+.dark .premium-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+}
+.dark .premium-glow { box-shadow: 0 0 40px rgba(255, 170, 0, 0.08); }
+.dark .premium-text-secondary { color: rgba(255, 255, 255, 0.72); }
+.dark .premium-text-label { color: rgba(255, 255, 255, 0.45); }
+
+/* Track page action buttons — no white-on-white controls */
+.track-play-button {
+  background: var(--gradient-primary);
+  color: var(--primary-foreground);
+  border: 1px solid color-mix(in oklab, var(--primary) 70%, var(--background));
+  box-shadow: 0 14px 34px -12px color-mix(in oklab, var(--primary) 58%, transparent);
+}
+.track-play-button:hover {
+  box-shadow: 0 18px 46px -14px color-mix(in oklab, var(--primary) 72%, transparent);
+}
+.track-play-icon {
+  background: color-mix(in oklab, var(--foreground) 14%, transparent);
+  color: var(--primary-foreground);
+  border: 1px solid color-mix(in oklab, var(--primary-foreground) 35%, transparent);
+}
+.track-icon-button {
+  background: linear-gradient(135deg, #FF6B00 0%, #FF9900 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 10px 28px -10px rgba(255, 107, 0, 0.55);
+}
+.track-icon-button:hover {
+  background: linear-gradient(135deg, #FF7A1A 0%, #FFAA22 100%) !important;
+  color: #ffffff !important;
+}
+.track-icon-button[data-active="true"] {
+  background: linear-gradient(135deg, #E11D48 0%, #FF6B00 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 32px -10px rgba(225, 29, 72, 0.6);
+}
+.track-secondary-button {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 153, 0, 0.55) !important;
+  box-shadow: 0 10px 26px -16px rgba(255, 107, 0, 0.5);
+}
+.track-secondary-button:hover {
+  background: linear-gradient(135deg, #FF6B00 0%, #FF9900 100%) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+.track-repost-count {
+  background: #10b981;
+  color: #ffffff;
+}
+
+
+/* Premium sidebar nav item — Spotify/TikTok style */
+.dark .premium-nav-item {
+  position: relative;
+  transition: transform 250ms ease, background 250ms ease, border-color 250ms ease, color 250ms ease;
+  border: 1px solid transparent;
+}
+.dark .premium-nav-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateX(4px);
+}
+.dark .premium-nav-item[data-active="true"],
+.dark .premium-nav-item[aria-current="page"],
+.dark .premium-nav-item.active {
+  background: linear-gradient(90deg, rgba(255,170,0,0.18), rgba(255,90,0,0.08));
+  border-color: rgba(255, 170, 0, 0.25);
+  color: #FFB000;
+}
+
+/* Restore signature gradient text in dark mode */
+.dark .text-gradient-primary,
+.dark .text-gradient-afro,
+.dark .text-gradient-neon {
+  background: linear-gradient(135deg, #FBBF24 0%, #F5A524 45%, #EA580C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.dark body {
+  background-image:
+    radial-gradient(at 18% 22%, rgba(245,165,36,0.10) 0px, transparent 50%),
+    radial-gradient(at 82% 12%, rgba(234,88,12,0.08) 0px, transparent 50%),
+    radial-gradient(at 72% 88%, rgba(251,191,36,0.06) 0px, transparent 55%);
+  background-attachment: fixed;
+}
+
+:root.light { }
+
+/* ===========================================================================
+   WCAG AA contrast overrides (light mode)
+   These darken low-contrast pastel utilities globally, so status badges,
+   announcement banners, and tinted labels stay legible on light surfaces
+   without touching dozens of component files. Dark mode is untouched.
+   =========================================================================== */
+:root.light {
+  /* Pastel text colors used on tinted backgrounds — bump to -700/-800 range */
+  & .text-amber-200, & .text-amber-300   { color: #92400e !important; }
+  & .text-rose-200,  & .text-rose-300    { color: #9f1239 !important; }
+  & .text-emerald-200, & .text-emerald-300 { color: #065f46 !important; }
+  & .text-sky-200,   & .text-sky-300, & .text-sky-400 { color: #075985 !important; }
+  & .text-pink-300,  & .text-pink-400    { color: #9d174d !important; }
+  & .text-indigo-300, & .text-indigo-400 { color: #3730a3 !important; }
+  & .text-violet-300, & .text-violet-400 { color: #5b21b6 !important; }
+  & .text-purple-300, & .text-purple-400 { color: #6b21a8 !important; }
+  & .text-teal-300,  & .text-teal-400    { color: #115e59 !important; }
+  & .text-cyan-300,  & .text-cyan-400    { color: #155e75 !important; }
+  & .text-lime-300,  & .text-lime-400    { color: #3f6212 !important; }
+  & .text-yellow-200, & .text-yellow-300 { color: #854d0e !important; }
+  & .text-orange-200, & .text-orange-300 { color: #9a3412 !important; }
+  & .text-red-300,   & .text-red-400     { color: #991b1b !important; }
+  & .text-green-300, & .text-green-400   { color: #166534 !important; }
+  & .text-blue-300,  & .text-blue-400    { color: #1e40af !important; }
+  & .text-fuchsia-300, & .text-fuchsia-400 { color: #86198f !important; }
+
+  /* Faded grays that fail on white */
+  & .text-gray-300,  & .text-gray-400, & .text-slate-300, & .text-slate-400,
+  & .text-zinc-300,  & .text-zinc-400, & .text-neutral-300, & .text-neutral-400
+  { color: #334155 !important; }
+  & .text-white\/60, & .text-white\/70 { color: #475569 !important; }
+
+  /* Tinted backgrounds that disappear on light surface — add visible fill */
+  & .bg-amber-500\/10, & .bg-amber-500\/15, & .bg-amber-500\/20 { background-color: #fef3c7 !important; }
+  & .bg-rose-500\/10,  & .bg-rose-500\/15,  & .bg-rose-500\/20  { background-color: #ffe4e6 !important; }
+  & .bg-emerald-500\/10, & .bg-emerald-500\/15, & .bg-emerald-500\/20 { background-color: #d1fae5 !important; }
+  & .bg-sky-500\/10,   & .bg-sky-500\/15,   & .bg-sky-500\/20   { background-color: #e0f2fe !important; }
+  & .bg-pink-500\/10,  & .bg-pink-500\/15,  & .bg-pink-500\/20  { background-color: #fce7f3 !important; }
+
+  /* White overlays meant for dark surfaces */
+  & .bg-white\/5, & .bg-white\/\[0\.03\], & .bg-white\/\[0\.04\], & .bg-white\/\[0\.05\] { background-color: #f1f5f9 !important; }
+  & .bg-white\/10, & .bg-white\/\[0\.08\] { background-color: #e2e8f0 !important; }
+  & .bg-black\/30, & .bg-black\/40 { background-color: #f1f5f9 !important; }
+  & .border-white\/5, & .border-white\/10, & .border-white\/15, & .border-white\/20,
+  & .ring-white\/10, & .ring-white\/15 { border-color: #cbd5e1 !important; }
+
+  /* Placeholder/muted text opacity tweaks */
+  & .placeholder\:text-muted-foreground\/60::placeholder,
+  & .placeholder\:text-muted-foreground\/70::placeholder { color: #475569 !important; }
+  & .text-muted-foreground\/60, & .text-muted-foreground\/70 { color: #475569 !important; }
+}
+
+/* ===========================================================================
+   Premium "Passer à Pro" pill button (orange outline, white fill)
+   =========================================================================== */
+.btn-passer-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #F59E2C;
+  border: 2px solid #F59E2C;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  box-shadow:
+    0 1px 0 rgba(245, 158, 44, 0.15),
+    0 8px 22px -10px rgba(245, 158, 44, 0.45),
+    inset 0 -2px 0 rgba(245, 158, 44, 0.12);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+}
+.btn-passer-pro:hover {
+  background: linear-gradient(135deg, #F59E2C 0%, #FF7A1A 100%);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 32px -10px rgba(245, 158, 44, 0.65),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.08);
+}
+.btn-passer-pro__icon {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  flex-shrink: 0;
+}
+.btn-passer-pro__icon svg { width: 0.85rem; height: 0.85rem; }
+
+/* ===========================================================================
+   Premium 3D cover artwork — thick edge, lift, glossy highlight
+   =========================================================================== */
+.cover-3d {
+  position: relative;
+  border-radius: 14px;
+  transform: perspective(900px) rotateY(-6deg) rotateX(2deg);
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+  box-shadow:
+    8px 0 0 -1px rgba(0, 0, 0, 0.45),
+    10px 2px 0 -1px rgba(0, 0, 0, 0.35),
+    18px 28px 50px -12px rgba(0, 0, 0, 0.55),
+    24px 40px 80px -20px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.cover-3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 35%),
+    linear-gradient(315deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0) 40%);
+  mix-blend-mode: overlay;
+}
+.group:hover .cover-3d,
+.cover-3d:hover {
+  transform: perspective(900px) rotateY(-2deg) rotateX(1deg) translateY(-6px) scale(1.02);
+  box-shadow:
+    8px 0 0 -1px rgba(0, 0, 0, 0.45),
+    10px 2px 0 -1px rgba(0, 0, 0, 0.35),
+    22px 36px 60px -10px rgba(0, 0, 0, 0.6),
+    30px 50px 90px -18px rgba(255, 122, 26, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28);
+}
+
+
+
+
+
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background-image: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; color: var(--color-foreground); }
+  h1 { font-size: clamp(2rem, 4.5vw, 3.5rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; }
+  h3 { font-size: clamp(1.125rem, 2vw, 1.5rem); line-height: 1.25; }
+  h4 { font-size: 1.125rem; line-height: 1.35; }
+  p  { color: var(--color-foreground); line-height: 1.6; }
+  small, .text-xs { color: var(--color-muted-foreground); }
+
+  /* Uniform nav typography */
+  header nav a, nav[role="navigation"] a, [data-nav] a {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: -0.005em;
+    color: var(--color-foreground);
+  }
+
+  /* Uniform form controls — readable foreground, AA-compliant placeholders */
+  input, textarea, select {
+    color: var(--color-foreground);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.9375rem;
+  }
+  input::placeholder, textarea::placeholder {
+    color: var(--color-muted-foreground);
+    opacity: 1;
+  }
+  label { color: var(--color-foreground); font-weight: 600; font-size: 0.875rem; }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(60, 60, 67, 0.20);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(60, 60, 67, 0.35); }
+
+  ::selection { background: rgba(245, 130, 32, 0.22); color: var(--color-foreground); }
+}
+
+
+@layer utilities {
+  .text-foreground { color: var(--color-foreground); }
+  .text-muted-foreground { color: var(--color-muted-foreground); }
+  .text-primary { color: var(--color-primary); }
+  .text-primary-foreground { color: var(--color-primary-foreground); }
+  .bg-background { background-color: var(--color-background); }
+  .bg-surface { background-color: var(--color-surface); }
+  .bg-surface\/40 { background-color: rgba(255, 255, 255, 0.4); }
+  .bg-surface\/60 { background-color: rgba(255, 255, 255, 0.6); }
+  .bg-surface\/80 { background-color: rgba(255, 255, 255, 0.82); }
+  .bg-background\/95 { background-color: rgba(252, 252, 253, 0.95); }
+  .bg-background\/70 { background-color: rgba(252, 252, 253, 0.72); }
+  .bg-primary { background-color: var(--color-primary); }
+  .border-border { border-color: var(--color-border); }
+  .border-primary { border-color: var(--color-primary); }
+  .placeholder\:text-muted-foreground::placeholder { color: var(--color-muted-foreground); }
+  .hover\:bg-surface:hover { background-color: var(--color-surface); }
+  .hover\:text-primary:hover { color: var(--color-primary); }
+  .hover\:text-foreground:hover { color: var(--color-foreground); }
+
+
+  /* Signature amber→orange gradient text */
+  .text-gradient-primary,
+  .text-gradient-afro,
+  .text-gradient-neon {
+    background: linear-gradient(135deg, #F5A524 0%, #EA580C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Subtle shadows only */
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .shadow-glow-pink { box-shadow: var(--shadow-glow); }
+  .shadow-glow-purple { box-shadow: var(--shadow-glow); }
+  .shadow-glow-emerald { box-shadow: var(--shadow-glow); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-3d { box-shadow: var(--shadow-3d); }
+
+  /* Glassmorphism — minimal, low blur */
+  .glass {
+    background: rgba(255, 255, 255, 0.70);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid var(--color-border);
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid var(--color-border);
+  }
+  .glass-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  /* No ambient blobs / mesh */
+  .ambient-blob { display: none !important; }
+  .bg-mesh { background-image: none; }
+
+  /* Soft hover lift */
+  .card-hover {
+    transition: transform 0.2s var(--ease-cinema), box-shadow 0.2s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Wave bars */
+  .wave-bar {
+    display: inline-block;
+    width: 3px;
+    margin: 0 1px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    animation: wave 1.2s ease-in-out infinite;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-20px) translateX(10px); }
+  }
+  .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+
+  @keyframes headphone-float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(1deg); }
+  }
+  .animate-headphone-float { animation: headphone-float 9s ease-in-out infinite; }
+
+  @keyframes headphone-zoom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  .animate-headphone-zoom { animation: headphone-zoom 14s ease-in-out infinite; }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245,130,32,0); }
+    50% { box-shadow: 0 0 0 4px rgba(245,130,32,0.18); }
+  }
+  .animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fade-up 0.7s ease-out both; }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee 30s linear infinite; }
+
+  @keyframes marquee-up {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  .animate-marquee-up { animation: marquee-up 18s linear infinite; }
+
+  /* Equalizer bars (for "now playing") */
+  @keyframes eq-bar {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+  .eq-bar {
+    transform-origin: bottom;
+    animation: eq-bar 0.9s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(400%); }
+  }
+
+  /* Floating reactions (live activity panel) */
+  @keyframes float-up {
+    0% { opacity: 0; transform: translateY(8px) scale(0.8); }
+    15% { opacity: 1; transform: translateY(-4px) scale(1); }
+    100% { opacity: 0; transform: translateY(-72px) scale(1.1); }
+  }
+  .animate-float-up { animation: float-up 2.4s ease-out forwards; }
+
+  /* Subtle pulse for live presence dot */
+  @keyframes live-dot {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 60%, transparent); }
+    50% { box-shadow: 0 0 0 6px transparent; }
+  }
+  .animate-live-dot { animation: live-dot 1.6s ease-in-out infinite; }
+
+  @keyframes reactionFloat {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0deg) scale(0.6);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+      transform: translate3d(calc(var(--drift, 0px) * 0.15), -12px, 0) rotate(calc(var(--rot, 0deg) * 0.2)) scale(1.05);
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(var(--drift, 0px), -110px, 0) rotate(var(--rot, 0deg)) scale(0.9);
+      opacity: 0;
+    }
+  }
+
+  /* Full-viewport reaction rise — used by FloatingReactionsOverlay */
+  @keyframes reactionRise {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0deg) scale(0.5);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+      transform: translate3d(calc(var(--drift, 0px) * 0.1), -20vh, 0) rotate(calc(var(--rot, 0deg) * 0.2)) scale(1);
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(var(--drift, 0px), -110vh, 0) rotate(var(--rot, 0deg)) scale(0.85);
+      opacity: 0;
+    }
+  }
+
+  /* Live chat bubble rise — bottom→top with fade-in */
+  @keyframes chatRise {
+    0% {
+      transform: translate3d(0, 14px, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+
+  /* Stage fly-in: accepted speaker bursts onto the stage */
+  @keyframes stageFlyIn {
+    0% {
+      transform: scale(0.4) translateY(20px);
+      opacity: 0;
+      filter: drop-shadow(0 0 0 rgba(234, 88, 12, 0));
+    }
+    60% {
+      transform: scale(1.08) translateY(0);
+      opacity: 1;
+      filter: drop-shadow(0 0 18px rgba(249, 115, 22, 0.9));
+    }
+    100% {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.45));
+    }
+  }
+
+  @keyframes rewardBurst {
+    0% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0;
+    }
+    15% {
+      transform: translate(-50%, -50%) scale(1.15);
+      opacity: 1;
+    }
+    35% {
+      transform: translate(-50%, calc(-50% - 18px)) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, calc(-50% - 64px)) scale(0.95);
+      opacity: 0;
+    }
+  }
+
+
+
+  @keyframes commentIn {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0) scale(0.96);
+      filter: blur(6px);
+    }
+    60% {
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  /* TikTok-style live chat: rise in, hold, drift up and fade away. */
+  @keyframes liveMsgFlow {
+    0%   { opacity: 0; transform: translate3d(0, 16px, 0); filter: blur(4px); }
+    8%   { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+    70%  { opacity: 1; transform: translate3d(0, -4px, 0); }
+    100% { opacity: 0; transform: translate3d(0, -28px, 0); filter: blur(2px); }
+  }
+
+  /* Smoother live UI on small screens — shorter, lighter, no blur. */
+  @media (max-width: 640px) {
+    @keyframes commentIn {
+      0% { opacity: 0; transform: translate3d(0, 8px, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+    @keyframes reactionFloat {
+      0%   { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0; }
+      15%  { opacity: 1; }
+      100% { transform: translate3d(var(--drift, 0px), -80px, 0) scale(0.9); opacity: 0; }
+    }
+    .animate-live-dot { animation-duration: 2s; }
+  }
+
+  /* Audio-reactive bass pulse — driven by a CSS var the visualizer updates. */
+  .audio-react {
+    transform: scale(calc(1 + (var(--bass, 0) * 0.18)));
+    filter: drop-shadow(0 0 calc(12px + var(--bass, 0) * 18px)
+      color-mix(in oklab, var(--primary) calc(40% + var(--bass, 0) * 40%), transparent));
+    transition: transform 80ms linear, filter 80ms linear;
+  }
+
+  /* Ambient backdrop — slow organic drift of coloured blobs */
+  @keyframes ambient-drift-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    33%      { transform: translate3d(8vw, 6vh, 0) scale(1.08); }
+    66%      { transform: translate3d(-4vw, 10vh, 0) scale(0.96); }
+  }
+  @keyframes ambient-drift-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(-10vw, -8vh, 0) scale(1.12); }
+  }
+  @keyframes ambient-drift-c {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    40%      { transform: translate3d(6vw, -4vh, 0) scale(1.05); }
+    80%      { transform: translate3d(-8vw, 4vh, 0) scale(0.95); }
+  }
+  @keyframes ambient-drift-d {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 0.55; }
+    50%      { transform: translate3d(4vw, -6vh, 0) rotate(8deg) scale(1.1); opacity: 0.8; }
+  }
+  /* Slow cinematic breathing — used by ambient layers + waveform glow */
+  @keyframes breathe-slow {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 0.95; transform: scale(1.04); }
+  }
+  .animate-breathe-slow { animation: breathe-slow 6s ease-in-out infinite; }
+
+  /* Waveform: organic shimmer that travels across the bars */
+  @keyframes wave-sheen {
+    0%   { transform: translateX(-30%); }
+    100% { transform: translateX(130%); }
+  }
+
+  /* Organic breathing for play button while playing */
+  @keyframes breathe-glow {
+    0%, 100% { box-shadow: 0 0 30px -4px color-mix(in oklab, var(--primary) 55%, transparent),
+                           0 0 0 0 color-mix(in oklab, var(--primary) 30%, transparent); }
+    50%      { box-shadow: 0 0 50px -2px color-mix(in oklab, var(--primary) 70%, transparent),
+                           0 0 0 8px color-mix(in oklab, var(--primary) 0%, transparent); }
+  }
+  .animate-breathe-glow { animation: breathe-glow 3.2s ease-in-out infinite; }
+
+  /* Slow spin for "vinyl" cover while playing */
+  @keyframes vinyl-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .animate-vinyl-spin { animation: vinyl-spin 24s linear infinite; }
+
+  /* ── "Alive" layer ──────────────────────────────────────────────────
+     CSS-var driven audio reactivity. AmbientPulse publishes --bass,
+     --mid, --high, --kick, --energy on :root every frame. These helpers
+     let any element opt-in to a subtle, tasteful audio response — no JS
+     subscription required. All effects are capped and `prefers-reduced-
+     motion: reduce` neutralises them. */
+  :root {
+    --bass: 0;
+    --mid: 0;
+    --high: 0;
+    --kick: 0;
+    --energy: 0;
+    /* Motion governance — MotionGovernor overwrites these every frame.
+       --motion-level: 0 = frozen UI, 1 = full alive UI. Multiply any custom
+       reactive style by var(--motion-level) to inherit Focus Lock + perf
+       tier dampening for free. AmbientPulse already pre-multiplies the
+       audio band vars above, so most consumers need no change. */
+    --motion-level: 1;
+    --motion-perf: 1;
+    --motion-focus-lock: 0;
+
+    /* LiveExperience — Dynamic Motion Mixer outputs. Use these to style
+       per-scene without subscribing in JS:
+         body[data-scene="drop"]    .card { ... }
+         body[data-emotion="hype"]  .cta  { ... }
+         html[data-live-mode="tiktok"] .nav { ... } */
+    --scene-intensity: 0.4;   /* current scene's contribution (0..1) */
+    --scene-density: 0.6;     /* UI density hint (0 minimal, 1 dense) */
+    --scene-color-temp: 0;    /* -1 cool → +1 warm */
+    --user-engagement: 0.3;   /* AI-derived engagement (0..1) */
+    --audio-mix: 0;           /* audio dimension of the mixer (0..1) */
+    --perf-headroom: 1;       /* 0 = stressed, 1 = idle */
+    --spotlight-active: 0;    /* 1 when ANY element holds the global spotlight */
+  }
+
+  /* SPOTLIGHT rule — only one element app-wide. When something holds it,
+     other "would-be heroes" should fade their aura. Opt-in with .stage-rest. */
+  :root[style*="--spotlight-active: 1"] .stage-rest { opacity: 0.7; filter: saturate(0.85); }
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+    filter: drop-shadow(0 0 calc(18px * var(--motion-level)) color-mix(in oklab, var(--primary) calc(40% + var(--audio-mix) * 40%), transparent));
+  }
+
+  /* Scene-driven backdrop hue shift — subtle, always tasteful. */
+  body[data-scene="drop"]   { --scene-tint: color-mix(in oklab, var(--primary) 18%, transparent); }
+  body[data-scene="build"]  { --scene-tint: color-mix(in oklab, var(--primary) 10%, transparent); }
+  body[data-scene="chill"]  { --scene-tint: color-mix(in oklab, var(--brand-blue) 8%, transparent); }
+  body[data-scene="focus"]  { --scene-tint: transparent; }
+  body[data-scene="ambient_idle"] { --scene-tint: color-mix(in oklab, var(--brand-blue) 6%, transparent); }
+
+  /* TikTok live mode — vertical-first, instant feedback, calm chrome. */
+  html[data-live-mode="tiktok"] {
+    --motion-feedback-ms: 90ms;
+  }
+  html[data-live-mode="tiktok"] body { overscroll-behavior-y: contain; }
+
+  /* Minimal mode strips all decorative motion. */
+  html[data-live-mode="minimal"] {
+    --bass: 0; --kick: 0; --energy: 0; --motion-level: 0.2;
+  }
+  
+
+  /* Soft halo around the element, tinted with the brand primary. Drop
+     it onto play buttons, hero CTAs, "live" pills, etc. */
+  .aura-pulse {
+    box-shadow:
+      0 0 calc(18px + var(--bass, 0) * 28px)
+        color-mix(in oklab, var(--primary) calc(28% + var(--bass, 0) * 32%), transparent),
+      0 0 0 calc(var(--kick, 0) * 6px)
+        color-mix(in oklab, var(--primary) calc(15% + var(--kick, 0) * 25%), transparent);
+    transition: box-shadow 90ms linear;
+  }
+
+  /* Very subtle scale wobble on the kick — for icons / avatars. */
+  .kick-bump {
+    transform: scale(calc(1 + var(--kick, 0) * 0.035));
+    transition: transform 80ms linear;
+  }
+
+  /* Headings / brand marks get a faint underline that breathes with mids. */
+  .breathe-underline {
+    position: relative;
+  }
+  .breathe-underline::after {
+    content: "";
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--gradient-primary, linear-gradient(90deg, var(--primary), var(--primary-glow, var(--primary))));
+    opacity: calc(0.35 + var(--mid, 0) * 0.5);
+    transform: scaleX(calc(0.85 + var(--energy, 0) * 0.18));
+    transform-origin: center;
+    transition: opacity 120ms linear, transform 120ms linear;
+    pointer-events: none;
+  }
+
+  /* Reactive card border tint — extremely subtle so it stays "clean". */
+  .alive-surface {
+    transition: border-color 160ms linear, box-shadow 160ms linear;
+  }
+  .alive-surface:hover {
+    border-color: color-mix(in oklab, var(--primary) calc(35% + var(--bass, 0) * 25%), var(--border));
+    box-shadow:
+      0 8px 28px -16px color-mix(in oklab, var(--primary) calc(50% + var(--bass, 0) * 30%), transparent);
+  }
+
+  /* Always-on ultra-slow ambient drift — for hero blocks and section
+     dividers. 18s cycle, ±1.5% — barely perceptible but never static. */
+  @keyframes alive-breath {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-2px) scale(1.015); }
+  }
+  .alive-breath {
+    animation: alive-breath 18s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aura-pulse,
+    .kick-bump,
+    .breathe-underline::after,
+    .alive-breath {
+      animation: none !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ── Minimal polish layer ────────────────────────────────────────── */
+
+  /* Vignette & noise removed for a clean, flat surface */
+  .app-vignette { display: none !important; }
+  .app-noise { display: none !important; }
+
+  /* Subtle depth — two effective levels, very low opacity */
+  .depth-1 { box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  .depth-2 { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04); }
+  .depth-3 { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 6px 16px rgba(0,0,0,0.06); }
+  .depth-4 { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08); }
+
+  .lux-hover {
+    transition: transform var(--motion-fast) var(--ease-cinema),
+                box-shadow var(--motion-fast) var(--ease-cinema);
+  }
+  .lux-hover:hover {
+    transform: var(--hover-lift);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+}
+
+/* ── Global motion + polish defaults ───────────────────────────────── */
+@layer base {
+  /* One ease, one rhythm — everything that animates picks from the system. */
+  a, button, [role="button"], input, textarea, select,
+  .glass, .glass-strong, .glass-card {
+    transition-timing-function: var(--ease-cinema);
+    transition-duration: var(--motion-fast);
+  }
+
+  /* Typography polish — cinematic hierarchy. */
+  h1 { letter-spacing: -0.035em; line-height: 1.02; }
+  h2 { letter-spacing: -0.028em; line-height: 1.08; }
+  h3 { letter-spacing: -0.022em; line-height: 1.15; }
+  h4 { letter-spacing: -0.015em; line-height: 1.25; }
+  p  { line-height: 1.65; }
+
+  /* Premium spacing — give pages more vertical air by default. */
+  main { padding-top: clamp(1rem, 2vw, 2rem); }
+  section + section { margin-top: clamp(2rem, 4vw, 4.5rem); }
+
+  /* Ensure overlays sit above vignette/noise. */
+  header, nav, main, footer { position: relative; z-index: 3; }
+
+  /* Reduced motion — respect user preference, kill all loops. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Light-mode readability rescue.
+   Many spans use white-based or ultra-light gradient stops for
+   bg-clip-text — invisible on the new light background. Override
+   the Tailwind stop vars only when combined with
+   `bg-clip-text.text-transparent` so dark-image overlays stay intact.
+   ────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .bg-clip-text.text-transparent.from-white { --tw-gradient-from: #181818 !important; }
+  .bg-clip-text.text-transparent.via-white { --tw-gradient-via: #181818 !important; }
+  .bg-clip-text.text-transparent.to-white\/60,
+  .bg-clip-text.text-transparent.to-white\/70,
+  .bg-clip-text.text-transparent.to-white\/80 { --tw-gradient-to: rgba(24,24,24,0.85) !important; }
+
+  .bg-clip-text.text-transparent.from-primary-glow,
+  .bg-clip-text.text-transparent.from-violet-400,
+  .bg-clip-text.text-transparent.from-violet-300,
+  .bg-clip-text.text-transparent.from-amber-300,
+  .bg-clip-text.text-transparent.from-rose-400 { --tw-gradient-from: #F98F1D !important; }
+
+  .bg-clip-text.text-transparent.via-violet-400,
+  .bg-clip-text.text-transparent.via-violet-300,
+  .bg-clip-text.text-transparent.via-fuchsia-400 { --tw-gradient-via: #ea8e48 !important; }
+
+  .bg-clip-text.text-transparent.to-accent-cyan,
+  .bg-clip-text.text-transparent.to-cyan-300,
+  .bg-clip-text.text-transparent.to-cyan-400,
+  .bg-clip-text.text-transparent.to-fuchsia-300,
+  .bg-clip-text.text-transparent.to-fuchsia-400 { --tw-gradient-to: #c8650a !important; }
+
+  /* Form controls — readable on white surfaces */
+  input, textarea, select { color: var(--foreground); }
+  input::placeholder, textarea::placeholder { color: #6b6b6b; opacity: 1; }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Clean feed pass — Apple / Notion / Stripe
+   Flat surfaces, hairline borders, hover-only accent.
+   ────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .post,
+  .feed-post,
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: none;
+    transition: transform 0.2s var(--ease-cinema), box-shadow 0.2s ease;
+  }
+  .post:hover,
+  .feed-post:hover,
+  .card:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-1px);
+  }
+
+  /* Strip noisy effects on feed surfaces */
+  .post, .feed-post, .card {
+    text-shadow: none;
+  }
+
+  /* Action row: muted by default, accent only on hover */
+  .post-actions button,
+  .feed-actions button,
+  .card-actions button {
+    color: var(--muted-foreground);
+    transition: color 0.15s ease;
+  }
+  .post-actions button:hover,
+  .feed-actions button:hover,
+  .card-actions button:hover {
+    color: var(--primary);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   APPLE PREMIUM FIX — aggressive global override.
+   Kills gradients, glows, multi-color hovers and animated backgrounds
+   left over from previous generations. One accent only: #F58220.
+   ────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  background-image: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Re-allow shadows only on intentional surfaces */
+*:not(.glass):not(.glass-strong):not(.glass-card):not(.card):not(.post):not(.feed-item):not(.feed-post):not(.shadow-elegant):not(.shadow-3d):not(.shadow-glow):not([data-allow-shadow]) {
+  box-shadow: none !important;
+}
+
+/* Re-allow blur strictly for glass surfaces */
+.glass, .glass-strong, .glass-card {
+  backdrop-filter: blur(12px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+}
+
+/* Force cards / posts / feed items to the clean spec */
+.card, .post, .feed-item, .feed-post {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+.card:hover, .post:hover, .feed-item:hover, .feed-post:hover {
+  box-shadow: var(--shadow-glow) !important;
+}
+
+/* Neutralize gradient text utilities globally */
+[class*="bg-gradient"],
+[class*="from-"],
+[class*="via-"],
+[class*="to-"] {
+  background-image: none !important;
+}
+.bg-clip-text.text-transparent {
+  -webkit-text-fill-color: var(--foreground) !important;
+  color: var(--foreground) !important;
+  background: none !important;
+}
+
+/* Kill ambient / animated backgrounds */
+.ambient-blob,
+.bg-mesh,
+[class*="animate-gradient"] {
+  display: none !important;
+  animation: none !important;
+  background: none !important;
+}
+[class*="animate-float-slow"] {
+  animation: none !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   BLUE → ORANGE remap. Catches every Tailwind blue/cyan/sky/indigo
+   utility still left in components so the whole UI converges on the
+   VinaSound orange accent (#F58220) without touching each file.
+   ────────────────────────────────────────────────────────────────── */
+[class*="text-blue-"],
+[class*="text-cyan-"],
+[class*="text-sky-"],
+[class*="text-indigo-"] { color: var(--primary) !important; }
+
+[class*="bg-blue-"],
+[class*="bg-cyan-"],
+[class*="bg-sky-"],
+[class*="bg-indigo-"] { background-color: var(--primary) !important; }
+
+[class*="border-blue-"],
+[class*="border-cyan-"],
+[class*="border-sky-"],
+[class*="border-indigo-"] { border-color: var(--primary) !important; }
+
+[class*="ring-blue-"],
+[class*="ring-cyan-"],
+[class*="ring-sky-"],
+[class*="ring-indigo-"] { --tw-ring-color: var(--primary) !important; }
+
+[class*="fill-blue-"],
+[class*="fill-cyan-"],
+[class*="fill-sky-"],
+[class*="fill-indigo-"] { fill: var(--primary) !important; }
+
+[class*="stroke-blue-"],
+[class*="stroke-cyan-"],
+[class*="stroke-sky-"],
+[class*="stroke-indigo-"] { stroke: var(--primary) !important; }
+
+[class*="hover:text-blue-"]:hover,
+[class*="hover:text-cyan-"]:hover,
+[class*="hover:text-sky-"]:hover,
+[class*="hover:text-indigo-"]:hover { color: var(--primary) !important; }
+
+[class*="hover:bg-blue-"]:hover,
+[class*="hover:bg-cyan-"]:hover,
+[class*="hover:bg-sky-"]:hover,
+[class*="hover:bg-indigo-"]:hover { background-color: var(--primary) !important; }
+
+[class*="hover:border-blue-"]:hover,
+[class*="hover:border-cyan-"]:hover,
+[class*="hover:border-sky-"]:hover,
+[class*="hover:border-indigo-"]:hover { border-color: var(--primary) !important; }
+
+[class*="focus:ring-blue-"]:focus,
+[class*="focus:ring-cyan-"]:focus,
+[class*="focus:ring-sky-"]:focus,
+[class*="focus:ring-indigo-"]:focus,
+[class*="focus-visible:ring-blue-"]:focus-visible,
+[class*="focus-visible:ring-cyan-"]:focus-visible { --tw-ring-color: var(--primary) !important; }
+
+/* Interactive defaults — links, focus rings */
+a:not([class*="text-"]):not([class*="hover:"]) { color: var(--primary); }
+a:not([class*="text-"]):hover { color: var(--primary); filter: brightness(1.1); }
+:focus-visible { outline-color: var(--primary) !important; }
+
+/* ============================================================
+   VinaSound — Flatten ALL gradients site-wide (no more dégradés)
+   ============================================================ */
+
+/* Kill every Tailwind bg-gradient utility and replace with solid theme color */
+[class*="bg-gradient-to-"],
+[class*="bg-gradient-to-"][class*="from-"],
+[class*="bg-gradient-to-"][class*="via-"],
+[class*="bg-gradient-to-"][class*="to-"] {
+  background-image: none !important;
+  background-color: var(--color-surface);
+}
+
+/* Decorative tiles / artwork placeholders → brand primary solid */
+.aspect-square[class*="bg-gradient-to-"],
+.aspect-video[class*="bg-gradient-to-"],
+[class*="rounded"][class*="bg-gradient-to-br"],
+[class*="rounded"][class*="bg-gradient-to-tr"],
+[class*="rounded"][class*="bg-gradient-to-r"] {
+  background-image: none !important;
+  background-color: var(--color-primary) !important;
+}
+
+/* Gradient tokens collapse to solid brand color */
+:root,
+:root.dark,
+:root.light {
+  --gradient-primary: var(--color-primary);
+  --gradient-afro: var(--color-primary);
+  --gradient-neon: var(--color-primary);
+  --gradient-emerald: var(--color-primary);
+  --gradient-mesh: none;
+}
+
+/* Flatten signature text gradients into solid primary */
+.text-gradient-primary,
+.text-gradient-afro,
+.text-gradient-neon,
+.dark .text-gradient-primary,
+.dark .text-gradient-afro,
+.dark .text-gradient-neon {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: var(--color-primary) !important;
+}
+
+/* Remove ambient body radials */
+.dark body,
+body {
+  background-image: none !important;
+}
+
+/* ============================================================
+   APP FRAME — full-width responsive on desktop/tablet,
+   full-screen on mobile. The previous TikTok-style 420px phone
+   frame was removed so the app adapts correctly on every screen.
+   ============================================================ */
+.mobile-frame {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+
+
+/* Mesh / ambient backdrop helpers off */
+.bg-mesh, .ambient-blob, [class*="bg-gradient-mesh"] {
+  background-image: none !important;
+}
+
+/* ============================================================
+   VinaSound — Token-map hardcoded Tailwind colors site-wide
+   Ensures buttons/cards/modals/inputs/tags follow the palette
+   in both light and dark mode without editing every file.
+   ============================================================ */
+
+/* --- Neutral surfaces --- */
+.bg-white       { background-color: var(--color-surface) !important; }
+.bg-black       { background-color: var(--color-foreground) !important; }
+.text-white     { color: #ffffff !important; }
+.text-black     { color: var(--color-foreground) !important; }
+
+/* Buttons/badges built on text-white over primary should stay readable */
+.bg-primary .text-white,
+[class*="bg-primary"] .text-white,
+.bg-destructive .text-white {
+  color: #fff !important;
+}
+
+/* --- Gray scales → token equivalents --- */
+.bg-gray-50,  .bg-gray-100, .bg-slate-50,  .bg-slate-100, .bg-zinc-50,  .bg-zinc-100,
+.bg-neutral-50, .bg-neutral-100, .bg-stone-50, .bg-stone-100 {
+  background-color: var(--color-muted) !important;
+}
+.bg-gray-200, .bg-slate-200, .bg-zinc-200, .bg-neutral-200, .bg-stone-200 {
+  background-color: var(--color-secondary) !important;
+}
+.bg-gray-700, .bg-gray-800, .bg-gray-900, .bg-gray-950,
+.bg-slate-700, .bg-slate-800, .bg-slate-900, .bg-slate-950,
+.bg-zinc-700,  .bg-zinc-800,  .bg-zinc-900,  .bg-zinc-950,
+.bg-neutral-700, .bg-neutral-800, .bg-neutral-900,
+.bg-stone-700,   .bg-stone-800,   .bg-stone-900 {
+  background-color: var(--color-card) !important;
+}
+.bg-gray-500, .bg-gray-600, .bg-slate-500, .bg-slate-600,
+.bg-zinc-500, .bg-zinc-600, .bg-neutral-500, .bg-neutral-600 {
+  background-color: var(--color-muted) !important;
+}
+
+/* Gray text → tokens */
+.text-gray-400, .text-gray-500, .text-gray-600,
+.text-slate-400, .text-slate-500, .text-slate-600,
+.text-zinc-400,  .text-zinc-500,  .text-zinc-600,
+.text-neutral-400, .text-neutral-500, .text-neutral-600,
+.text-stone-400,   .text-stone-500,   .text-stone-600 {
+  color: var(--color-muted-foreground) !important;
+}
+.text-gray-700, .text-gray-800, .text-gray-900,
+.text-slate-700, .text-slate-800, .text-slate-900,
+.text-zinc-700,  .text-zinc-800,  .text-zinc-900,
+.text-neutral-700, .text-neutral-800, .text-neutral-900,
+.text-stone-700,   .text-stone-800,   .text-stone-900 {
+  color: var(--color-foreground) !important;
+}
+.text-gray-100, .text-gray-200, .text-gray-300,
+.text-slate-100, .text-slate-200, .text-slate-300,
+.text-zinc-100,  .text-zinc-200,  .text-zinc-300,
+.text-neutral-100, .text-neutral-200, .text-neutral-300 {
+  color: var(--color-foreground) !important;
+}
+
+/* Borders */
+.border-gray-100, .border-gray-200, .border-gray-300,
+.border-slate-100, .border-slate-200, .border-slate-300,
+.border-zinc-100,  .border-zinc-200,  .border-zinc-300,
+.border-neutral-100, .border-neutral-200, .border-neutral-300,
+.border-gray-700, .border-gray-800, .border-gray-900,
+.border-slate-700, .border-slate-800, .border-slate-900,
+.border-zinc-700,  .border-zinc-800,  .border-zinc-900 {
+  border-color: var(--color-border) !important;
+}
+.border-white { border-color: var(--color-border) !important; }
+.border-black { border-color: var(--color-foreground) !important; }
+
+/* Ring colors */
+.ring-white, .ring-black,
+[class*="ring-gray-"], [class*="ring-slate-"], [class*="ring-zinc-"], [class*="ring-neutral-"] {
+  --tw-ring-color: var(--color-border) !important;
+}
+
+/* Native form controls inherit tokens */
+input, textarea, select {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-foreground);
+}
+input[type="text"], input[type="email"], input[type="password"],
+input[type="search"], input[type="number"], input[type="url"],
+input[type="tel"], textarea, select {
+  background-color: var(--color-surface);
+}
+
+/* Auth modal fields: always dark glass, readable in light/dark mode and autofill. */
+.auth-route-root,
+.auth-route-body,
+.auth-route-body .mobile-frame,
+.auth-route-page {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  color-scheme: dark !important;
+}
+.auth-route-body .mobile-frame {
+  min-height: 100vh;
+}
+.auth-page {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+.auth-page-backdrop {
+  background: transparent !important;
+}
+
+.auth-modal-shell {
+  background: #050505 !important;
+  color: #ffffff !important;
+}
+.auth-close-button {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #ffffff !important;
+}
+.auth-close-button:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+html .auth-page input.auth-field-control,
+html.light .auth-page input.auth-field-control,
+html.dark .auth-page input.auth-field-control,
+input.auth-field-control,
+input[type="text"].auth-field-control,
+input[type="email"].auth-field-control,
+input[type="password"].auth-field-control,
+input[type="search"].auth-field-control,
+input[type="tel"].auth-field-control,
+input[type="url"].auth-field-control,
+input[type="number"].auth-field-control {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  color-scheme: dark !important;
+  -webkit-box-shadow: 0 0 0 1000px #000000 inset !important;
+  box-shadow: 0 0 0 1000px #000000 inset !important;
+}
+input.auth-field-control::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.45) !important;
+  opacity: 1 !important;
+}
+input.auth-field-control:-webkit-autofill,
+input.auth-field-control:-webkit-autofill:hover,
+input.auth-field-control:-webkit-autofill:focus,
+input.auth-field-control:-webkit-autofill:active,
+html.light input.auth-field-control:-webkit-autofill,
+html.light .auth-page input.auth-field-control:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #000000 inset !important;
+  box-shadow: 0 0 0 1000px #000000 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  transition: background-color 999999s ease-in-out 0s !important;
+}
+
+/* Force auth pages to always render with dark surface, regardless of theme or
+   whether JS-applied .auth-route-* classes have mounted. Uses :has() so it
+   applies from first paint in both light and dark mode. */
+html:has(.auth-page),
+html:has(.auth-page) body,
+body:has(.auth-page) .mobile-frame,
+body:has(.auth-page) #root,
+body:has(.auth-page) .gs-page {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  color-scheme: dark !important;
+}
+.auth-page,
+.auth-page * {
+  color-scheme: dark;
+}
+.auth-page .bg-white,
+.auth-page .bg-black,
+.auth-page [class*="bg-gray-"],
+.auth-page [class*="bg-slate-"],
+.auth-page [class*="bg-zinc-"],
+.auth-page [class*="bg-neutral-"],
+.auth-page [class*="bg-stone-"] {
+  background-color: #050505 !important;
+}
+.auth-page .text-white,
+.auth-page [class*="text-white"],
+.auth-page h1,
+.auth-page h2,
+.auth-page label,
+.auth-page span,
+.auth-page p {
+  color: #ffffff !important;
+}
+.auth-page .text-primary,
+.auth-page [class*="text-orange-"] {
+  color: #f97316 !important;
+}
+.auth-page .auth-modal-shell {
+  background: #050505 !important;
+  border-color: rgba(255,255,255,0.10) !important;
+}
+
+/* Light theme overrides — let auth pages follow the active theme */
+html.light:has(.auth-page),
+html.light:has(.auth-page) body,
+html.light body:has(.auth-page) .mobile-frame,
+html.light body:has(.auth-page) #root,
+html.light body:has(.auth-page) .gs-page {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #0a0a0a !important;
+  color-scheme: light !important;
+}
+html.light .auth-page,
+html.light .auth-page * {
+  color-scheme: light;
+}
+html.light .auth-page {
+  color: #0a0a0a !important;
+}
+html.light .auth-modal-shell,
+html.light .auth-page .auth-modal-shell {
+  background: #ffffff !important;
+  color: #0a0a0a !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+html.light .auth-close-button {
+  background: rgba(0,0,0,0.05) !important;
+  border-color: rgba(0,0,0,0.12) !important;
+  color: #0a0a0a !important;
+}
+html.light .auth-close-button:hover {
+  background: rgba(0,0,0,0.1) !important;
+}
+html.light .auth-page input.auth-field-control {
+  background: #f7f7f7 !important;
+  background-color: #f7f7f7 !important;
+  border-color: rgba(0,0,0,0.12) !important;
+  color: #0a0a0a !important;
+  -webkit-text-fill-color: #0a0a0a !important;
+  caret-color: #0a0a0a !important;
+  color-scheme: light !important;
+  -webkit-box-shadow: 0 0 0 1000px #f7f7f7 inset !important;
+  box-shadow: 0 0 0 1000px #f7f7f7 inset !important;
+}
+html.light .auth-page input.auth-field-control::placeholder {
+  color: rgba(0,0,0,0.45) !important;
+  -webkit-text-fill-color: rgba(0,0,0,0.45) !important;
+}
+html.light .auth-page input.auth-field-control:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #f7f7f7 inset !important;
+  box-shadow: 0 0 0 1000px #f7f7f7 inset !important;
+  -webkit-text-fill-color: #0a0a0a !important;
+}
+html.light .auth-page .bg-white,
+html.light .auth-page .bg-black,
+html.light .auth-page [class*="bg-gray-"],
+html.light .auth-page [class*="bg-slate-"],
+html.light .auth-page [class*="bg-zinc-"],
+html.light .auth-page [class*="bg-neutral-"],
+html.light .auth-page [class*="bg-stone-"] {
+  background-color: #ffffff !important;
+}
+html.light .auth-page .text-white,
+html.light .auth-page [class*="text-white"],
+html.light .auth-page h1,
+html.light .auth-page h2,
+html.light .auth-page label,
+html.light .auth-page span,
+html.light .auth-page p {
+  color: #0a0a0a !important;
+}
+html.light .auth-page .text-white\/60,
+html.light .auth-page [class*="text-white/"] {
+  color: rgba(0,0,0,0.6) !important;
+}
+
+/* shadcn / Radix overlays + dialog default surfaces */
+[role="dialog"], [data-radix-popper-content-wrapper] > * {
+  color: var(--color-foreground);
+}
+
+/* ============================================================
+   VinaSound — Safety net: gradient-clipped text must stay visible
+   after the global gradient-flatten override.
+   ============================================================ */
+[class*="bg-gradient-to-"][class*="bg-clip-text"],
+[class*="bg-gradient-to-"][class*="text-transparent"] {
+  -webkit-text-fill-color: currentColor !important;
+  color: var(--color-foreground) !important;
+}
+/* Brand-tinted gradient text → primary */
+[class*="bg-gradient-to-"][class*="from-primary"][class*="bg-clip-text"],
+[class*="bg-gradient-to-"][class*="via-primary"][class*="bg-clip-text"],
+[class*="bg-gradient-to-"][class*="to-primary"][class*="bg-clip-text"] {
+  color: var(--color-primary) !important;
+}
+
+/* Soft-cap halo blobs: keep brand glow but never overpowering */
+[class*="blur-[140px]"],
+[class*="blur-[120px]"],
+[class*="blur-[160px]"] {
+  opacity: 0.55;
+}
+/* Force any leftover accent-cyan halo to brand primary so the palette stays cohesive */
+.bg-accent-cyan\/10, .bg-accent-cyan\/15, .bg-accent-cyan\/20, .bg-accent-cyan\/25,
+.bg-violet-400\/20, .bg-violet-500\/20, .bg-fuchsia-500\/20, .bg-purple-500\/20,
+.bg-sky-500\/20, .bg-blue-500\/20, .bg-cyan-500\/20, .bg-pink-500\/20 {
+  background-color: color-mix(in oklab, var(--color-primary) 18%, transparent) !important;
+}
+
+/* shadow-glow-* variants → unified brand glow */
+.shadow-glow-blue, .shadow-glow-purple, .shadow-glow-pink, .shadow-glow-emerald {
+  box-shadow: var(--shadow-glow) !important;
+}
+
+/* ============================================================
+   SIGNATURE WAVEFORM — VinaSound's animated logo.
+   One token, one shape, one feel — used app-wide.
+   ============================================================ */
+:root {
+  --signature-gradient: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--accent-sunset) 92%, white) 0%,
+    var(--primary-glow) 38%,
+    var(--primary) 78%,
+    color-mix(in oklab, var(--primary) 70%, #1A1410) 100%
+  );
+  --signature-glow: 0 0 18px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+.signature-waveform {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none;
+}
+.signature-waveform__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+.signature-waveform__bar {
+  display: block;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--signature-gradient);
+  box-shadow: var(--signature-glow);
+  transform-origin: center;
+  /* Restrained transitions — these run on every frame for the cursor sweep,
+     so keep durations short and stick to compositor-friendly props. */
+  transition: height 140ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 180ms ease-out,
+              transform 180ms ease-out;
+  will-change: height, transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .signature-waveform__bar { transition: none; }
+}
+
+/* Fix browser autofill turning inputs white */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px #000000 inset !important;
+  box-shadow: 0 0 0 1000px #000000 inset !important;
+  background-color: #000000 !important;
+  background-clip: content-box !important;
+  transition: background-color 9999s ease-in-out 0s;
+  caret-color: #ffffff;
+}
+
+/* ============================================================
+   LIVE ROOM — Premium glass + animations
+   ============================================================ */
+.live-glass-premium {
+  background: rgba(15, 12, 10, 0.72);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 60px -20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@keyframes gift-burst {
+  0%   { transform: scale(0.4) rotate(0deg); opacity: 0; }
+  35%  { transform: scale(1.25) rotate(8deg); opacity: 1; }
+  60%  { transform: scale(1.05) rotate(-4deg); opacity: 1; }
+  100% { transform: scale(2.2) translateY(-180px) rotate(0deg); opacity: 0; }
+}
+@keyframes viewer-count-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+.animate-viewer-pop { animation: viewer-count-pop 360ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+
+/* Pulsing neon halo behind the stage — sits over the cover/video, below chrome */
+@keyframes live-stage-halo {
+  0%, 100% { opacity: 0.35; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 0.65; transform: translate(-50%, -50%) scale(1.06); }
+}
+.live-stage-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(90vmin, 880px);
+  height: min(90vmin, 880px);
+  border-radius: 9999px;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side,
+      color-mix(in oklab, var(--primary) 55%, transparent) 0%,
+      color-mix(in oklab, var(--primary) 20%, transparent) 38%,
+      transparent 70%);
+  filter: blur(40px);
+  mix-blend-mode: screen;
+  animation: live-stage-halo 4.2s ease-in-out infinite;
+}
+
+/* LIVE badge — animated neon aura */
+@keyframes live-badge-aura {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244,63,94,0.55), 0 0 18px 2px rgba(244,63,94,0.35); }
+  50%      { box-shadow: 0 0 0 6px rgba(244,63,94,0.00), 0 0 28px 6px rgba(244,63,94,0.55); }
+}
+.live-badge-aura { animation: live-badge-aura 1.8s ease-in-out infinite; }
+
+/* Chat bubble — premium glass + soft inner highlight */
+.chat-bubble-glass {
+  background: linear-gradient(180deg, rgba(20,16,28,0.62) 0%, rgba(10,8,14,0.72) 100%);
+  backdrop-filter: blur(14px) saturate(1.35);
+  -webkit-backdrop-filter: blur(14px) saturate(1.35);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow:
+    0 8px 24px -12px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Role badges in chat */
+.chat-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.chat-role-host { background: linear-gradient(135deg, #f43f5e, #f59e0b); color: #fff; box-shadow: 0 0 12px rgba(244,63,94,0.45); }
+.chat-role-mod  { background: linear-gradient(135deg, #6366f1, #06b6d4); color: #fff; }
+.chat-role-vip  { background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; }
+.chat-role-guest{ background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.14); }
+
+/* Thin scrollbar for the live sidebars */
+.scrollbar-thin::-webkit-scrollbar { width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* TikTok-style live room animations */
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-220px) scale(1.1) rotate(15deg); opacity: 0; }
+}
+.float-heart { animation: floatUp 2.6s ease-out forwards; }
+
+@keyframes slideInUp {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.msg-in { animation: slideInUp 0.25s ease-out; }
+
+@keyframes pulseLive {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.66 0.24 12 / 0.6); }
+  50% { box-shadow: 0 0 0 8px oklch(0.66 0.24 12 / 0); }
+}
+.pulse-live { animation: pulseLive 1.6s infinite; }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; }
+
+
+/* ============================================================
+   Global scroll reveal + page transition (VirtualDJ-style)
+   ============================================================ */
+@keyframes gsRevealUp {
+  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes gsPageFade {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* Elements opted-in (auto-tagged by ScrollReveal) start hidden */
+.gs-reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  will-change: opacity, transform;
+  transition: none;
+}
+.gs-reveal.gs-in {
+  animation: gsRevealUp 750ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* Page transition wrapper */
+.gs-page {
+  animation: gsPageFade 450ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Smooth in-page anchor scrolling */
+html { scroll-behavior: smooth; }
+
+/* Respect reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .gs-reveal, .gs-reveal.gs-in, .gs-page { animation: none !important; opacity: 1 !important; transform: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ===========================================================================
+   Global hover / active / focus — aligned with logo colors
+   Orange #E85A2C (primary) + Blue #2E6FB8 (accent)
+   =========================================================================== */
+
+/* Unified focus ring on every interactive element */
+:where(a, button, [role="button"], input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent);
+  transition: box-shadow 160ms var(--ease-breath), outline-color 160ms var(--ease-breath);
+}
+
+/* Generic anchor hover/active — logo orange */
+a:not([class*="bg-"]):not([class*="text-"]):hover {
+  color: var(--primary);
+}
+a:not([class*="bg-"]):not([class*="text-"]):active {
+  color: color-mix(in oklab, var(--primary) 80%, #000);
+}
+
+/* Pressed state for buttons/links — subtle logo-blue press shadow */
+:where(button, a, [role="button"]):not(:disabled):active {
+  transform: translateY(0.5px) scale(0.985);
+}
+
+/* Tailwind utility overrides — keep hover/active consistent with logo */
+.hover\:text-primary:hover { color: var(--primary) !important; }
+.hover\:bg-primary:hover { background-color: var(--primary) !important; }
+.hover\:border-primary:hover { border-color: var(--primary) !important; }
+.hover\:ring-primary:hover { box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 35%, transparent) !important; }
+
+.active\:bg-primary:active { background-color: color-mix(in oklab, var(--primary) 88%, #000) !important; }
+.active\:text-primary:active { color: color-mix(in oklab, var(--primary) 88%, #000) !important; }
+
+/* Accent (logo blue) hover variants */
+.hover\:text-accent:hover { color: var(--brand-blue) !important; }
+.hover\:border-accent:hover { border-color: var(--brand-blue) !important; }
+.hover\:bg-accent:hover { background-color: var(--brand-blue) !important; }
+
+/* shadcn Button: primary hover keeps the logo orange, not a generic darken */
+.bg-primary:hover,
+button.bg-primary:hover {
+  background-color: color-mix(in oklab, var(--primary) 90%, #000) !important;
+  box-shadow: var(--shadow-glow);
+}
+.bg-primary\/90:hover { background-color: var(--primary) !important; }
+
+/* Outline / ghost buttons — paint hover with logo orange tint */
+.border-input:hover,
+.border-border:hover {
+  border-color: var(--primary) !important;
+}
+button[class*="variant-outline"]:hover,
+.hover\:bg-accent:hover { color: var(--accent-foreground); }
+
+/* Subtle glow on hover for any focus-ring-equipped pill */
+.rounded-full:hover:not(:disabled),
+.rounded-xl:hover:not(:disabled) {
+  transition: box-shadow 220ms var(--ease-breath), transform 220ms var(--ease-breath), background-color 220ms var(--ease-breath), color 220ms var(--ease-breath), border-color 220ms var(--ease-breath);
+}
+
+/* Dark mode tweak — focus ring uses the warmer primary glow */
+.dark :where(a, button, [role="button"], input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: var(--primary-glow);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary-glow) 28%, transparent);
+}
+
+/* ===========================================================================
+   Form fields — unified with logo palette (orange #E85A2C / blue #2E6FB8)
+   =========================================================================== */
+:where(input, textarea, select):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]) {
+  background-color: var(--surface);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 180ms var(--ease-breath), background-color 180ms var(--ease-breath), box-shadow 180ms var(--ease-breath), color 180ms var(--ease-breath);
+}
+:where(input, textarea, select)::placeholder { color: var(--muted-foreground); opacity: 0.75; }
+:where(input, textarea, select):hover:not(:disabled):not(:focus) {
+  border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+}
+:where(input, textarea, select):focus,
+:where(input, textarea, select):focus-visible {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent), 0 1px 2px rgba(0, 0, 0, 0.04);
+  background-color: var(--background-secondary, var(--surface));
+}
+:where(input, textarea, select):disabled {
+  background-color: color-mix(in oklab, var(--muted) 85%, transparent);
+  color: var(--muted-foreground);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+:where(input, textarea, select):invalid:not(:placeholder-shown) { border-color: var(--destructive); }
+:where(input, textarea, select):invalid:not(:placeholder-shown):focus {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 22%, transparent);
+}
+
+:where(input[type="checkbox"], input[type="radio"]) { accent-color: var(--primary); }
+input[type="range"] { accent-color: var(--primary); }
+
+input[type="file"]::file-selector-button {
+  background: var(--gradient-primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+  margin-right: 0.75rem;
+  cursor: pointer;
+  transition: filter 180ms var(--ease-breath), transform 180ms var(--ease-breath);
+}
+input[type="file"]::file-selector-button:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+:where(input, textarea, select):-webkit-autofill,
+:where(input, textarea, select):-webkit-autofill:hover,
+:where(input, textarea, select):-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--foreground);
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset;
+  box-shadow: 0 0 0px 1000px var(--surface) inset;
+  caret-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Dark mode */
+.dark :where(input, textarea, select):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]) {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.10);
+  color: var(--foreground);
+}
+.dark :where(input, textarea, select):hover:not(:disabled):not(:focus) {
+  border-color: color-mix(in oklab, var(--primary-glow) 50%, rgba(255,255,255,0.10));
+}
+.dark :where(input, textarea, select):focus,
+.dark :where(input, textarea, select):focus-visible {
+  border-color: var(--primary-glow);
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary-glow) 28%, transparent), 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.dark :where(input, textarea, select):-webkit-autofill,
+.dark :where(input, textarea, select):-webkit-autofill:hover,
+.dark :where(input, textarea, select):-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--foreground);
+  -webkit-box-shadow: 0 0 0px 1000px #181818 inset;
+  box-shadow: 0 0 0px 1000px #181818 inset;
+  border-color: var(--primary-glow);
+}
+
+/* shadcn Select trigger + popover items */
+[data-radix-select-trigger]:focus,
+[data-radix-select-trigger][data-state="open"] {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent) !important;
+}
+[role="option"][data-highlighted],
+[role="menuitem"][data-highlighted] {
+  background-color: color-mix(in oklab, var(--primary) 14%, transparent) !important;
+  color: var(--foreground) !important;
+}
+
+
+
+/* ============ BrandLoader (TikTok-style spinning logo) ============ */
+@keyframes brand-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes brand-bob {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.94); }
+}
+@keyframes brand-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.95); }
+  50% { opacity: 0.95; transform: scale(1.08); }
+}
+@keyframes brand-pulse-text {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.animate-brand-spin { animation: brand-spin 1.4s linear infinite; }
+.animate-brand-bob { animation: brand-bob 1.2s ease-in-out infinite; }
+.animate-brand-pulse { animation: brand-pulse 1.6s ease-in-out infinite; }
+.animate-brand-pulse-text { animation: brand-pulse-text 1.4s ease-in-out infinite; }

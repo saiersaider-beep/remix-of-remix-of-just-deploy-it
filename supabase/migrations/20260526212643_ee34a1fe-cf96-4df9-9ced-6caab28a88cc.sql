@@ -1,0 +1,1 @@
+ALTER TABLE public.track_comments ALTER COLUMN body DROP NOT NULL;

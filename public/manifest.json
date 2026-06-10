@@ -1,0 +1,27 @@
+{
+  "name": "VINASOUND",
+  "short_name": "VINASOUND",
+  "description": "La voix des artistes de Mango et du Togo. Afrobeat, Rap 228, sons de la Savane.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0a",
+  "theme_color": "#E8731E",
+  "lang": "fr",
+  "categories": ["music", "entertainment", "social"],
+  "icons": [
+    {
+      "src": "/brand/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brand/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

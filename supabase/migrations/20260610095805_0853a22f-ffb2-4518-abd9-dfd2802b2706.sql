@@ -1,0 +1,1 @@
+ALTER TABLE public.audio_access_logs ADD COLUMN IF NOT EXISTS ip text;

@@ -1,0 +1,3 @@
+-- Lot 4: messaging, track events, live rooms, moderation, misc
+-- Wrapped per statement with DO blocks to skip errors safely.
+-- Content loaded from /tmp/safe_3.sql

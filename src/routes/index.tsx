@@ -15,9 +15,9 @@ const cover = (seed: string) => `https://picsum.photos/seed/${encodeURIComponent
 const avatar = (seed: string) => `https://i.pravatar.cc/240?u=${encodeURIComponent(seed)}`;
 import heroMan from "@/assets/hero-man.jpg";
 import heroWoman from "@/assets/hero-woman.jpg";
-import manRock from "@/assets/man-rock.png";
-import playlistImg from "@/assets/playlist.png";
-import everywhereImg from "@/assets/everywhere.png";
+import manRock from "@/assets/creator.jpg";
+import playlistImg from "@/assets/playlist.jpg";
+import everywhereImg from "@/assets/everywhere.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Waveform, WaveformPlayer } from "@/components/Waveform";

@@ -288,6 +288,34 @@ function PayPage() {
           </div>
 
           <div className="p-6 space-y-6">
+            {/* Mode selector — only if PayGate is enabled */}
+            {paygate?.enabled && (
+              <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-muted/30">
+                <button
+                  type="button"
+                  onClick={() => setMode("auto")}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition ${
+                    mode === "auto"
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Zap className="w-4 h-4" /> Automatique
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMode("manual")}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition ${
+                    mode === "manual"
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Smartphone className="w-4 h-4" /> Manuel (USSD)
+                </button>
+              </div>
+            )}
+
             {/* Operator picker */}
             <div>
               <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-2">

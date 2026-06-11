@@ -434,70 +434,129 @@ function EverywhereSection() {
 
   return (
     <section className="relative py-28 overflow-hidden bg-gradient-to-b from-[#fafaf7] via-white to-[#fafaf7] dark:from-background dark:via-background dark:to-background">
-      <div className="pointer-events-none absolute inset-0 -z-0">
-        <div className="absolute top-10 -left-32 w-[480px] h-[480px] rounded-full bg-[#ff6b35]/10 blur-[120px] animate-float-slow" />
-        <div className="absolute bottom-0 right-0 w-[520px] h-[520px] rounded-full bg-amber-200/40 dark:bg-amber-500/10 blur-[140px] animate-float-slow" style={{ animationDelay: "2s" }} />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.04)_1px,transparent_0)] [background-size:32px_32px] opacity-60" />
+      {/* Premium ambient background — mesh gradients, glows, particles, audio waves */}
+      <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
+        {/* Large blurred mesh gradients */}
+        <div className="absolute -top-32 -left-40 w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle_at_30%_30%,#ff6b35_0%,transparent_60%)] opacity-25 blur-[140px] animate-float-slow" />
+        <div className="absolute top-1/3 -right-40 w-[680px] h-[680px] rounded-full bg-[radial-gradient(circle_at_70%_50%,#ffb088_0%,transparent_65%)] opacity-30 blur-[160px] animate-float-slow" style={{ animationDelay: "2.5s" }} />
+        <div className="absolute bottom-[-180px] left-1/4 w-[720px] h-[720px] rounded-full bg-[radial-gradient(circle_at_50%_50%,#fde68a_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_50%_50%,#7c2d12_0%,transparent_60%)] opacity-40 blur-[150px] animate-float-slow" style={{ animationDelay: "4s" }} />
+
+        {/* Soft conic accent — slow rotation */}
+        <div className="absolute top-1/2 left-1/2 w-[900px] h-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.12] blur-[100px] animate-conic-spin"
+             style={{ background: "conic-gradient(from 0deg, transparent, #ff6b35, transparent, #ffb088, transparent)" }} />
+
+        {/* Floating particles */}
+        {Array.from({ length: 14 }).map((_, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full bg-[#ff6b35]/60 blur-[1px]"
+            style={{
+              left: `${(i * 73) % 100}%`,
+              bottom: `${(i * 37) % 60}%`,
+              width: `${3 + (i % 4)}px`,
+              height: `${3 + (i % 4)}px`,
+              animation: `particle-drift ${9 + (i % 5) * 2}s ease-in-out ${i * 0.6}s infinite`,
+              opacity: 0.4 + (i % 3) * 0.15,
+            }}
+          />
+        ))}
+
+        {/* Dot grid */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.04)_1px,transparent_0)] [background-size:32px_32px] opacity-50" />
+
+        {/* Subtle audio wave decoration — top right */}
+        <svg className="absolute top-16 right-10 w-[280px] h-16 opacity-[0.18] dark:opacity-30" viewBox="0 0 280 64" fill="none">
+          <path d="M0 32 Q20 8, 40 32 T80 32 T120 32 T160 32 T200 32 T240 32 T280 32" stroke="#ff6b35" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          <path d="M0 32 Q20 56, 40 32 T80 32 T120 32 T160 32 T200 32 T240 32 T280 32" stroke="#ff6b35" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.5" />
+        </svg>
+        <svg className="absolute bottom-24 left-8 w-[240px] h-14 opacity-[0.15] dark:opacity-25 rotate-180" viewBox="0 0 280 64" fill="none">
+          <path d="M0 32 Q20 8, 40 32 T80 32 T120 32 T160 32 T200 32 T240 32 T280 32" stroke="#ff6b35" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        </svg>
       </div>
 
       <div className="relative mx-auto max-w-[1280px] px-6 grid lg:grid-cols-[1.05fr_1fr] gap-16 lg:gap-20 items-center">
         <div
           className="relative mx-auto lg:mx-0 w-full max-w-[560px]"
-          style={{ perspective: "1400px" }}
+          style={{ perspective: "1600px" }}
           onMouseMove={onMove}
           onMouseLeave={reset}
         >
-          <div className="absolute -inset-10 bg-gradient-to-tr from-[#ff6b35]/30 via-amber-300/20 to-transparent blur-[80px] -z-10 animate-float-slow" />
+          {/* Soft orange glow halo behind card */}
+          <div className="absolute -inset-16 bg-[radial-gradient(circle_at_50%_50%,#ff6b35_0%,transparent_60%)] opacity-30 blur-[90px] -z-10 animate-float-slow" />
+          <div className="absolute -inset-8 bg-gradient-to-tr from-[#ff6b35]/40 via-amber-300/25 to-transparent blur-[70px] -z-10 animate-float-slow" style={{ animationDelay: "1.5s" }} />
 
-          <div
-            className="group relative rounded-[36px] p-[2px] bg-[conic-gradient(from_0deg,#ff6b35,#ffb088,#ffffff,#ff6b35)] shadow-[0_40px_100px_-30px_rgba(255,107,53,0.45),0_20px_50px_-20px_rgba(0,0,0,0.25)] transition-transform duration-500 ease-out will-change-transform"
-            style={{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
-          >
-            <div className="relative rounded-[34px] overflow-hidden bg-black">
-              <img
-                src={everywhereImg}
-                alt="Écoute partout — Lomé"
-                loading="lazy"
-                width={1024}
-                height={1024}
-                className="block w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              />
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3 rounded-2xl backdrop-blur-xl bg-white/15 border border-white/25 px-4 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="grid place-items-center w-10 h-10 rounded-full bg-[#ff6b35] text-white shrink-0 shadow-lg shadow-[#ff6b35]/40">
-                    <Play className="w-4 h-4 fill-current ml-0.5" />
+          {/* Floating card wrapper */}
+          <div className="relative animate-float-card">
+            {/* Animated conic gradient border */}
+            <div
+              className="group relative rounded-[32px] p-[2px] shadow-[0_50px_120px_-30px_rgba(255,107,53,0.55),0_25px_60px_-25px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.06)] transition-transform duration-500 ease-out will-change-transform hover:shadow-[0_60px_140px_-25px_rgba(255,107,53,0.7),0_30px_70px_-20px_rgba(0,0,0,0.4)]"
+              style={{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`, transformStyle: "preserve-3d" }}
+            >
+              {/* Spinning conic border layer */}
+              <div className="absolute inset-0 rounded-[32px] overflow-hidden">
+                <div
+                  className="absolute inset-[-50%] animate-conic-spin"
+                  style={{ background: "conic-gradient(from 0deg, #ff6b35, #ffb088, #ffffff, #ff8c42, #ff6b35)" }}
+                />
+              </div>
+
+              {/* Glassmorphism inner frame */}
+              <div className="relative rounded-[30px] overflow-hidden bg-black/90 backdrop-blur-2xl border border-white/10">
+                <img
+                  src={everywhereImg}
+                  alt="Écoute partout — Lomé"
+                  loading="lazy"
+                  width={1024}
+                  height={1024}
+                  className="block w-full h-auto object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+                  style={{ transform: "translateZ(40px)" }}
+                />
+                {/* Glass overlays */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/20 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/5 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Inner ring highlight */}
+                <div className="pointer-events-none absolute inset-0 rounded-[30px] ring-1 ring-inset ring-white/15" />
+
+                {/* Now-playing glass chip */}
+                <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3 rounded-2xl backdrop-blur-2xl bg-white/15 border border-white/25 px-4 py-3 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)]"
+                     style={{ transform: "translateZ(80px)" }}>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="grid place-items-center w-10 h-10 rounded-full bg-[#ff6b35] text-white shrink-0 shadow-lg shadow-[#ff6b35]/50">
+                      <Play className="w-4 h-4 fill-current ml-0.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] uppercase tracking-widest text-white/70 font-bold">En cours</p>
+                      <p className="text-sm font-bold text-white truncate">Tess of The Road — 3030</p>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-[11px] uppercase tracking-widest text-white/70 font-bold">En cours</p>
-                    <p className="text-sm font-bold text-white truncate">Tess of The Road — 3030</p>
+                  <div className="flex items-end gap-[3px] h-5 shrink-0">
+                    {[0,1,2,3,4].map(i => (
+                      <span
+                        key={i}
+                        className="w-[3px] bg-[#ff6b35] rounded-full"
+                        style={{
+                          animation: `eq-bar 1.${2+i}s ease-in-out ${i*0.12}s infinite`,
+                          height: `${40 + i*12}%`,
+                        }}
+                      />
+                    ))}
                   </div>
-                </div>
-                <div className="flex items-end gap-[3px] h-5 shrink-0">
-                  {[0,1,2,3,4].map(i => (
-                    <span
-                      key={i}
-                      className="w-[3px] bg-[#ff6b35] rounded-full"
-                      style={{
-                        animation: `eq-bar 1.${2+i}s ease-in-out ${i*0.12}s infinite`,
-                        height: `${40 + i*12}%`,
-                      }}
-                    />
-                  ))}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="hidden md:flex absolute -right-4 top-8 items-center gap-2 rounded-2xl bg-white border border-black/5 px-4 py-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] animate-float-slow">
+          {/* Floating chips around card */}
+          <div className="hidden md:flex absolute -right-4 top-8 items-center gap-2 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/60 px-4 py-2.5 shadow-[0_25px_50px_-15px_rgba(0,0,0,0.25)] animate-float-slow">
             <Download className="w-4 h-4 text-[#ff6b35]" />
             <span className="text-xs font-bold text-neutral-900">Hors ligne · 1.2 GB</span>
           </div>
-          <div className="hidden md:flex absolute -left-6 bottom-12 items-center gap-2 rounded-2xl bg-white border border-black/5 px-4 py-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] animate-float-slow" style={{ animationDelay: "1.5s" }}>
+          <div className="hidden md:flex absolute -left-6 bottom-12 items-center gap-2 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/60 px-4 py-2.5 shadow-[0_25px_50px_-15px_rgba(0,0,0,0.25)] animate-float-slow" style={{ animationDelay: "1.5s" }}>
             <ShieldCheck className="w-4 h-4 text-emerald-500" />
             <span className="text-xs font-bold text-neutral-900">Qualité Lossless</span>
           </div>
         </div>
+
 
         <div className="relative">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#ff6b35]/20 bg-[#ff6b35]/5 backdrop-blur px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#ff6b35] mb-6">

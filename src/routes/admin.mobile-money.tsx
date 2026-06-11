@@ -10,6 +10,10 @@ import {
   getMobileMoneySettings,
   updateMobileMoneySettings,
 } from "@/lib/mobile-money.functions";
+import {
+  getPaygateAdminSettings,
+  updatePaygateSettings,
+} from "@/lib/paygate.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Check, X, Loader2, ImageIcon, Save, RefreshCw } from "lucide-react";
 

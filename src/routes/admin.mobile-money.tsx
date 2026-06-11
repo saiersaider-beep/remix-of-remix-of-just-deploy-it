@@ -146,6 +146,24 @@ function MobileMoneyAdminPage() {
     }
   };
 
+  const handleSavePaygate = async () => {
+    if (!paygate) return;
+    setSavingPaygate(true);
+    try {
+      await updatePaygate({
+        data: {
+          paygate_api_key: paygate.paygate_api_key.trim(),
+          paygate_enabled: paygate.paygate_enabled,
+        },
+      });
+      toast.success("PayGate configuré");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Erreur");
+    } finally {
+      setSavingPaygate(false);
+    }
+  };
+
   const fmt = (n: number) => new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
 
   return (

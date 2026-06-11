@@ -614,6 +614,23 @@
   }
   .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
 
+  @keyframes float-card {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+  .animate-float-card { animation: float-card 7s ease-in-out infinite; }
+
+  @keyframes conic-spin {
+    to { transform: rotate(360deg); }
+  }
+  .animate-conic-spin { animation: conic-spin 9s linear infinite; }
+
+  @keyframes particle-drift {
+    0% { transform: translate3d(0,0,0); opacity: 0; }
+    10%, 90% { opacity: 1; }
+    100% { transform: translate3d(40px, -120px, 0); opacity: 0; }
+  }
+
   @keyframes headphone-float {
     0%, 100% { transform: translateY(0) rotate(-2deg); }
     50% { transform: translateY(-18px) rotate(1deg); }

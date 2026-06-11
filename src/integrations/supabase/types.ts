@@ -748,9 +748,11 @@ export type Database = {
           created_at: string
           full_name: string
           id: string
+          identifier: string | null
           merchant_number: string
           operator: string
           phone: string
+          provider: string
           purpose: string
           reviewed_at: string | null
           reviewed_by: string | null
@@ -758,6 +760,7 @@ export type Database = {
           status: string
           target_id: string | null
           transaction_ref: string | null
+          tx_reference: string | null
           updated_at: string
           user_id: string
         }
@@ -768,9 +771,11 @@ export type Database = {
           created_at?: string
           full_name: string
           id?: string
+          identifier?: string | null
           merchant_number: string
           operator: string
           phone: string
+          provider?: string
           purpose: string
           reviewed_at?: string | null
           reviewed_by?: string | null
@@ -778,6 +783,7 @@ export type Database = {
           status?: string
           target_id?: string | null
           transaction_ref?: string | null
+          tx_reference?: string | null
           updated_at?: string
           user_id: string
         }
@@ -788,9 +794,11 @@ export type Database = {
           created_at?: string
           full_name?: string
           id?: string
+          identifier?: string | null
           merchant_number?: string
           operator?: string
           phone?: string
+          provider?: string
           purpose?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
@@ -798,6 +806,7 @@ export type Database = {
           status?: string
           target_id?: string | null
           transaction_ref?: string | null
+          tx_reference?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -807,6 +816,8 @@ export type Database = {
         Row: {
           flooz_number: string
           id: boolean
+          paygate_api_key: string | null
+          paygate_enabled: boolean
           plan_basic_days: number
           plan_basic_xof: number
           plan_premium_days: number
@@ -819,6 +830,8 @@ export type Database = {
         Insert: {
           flooz_number?: string
           id?: boolean
+          paygate_api_key?: string | null
+          paygate_enabled?: boolean
           plan_basic_days?: number
           plan_basic_xof?: number
           plan_premium_days?: number
@@ -831,6 +844,8 @@ export type Database = {
         Update: {
           flooz_number?: string
           id?: boolean
+          paygate_api_key?: string | null
+          paygate_enabled?: boolean
           plan_basic_days?: number
           plan_basic_xof?: number
           plan_premium_days?: number
@@ -1904,6 +1919,17 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      mm_apply_paygate_callback: {
+        Args: {
+          _amount: number
+          _identifier: string
+          _payment_method: string
+          _payment_reference: string
+          _phone: string
+          _tx_reference: string
+        }
+        Returns: undefined
       }
       mm_approve_payment: { Args: { _payment_id: string }; Returns: undefined }
       mm_reject_payment: {

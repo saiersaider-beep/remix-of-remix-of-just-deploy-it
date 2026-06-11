@@ -85,6 +85,7 @@ import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
 import { Route as AdminArtistVerificationRouteImport } from './routes/admin.artist-verification'
 import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
 import { Route as ApiPublicSeedTestAccountsRouteImport } from './routes/api/public/seed-test-accounts'
+import { Route as ApiPublicPaygateCallbackRouteImport } from './routes/api/public/paygate-callback'
 import { Route as ApiPublicCinetpayWebhookRouteImport } from './routes/api/public/cinetpay-webhook'
 
 const WalletRoute = WalletRouteImport.update({
@@ -468,6 +469,12 @@ const ApiPublicSeedTestAccountsRoute =
     path: '/api/public/seed-test-accounts',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPaygateCallbackRoute =
+  ApiPublicPaygateCallbackRouteImport.update({
+    id: '/api/public/paygate-callback',
+    path: '/api/public/paygate-callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicCinetpayWebhookRoute =
   ApiPublicCinetpayWebhookRouteImport.update({
     id: '/api/public/cinetpay-webhook',
@@ -552,6 +559,7 @@ export interface FileRoutesByFullPath {
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
+  '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
 export interface FileRoutesByTo {
@@ -630,6 +638,7 @@ export interface FileRoutesByTo {
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin': typeof AdminIndexRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
+  '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
 export interface FileRoutesById {
@@ -710,6 +719,7 @@ export interface FileRoutesById {
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
+  '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
 export interface FileRouteTypes {
@@ -791,6 +801,7 @@ export interface FileRouteTypes {
     | '/tracks/$slug'
     | '/admin/'
     | '/api/public/cinetpay-webhook'
+    | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -869,6 +880,7 @@ export interface FileRouteTypes {
     | '/tracks/$slug'
     | '/admin'
     | '/api/public/cinetpay-webhook'
+    | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   id:
     | '__root__'
@@ -948,6 +960,7 @@ export interface FileRouteTypes {
     | '/tracks/$slug'
     | '/admin/'
     | '/api/public/cinetpay-webhook'
+    | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   fileRoutesById: FileRoutesById
 }
@@ -1007,6 +1020,7 @@ export interface RootRouteChildren {
   PaymentCallbackRoute: typeof PaymentCallbackRoute
   TracksSlugRoute: typeof TracksSlugRoute
   ApiPublicCinetpayWebhookRoute: typeof ApiPublicCinetpayWebhookRoute
+  ApiPublicPaygateCallbackRoute: typeof ApiPublicPaygateCallbackRoute
   ApiPublicSeedTestAccountsRoute: typeof ApiPublicSeedTestAccountsRoute
 }
 
@@ -1544,6 +1558,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSeedTestAccountsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/paygate-callback': {
+      id: '/api/public/paygate-callback'
+      path: '/api/public/paygate-callback'
+      fullPath: '/api/public/paygate-callback'
+      preLoaderRoute: typeof ApiPublicPaygateCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/cinetpay-webhook': {
       id: '/api/public/cinetpay-webhook'
       path: '/api/public/cinetpay-webhook'
@@ -1679,6 +1700,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaymentCallbackRoute: PaymentCallbackRoute,
   TracksSlugRoute: TracksSlugRoute,
   ApiPublicCinetpayWebhookRoute: ApiPublicCinetpayWebhookRoute,
+  ApiPublicPaygateCallbackRoute: ApiPublicPaygateCallbackRoute,
   ApiPublicSeedTestAccountsRoute: ApiPublicSeedTestAccountsRoute,
 }
 export const routeTree = rootRouteImport

@@ -12,6 +12,11 @@ import {
   submitMobileMoneyPayment,
 } from "@/lib/mobile-money.functions";
 import {
+  getPaygateStatus,
+  initPaygatePayment,
+  checkPaygateStatus,
+} from "@/lib/paygate.functions";
+import {
   Smartphone,
   Copy,
   Check,
@@ -19,6 +24,7 @@ import {
   Loader2,
   ArrowLeft,
   Upload as UploadIcon,
+  Zap,
 } from "lucide-react";
 
 const searchSchema = z.object({
@@ -61,11 +67,24 @@ function PayPage() {
   const navigate = useNavigate();
   const getSettings = useServerFn(getMobileMoneySettings);
   const submitFn = useServerFn(submitMobileMoneyPayment);
+  const getPaygate = useServerFn(getPaygateStatus);
+  const initPaygate = useServerFn(initPaygatePayment);
+  const checkPaygate = useServerFn(checkPaygateStatus);
 
   const { data: settings, isLoading: settingsLoading } = useQuery({
     queryKey: ["mm-settings"],
     queryFn: () => getSettings(),
   });
+
+  const { data: paygate } = useQuery({
+    queryKey: ["paygate-status"],
+    queryFn: () => getPaygate(),
+  });
+
+  const [mode, setMode] = useState<"auto" | "manual">("manual");
+  useEffect(() => {
+    if (paygate?.enabled) setMode("auto");
+  }, [paygate?.enabled]);
 
   const computedAmount = useMemo(() => {
     if (!settings) return amountFromUrl ?? 0;
@@ -83,6 +102,62 @@ function PayPage() {
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // PayGate (auto) flow state
+  const [autoPaymentId, setAutoPaymentId] = useState<string | null>(null);
+  const [autoStatus, setAutoStatus] = useState<"idle" | "pending" | "approved" | "rejected">("idle");
+
+  useEffect(() => {
+    if (!autoPaymentId || autoStatus !== "pending") return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await checkPaygate({ data: { payment_id: autoPaymentId } });
+        if (res.status === "approved") {
+          setAutoStatus("approved");
+          toast.success("Paiement confirmé !");
+          setTimeout(() => navigate({ to: "/dashboard" }), 1500);
+        } else if (res.status === "rejected") {
+          setAutoStatus("rejected");
+          toast.error("Paiement annulé ou expiré");
+        }
+      } catch {
+        // continue polling
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [autoPaymentId, autoStatus, checkPaygate, navigate]);
+
+  const handleAutoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!fullName.trim() || !phone.trim()) {
+      toast.error("Renseigne ton nom et ton numéro");
+      return;
+    }
+    if (computedAmount <= 0) {
+      toast.error("Montant invalide");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await initPaygate({
+        data: {
+          purpose,
+          target_id: target_id ?? null,
+          amount_xof: computedAmount,
+          network: operator === "flooz" ? "FLOOZ" : "TMONEY",
+          full_name: fullName.trim(),
+          phone: phone.trim(),
+        },
+      });
+      setAutoPaymentId(res.payment_id);
+      setAutoStatus("pending");
+      toast.success("Demande envoyée — valide sur ton téléphone");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Échec de la demande");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     if (user?.user_metadata) {
@@ -213,6 +288,34 @@ function PayPage() {
           </div>
 
           <div className="p-6 space-y-6">
+            {/* Mode selector — only if PayGate is enabled */}
+            {paygate?.enabled && (
+              <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-muted/30">
+                <button
+                  type="button"
+                  onClick={() => setMode("auto")}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition ${
+                    mode === "auto"
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Zap className="w-4 h-4" /> Automatique
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMode("manual")}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition ${
+                    mode === "manual"
+                      ? "bg-primary text-primary-foreground shadow"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Smartphone className="w-4 h-4" /> Manuel (USSD)
+                </button>
+              </div>
+            )}
+
             {/* Operator picker */}
             <div>
               <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-2">
@@ -244,6 +347,8 @@ function PayPage() {
               </div>
             </div>
 
+            {mode === "manual" && (
+            <>
             {/* USSD instructions */}
             <div>
               <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-2">
@@ -387,6 +492,95 @@ function PayPage() {
                 )}
               </button>
             </form>
+            </>
+            )}
+
+            {mode === "auto" && paygate?.enabled && (
+              <div className="space-y-4">
+                <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold">
+                  Paiement automatique — Flooz / TMoney
+                </div>
+
+                {autoStatus === "pending" ? (
+                  <div className="rounded-xl border-2 border-amber-500/40 bg-amber-500/5 p-6 text-center space-y-3">
+                    <Loader2 className="w-8 h-8 text-amber-400 animate-spin mx-auto" />
+                    <h3 className="font-display text-lg font-bold">En attente de validation</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Une notification vient d'être envoyée au <strong>{phone}</strong>.
+                      Compose ton code secret pour valider {formatXOF(computedAmount)}.
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Cette page se mettra à jour automatiquement.
+                    </p>
+                  </div>
+                ) : autoStatus === "approved" ? (
+                  <div className="rounded-xl border-2 border-emerald-500/40 bg-emerald-500/5 p-6 text-center">
+                    <Check className="w-10 h-10 text-emerald-400 mx-auto mb-2" />
+                    <h3 className="font-display text-lg font-bold">Paiement confirmé !</h3>
+                    <p className="text-sm text-muted-foreground mt-1">Redirection…</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleAutoSubmit} className="space-y-4">
+                    {autoStatus === "rejected" && (
+                      <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-3 text-sm text-rose-300">
+                        Le paiement précédent a été annulé ou expiré. Réessaie.
+                      </div>
+                    )}
+                    <div>
+                      <label className="block text-sm mb-1 font-medium">Nom complet *</label>
+                      <input
+                        type="text"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        required
+                        maxLength={120}
+                        className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:border-primary outline-none"
+                        placeholder="Jean Dupont"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm mb-1 font-medium">
+                        Numéro de téléphone {operator === "flooz" ? "Flooz" : "TMoney"} *
+                      </label>
+                      <input
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                        maxLength={20}
+                        className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:border-primary outline-none"
+                        placeholder="Ex: 97000000"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Tu recevras une notification sur ce numéro pour valider {formatXOF(computedAmount)}.
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-muted/30 border border-border p-3 flex items-start gap-2 text-xs text-muted-foreground">
+                      <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <p>
+                        Paiement <strong>instantané et sécurisé</strong> via PayGate Global.
+                        L'accès est débloqué automatiquement après validation.
+                      </p>
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={submitting || settingsLoading}
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 font-bold hover:opacity-90 transition disabled:opacity-60"
+                    >
+                      {submitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" /> Envoi…
+                        </>
+                      ) : (
+                        <>
+                          <Zap className="w-4 h-4" /> Payer {formatXOF(computedAmount)}
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

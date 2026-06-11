@@ -67,11 +67,24 @@ function PayPage() {
   const navigate = useNavigate();
   const getSettings = useServerFn(getMobileMoneySettings);
   const submitFn = useServerFn(submitMobileMoneyPayment);
+  const getPaygate = useServerFn(getPaygateStatus);
+  const initPaygate = useServerFn(initPaygatePayment);
+  const checkPaygate = useServerFn(checkPaygateStatus);
 
   const { data: settings, isLoading: settingsLoading } = useQuery({
     queryKey: ["mm-settings"],
     queryFn: () => getSettings(),
   });
+
+  const { data: paygate } = useQuery({
+    queryKey: ["paygate-status"],
+    queryFn: () => getPaygate(),
+  });
+
+  const [mode, setMode] = useState<"auto" | "manual">("manual");
+  useEffect(() => {
+    if (paygate?.enabled) setMode("auto");
+  }, [paygate?.enabled]);
 
   const computedAmount = useMemo(() => {
     if (!settings) return amountFromUrl ?? 0;

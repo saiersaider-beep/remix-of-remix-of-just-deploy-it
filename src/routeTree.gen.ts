@@ -27,6 +27,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PointSystemRouteImport } from './routes/point-system'
 import { Route as PlaylistsRouteImport } from './routes/playlists'
+import { Route as PayRouteImport } from './routes/pay'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as New_musicRouteImport } from './routes/new_music'
 import { Route as My_playlistsRouteImport } from './routes/my_playlists'
@@ -72,6 +73,7 @@ import { Route as AdminTopupsRouteImport } from './routes/admin.topups'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
 import { Route as AdminPagesRouteImport } from './routes/admin.pages'
+import { Route as AdminMobileMoneyRouteImport } from './routes/admin.mobile-money'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
 import { Route as AdminCopyrightsRouteImport } from './routes/admin.copyrights'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
@@ -173,6 +175,11 @@ const PointSystemRoute = PointSystemRouteImport.update({
 const PlaylistsRoute = PlaylistsRouteImport.update({
   id: '/playlists',
   path: '/playlists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NotificationsRoute = NotificationsRouteImport.update({
@@ -400,6 +407,11 @@ const AdminPagesRoute = AdminPagesRouteImport.update({
   path: '/pages',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminMobileMoneyRoute = AdminMobileMoneyRouteImport.update({
+  id: '/mobile-money',
+  path: '/mobile-money',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminFaqRoute = AdminFaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -492,6 +504,7 @@ export interface FileRoutesByFullPath {
   '/my_playlists': typeof My_playlistsRoute
   '/new_music': typeof New_musicRoute
   '/notifications': typeof NotificationsRoute
+  '/pay': typeof PayRoute
   '/playlists': typeof PlaylistsRouteWithChildren
   '/point-system': typeof PointSystemRoute
   '/privacy': typeof PrivacyRoute
@@ -520,6 +533,7 @@ export interface FileRoutesByFullPath {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
+  '/admin/mobile-money': typeof AdminMobileMoneyRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -568,6 +582,7 @@ export interface FileRoutesByTo {
   '/my_playlists': typeof My_playlistsRoute
   '/new_music': typeof New_musicRoute
   '/notifications': typeof NotificationsRoute
+  '/pay': typeof PayRoute
   '/playlists': typeof PlaylistsRouteWithChildren
   '/point-system': typeof PointSystemRoute
   '/privacy': typeof PrivacyRoute
@@ -596,6 +611,7 @@ export interface FileRoutesByTo {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
+  '/admin/mobile-money': typeof AdminMobileMoneyRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -646,6 +662,7 @@ export interface FileRoutesById {
   '/my_playlists': typeof My_playlistsRoute
   '/new_music': typeof New_musicRoute
   '/notifications': typeof NotificationsRoute
+  '/pay': typeof PayRoute
   '/playlists': typeof PlaylistsRouteWithChildren
   '/point-system': typeof PointSystemRoute
   '/privacy': typeof PrivacyRoute
@@ -674,6 +691,7 @@ export interface FileRoutesById {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
+  '/admin/mobile-money': typeof AdminMobileMoneyRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -725,6 +743,7 @@ export interface FileRouteTypes {
     | '/my_playlists'
     | '/new_music'
     | '/notifications'
+    | '/pay'
     | '/playlists'
     | '/point-system'
     | '/privacy'
@@ -753,6 +772,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
+    | '/admin/mobile-money'
     | '/admin/pages'
     | '/admin/payments'
     | '/admin/reports'
@@ -801,6 +821,7 @@ export interface FileRouteTypes {
     | '/my_playlists'
     | '/new_music'
     | '/notifications'
+    | '/pay'
     | '/playlists'
     | '/point-system'
     | '/privacy'
@@ -829,6 +850,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
+    | '/admin/mobile-money'
     | '/admin/pages'
     | '/admin/payments'
     | '/admin/reports'
@@ -878,6 +900,7 @@ export interface FileRouteTypes {
     | '/my_playlists'
     | '/new_music'
     | '/notifications'
+    | '/pay'
     | '/playlists'
     | '/point-system'
     | '/privacy'
@@ -906,6 +929,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
+    | '/admin/mobile-money'
     | '/admin/pages'
     | '/admin/payments'
     | '/admin/reports'
@@ -956,6 +980,7 @@ export interface RootRouteChildren {
   My_playlistsRoute: typeof My_playlistsRoute
   New_musicRoute: typeof New_musicRoute
   NotificationsRoute: typeof NotificationsRoute
+  PayRoute: typeof PayRoute
   PlaylistsRoute: typeof PlaylistsRouteWithChildren
   PointSystemRoute: typeof PointSystemRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -1111,6 +1136,13 @@ declare module '@tanstack/react-router' {
       path: '/playlists'
       fullPath: '/playlists'
       preLoaderRoute: typeof PlaylistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pay': {
+      id: '/pay'
+      path: '/pay'
+      fullPath: '/pay'
+      preLoaderRoute: typeof PayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notifications': {
@@ -1428,6 +1460,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPagesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/mobile-money': {
+      id: '/admin/mobile-money'
+      path: '/mobile-money'
+      fullPath: '/admin/mobile-money'
+      preLoaderRoute: typeof AdminMobileMoneyRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/faq': {
       id: '/admin/faq'
       path: '/faq'
@@ -1526,6 +1565,7 @@ interface AdminRouteChildren {
   AdminCommentsRoute: typeof AdminCommentsRoute
   AdminCopyrightsRoute: typeof AdminCopyrightsRoute
   AdminFaqRoute: typeof AdminFaqRoute
+  AdminMobileMoneyRoute: typeof AdminMobileMoneyRoute
   AdminPagesRoute: typeof AdminPagesRoute
   AdminPaymentsRoute: typeof AdminPaymentsRoute
   AdminReportsRoute: typeof AdminReportsRoute
@@ -1547,6 +1587,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCommentsRoute: AdminCommentsRoute,
   AdminCopyrightsRoute: AdminCopyrightsRoute,
   AdminFaqRoute: AdminFaqRoute,
+  AdminMobileMoneyRoute: AdminMobileMoneyRoute,
   AdminPagesRoute: AdminPagesRoute,
   AdminPaymentsRoute: AdminPaymentsRoute,
   AdminReportsRoute: AdminReportsRoute,
@@ -1611,6 +1652,7 @@ const rootRouteChildren: RootRouteChildren = {
   My_playlistsRoute: My_playlistsRoute,
   New_musicRoute: New_musicRoute,
   NotificationsRoute: NotificationsRoute,
+  PayRoute: PayRoute,
   PlaylistsRoute: PlaylistsRouteWithChildren,
   PointSystemRoute: PointSystemRoute,
   PrivacyRoute: PrivacyRoute,

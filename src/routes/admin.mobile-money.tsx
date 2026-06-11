@@ -46,6 +46,8 @@ function MobileMoneyAdminPage() {
   const rejectFn = useServerFn(rejectMobileMoneyPayment);
   const getSettings = useServerFn(getMobileMoneySettings);
   const updateSettings = useServerFn(updateMobileMoneySettings);
+  const getPaygate = useServerFn(getPaygateAdminSettings);
+  const updatePaygate = useServerFn(updatePaygateSettings);
 
   const [tab, setTab] = useState<"pending" | "approved" | "rejected" | "all">("pending");
   const [rows, setRows] = useState<Row[]>([]);

@@ -161,7 +161,7 @@ export const rejectMobileMoneyPayment = createServerFn({ method: "POST" })
     if (!isAdmin) throw new Error("Réservé aux administrateurs");
     const { error } = await supabaseAdmin.rpc("mm_reject_payment", {
       _payment_id: data.id,
-      _reason: data.reason ?? null,
+      _reason: data.reason ?? undefined,
     });
     if (error) throw new Error(error.message);
     return { ok: true };

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { AdminLayout, AdminPageHeader } from "@/components/AdminLayout";
+import { AdminPageHeader } from "@/components/AdminLayout";
 import {
   listMobileMoneyPayments,
   approveMobileMoneyPayment,
@@ -15,11 +15,7 @@ import { Check, X, Loader2, ImageIcon, Save, RefreshCw } from "lucide-react";
 
 export const Route = createFileRoute("/admin/mobile-money")({
   head: () => ({ meta: [{ title: "Paiements Mobile Money — Admin" }] }),
-  component: () => (
-    <AdminLayout>
-      <MobileMoneyAdminPage />
-    </AdminLayout>
-  ),
+  component: MobileMoneyAdminPage,
 });
 
 type Row = {

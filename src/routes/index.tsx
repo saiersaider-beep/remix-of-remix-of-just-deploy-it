@@ -551,17 +551,14 @@ function EverywhereSection() {
             <Download className="w-4 h-4 text-[#ff6b35]" />
             <span className="text-xs font-bold text-neutral-900">Hors ligne · 1.2 GB</span>
           </div>
-          <div className="hidden md:flex absolute -left-6 bottom-12 items-center gap-2 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/60 px-4 py-2.5 shadow-[0_25px_50px_-15px_rgba(0,0,0,0.25)] animate-float-slow" style={{ animationDelay: "1.5s" }}>
-            <ShieldCheck className="w-4 h-4 text-emerald-500" />
-            <span className="text-xs font-bold text-neutral-900">Qualité Lossless</span>
-          </div>
         </div>
 
 
         <div className="relative">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#ff6b35]/20 bg-[#ff6b35]/5 backdrop-blur px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#ff6b35] mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-pulse" />
-            Multi-appareils · Cross-device
+            Multi-appareils
+
           </span>
 
           <h2 className="font-display text-[2.6rem] md:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground">

@@ -1,14 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { PublicShell, PageHeader } from "@/components/PageScaffold";
 import {
   Check, Star, Crown, Zap, Upload, Music, Shield, BarChart3,
-  Headphones, Award, Heart, Sparkles, Loader2, CreditCard,
+  Headphones, Award, Heart, Sparkles, Smartphone,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useServerFn } from "@tanstack/react-start";
 import { useAuth } from "@/hooks/use-auth";
-import { initCinetPayPayment } from "@/lib/cinetpay.functions";
 
 type Plan = {
   id: string;
@@ -58,33 +56,33 @@ const LEGENDE_EXTRA = [
 
 const plans: Plan[] = [
   {
-    id: "pro-month",
-    name: "PRO Starter",
-    price: 10000,
-    period: "/ an",
-    tagline: "L'essentiel pour lancer ta carrière.",
+    id: "pro-basic",
+    name: "Basic",
+    price: 1000,
+    period: "/ mois",
+    tagline: "L'essentiel pour démarrer.",
     icon: Zap,
     gradient: "from-sky-500 to-indigo-600",
     features: STARTER_FEATURES,
   },
   {
-    id: "pro-year",
-    name: "PRO Ambassadeur",
-    price: 20000,
-    period: "/ an",
+    id: "pro-premium",
+    name: "Premium",
+    price: 3000,
+    period: "/ mois",
     tagline: "Pour faire grandir ton audience.",
     icon: Star,
     highlight: true,
     ribbon: "Le plus choisi",
     gradient: "from-primary to-fuchsia-600",
     features: AMBASSADEUR_EXTRA,
-    extra: "2× plus d'avantages que Starter",
+    extra: "2× plus d'avantages que Basic",
   },
   {
-    id: "pro-life",
-    name: "PRO Légende",
-    price: 30000,
-    period: "/ an",
+    id: "pro-vip",
+    name: "VIP",
+    price: 5000,
+    period: "/ mois",
     tagline: "L'expérience ultime des artistes confirmés.",
     icon: Crown,
     gradient: "from-amber-500 to-rose-600",
@@ -120,10 +118,10 @@ const compare = [
 ];
 
 const faqs = [
-  { q: "Comment fonctionne le paiement ?", a: "Tu payes en toute sécurité via CinetPay : Mobile Money (Orange, MTN, Moov, Wave), carte bancaire ou Visa. Le compte PRO est activé dès la confirmation du paiement." },
+  { q: "Comment fonctionne le paiement ?", a: "Tu payes via Flooz ou Yas directement depuis ton téléphone. Le site te génère le code USSD avec le montant pré-rempli. Après l'envoi, tu confirmes sur le site et l'équipe valide ton paiement (généralement sous 24h)." },
   { q: "Puis-je changer de plan plus tard ?", a: "Oui, tu peux passer à un plan supérieur à tout moment depuis ton tableau de bord." },
-  { q: "Quels moyens de paiement sont acceptés ?", a: "Mobile Money (Orange Money, MTN, Moov, Wave), cartes bancaires Visa et Mastercard — tout est géré par CinetPay." },
-  { q: "Mes informations de paiement sont-elles protégées ?", a: "Oui. Tous les paiements passent par CinetPay, certifié PCI-DSS. Aucune donnée bancaire n'est stockée sur nos serveurs." },
+  { q: "Quels moyens de paiement sont acceptés ?", a: "Flooz (Moov) et Yas (Mixx by Yas / Y'ello) — directement par code USSD depuis ton téléphone. Pas de carte requise." },
+  { q: "Mon paiement est-il sécurisé ?", a: "Oui. Tu envoies l'argent depuis ton propre téléphone via le réseau de ton opérateur Mobile Money. VinaSound ne touche jamais à tes identifiants." },
 ];
 
 export const Route = createFileRoute("/go-pro")({
@@ -140,28 +138,21 @@ export const Route = createFileRoute("/go-pro")({
 
 function GoProPage() {
   const { user } = useAuth();
-  const [selected, setSelected] = useState<string>("pro-year");
-  const [loading, setLoading] = useState(false);
-  const initPay = useServerFn(initCinetPayPayment);
+  const navigate = useNavigate();
+  const [selected, setSelected] = useState<string>("pro-premium");
 
   const currentPlan = plans.find((p) => p.id === selected)!;
 
-  const handlePay = async () => {
+  const handlePay = () => {
     if (!user) {
       toast.error("Connecte-toi d'abord");
+      navigate({ to: "/login" });
       return;
     }
-    try {
-      setLoading(true);
-      const res = await initPay({
-        data: { purpose: selected as "pro-month" | "pro-year" | "pro-life" },
-      });
-      window.location.href = res.payment_url;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Échec du paiement";
-      toast.error(msg);
-      setLoading(false);
-    }
+    navigate({
+      to: "/pay",
+      search: { purpose: selected as "pro-basic" | "pro-premium" | "pro-vip" },
+    });
   };
 
   return (
@@ -289,15 +280,14 @@ function GoProPage() {
           </div>
           <button
             onClick={handlePay}
-            disabled={loading}
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-full px-6 py-3 text-sm font-bold hover:bg-primary/90 transition disabled:opacity-60 shadow-md"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-full px-6 py-3 text-sm font-bold hover:bg-primary/90 transition shadow-md"
           >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CreditCard className="w-4 h-4" />}
-            Payer {formatXOF(currentPlan.price)} avec CinetPay
+            <Smartphone className="w-4 h-4" />
+            Payer {formatXOF(currentPlan.price)} via Mobile Money
           </button>
         </div>
         <p className="mt-3 text-xs text-muted-foreground text-center md:text-left">
-          Paiement 100% sécurisé · Mobile Money (Orange, MTN, Moov, Wave) · Visa · Mastercard
+          Paiement Mobile Money · Flooz (Moov) · Yas (Mixx by Yas) · Validation sous 24h
         </p>
       </section>
 

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Lock, Loader2, ShoppingBag, X, ShieldCheck, Headphones, Wallet, Sparkles, ArrowRightLeft } from "lucide-react";
+import { Lock, Loader2, ShoppingBag, X, ShieldCheck, Headphones, Wallet, Sparkles, ArrowRightLeft, Smartphone } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { usePlayerStore } from "@/stores/player";
 import { formatPrice } from "@/lib/player";
 import { adminGrantTrackAccess } from "@/lib/purchase.functions";
-import { initCinetPayPayment } from "@/lib/cinetpay.functions";
 import { getWalletSummary } from "@/lib/wallet.functions";
 import {
   getPointsSummary,
@@ -28,7 +28,7 @@ export function PaywallModal() {
   const seek = usePlayerStore((s) => s.seek);
 
   const qc = useQueryClient();
-  const payFn = useServerFn(initCinetPayPayment);
+  const navigate = useNavigate();
   const adminFn = useServerFn(adminGrantTrackAccess);
   const minuteFn = useServerFn(buyMinutePass);
   const convertFn = useServerFn(convertPointsToWallet);
@@ -54,18 +54,12 @@ export function PaywallModal() {
   const ptsNeededForPrice = Math.ceil(price / POINTS_TO_XOF_VALUE) * POINTS_TO_XOF_RATIO;
   const canConvertAndBuy = ptsBal >= ptsNeededForPrice;
 
-  const handleCinetpay = async () => {
-    setBusy("buy");
-    try {
-      const res = await payFn({
-        data: { purpose: "track", target_id: track.id, origin: window.location.origin },
-      });
-      if (!res.payment_url) throw new Error("Lien de paiement indisponible");
-      window.location.href = res.payment_url;
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Paiement impossible");
-      setBusy(null);
-    }
+  const handleMobileMoney = () => {
+    close();
+    navigate({
+      to: "/pay",
+      search: { purpose: "track", target_id: track.id },
+    });
   };
 
   const handleMinute = async () => {
@@ -193,14 +187,14 @@ export function PaywallModal() {
             loading={busy === "wallet"}
           />
 
-          {/* Option 2: buy via CinetPay */}
+          {/* Option 2: pay via Mobile Money (Flooz / Yas) */}
           <ChoiceButton
-            icon={ShoppingBag}
-            label={`Acheter via CinetPay (${formatPrice(price, currency)})`}
-            sub="Mobile Money, carte bancaire"
-            onClick={handleCinetpay}
+            icon={Smartphone}
+            label={`Payer via Mobile Money (${formatPrice(price, currency)})`}
+            sub="Flooz (Moov) ou Yas — validation sous 24h"
+            onClick={handleMobileMoney}
             disabled={busy !== null}
-            loading={busy === "buy"}
+            loading={false}
             primary
           />
 

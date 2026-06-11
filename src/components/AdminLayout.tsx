@@ -35,7 +35,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard }[] = [
   { to: "/admin/tracks", label: "Pistes", icon: Music2 },
   { to: "/admin/comments", label: "Commentaires", icon: MessageSquare },
   { to: "/admin/payments", label: "Paiements", icon: CreditCard },
-  { to: "/admin/cinetpay", label: "CinetPay", icon: Wallet },
+  { to: "/admin/mobile-money", label: "Mobile Money", icon: Wallet },
   { to: "/admin/withdrawals", label: "Retraits", icon: Banknote },
   { to: "/admin/bank-receipts", label: "Reçus bancaires", icon: Receipt },
   { to: "/admin/artist-verification", label: "Vérifications", icon: ShieldCheck },

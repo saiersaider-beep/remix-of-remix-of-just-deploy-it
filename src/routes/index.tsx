@@ -416,28 +416,167 @@ function AfrobeatSection() {
 }
 
 function EverywhereSection() {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setTilt({ x: py * -10, y: px * 12 });
+  };
+  const reset = () => setTilt({ x: 0, y: 0 });
+
+  const devices = [
+    { icon: Smartphone, label: "Téléphone" },
+    { icon: Tablet, label: "Tablette" },
+    { icon: Laptop, label: "Ordinateur" },
+    { icon: Car, label: "Voiture" },
+  ];
+
   return (
-    <section className="py-24 bg-surface/40">
-      <div className="mx-auto max-w-[1400px] px-6 grid lg:grid-cols-2 gap-16 items-center">
-        <div className="relative max-w-md mx-auto lg:mx-0">
-          <div className="absolute -inset-6 bg-gradient-to-br from-amber-500/40 via-primary/30 to-pink-500/40 blur-3xl rounded-[2rem] -z-10 animate-float-slow" />
-          <div className="absolute -inset-px rounded-[1.75rem] bg-gradient-to-br from-amber-400 via-primary to-pink-500 opacity-90" />
-          <div className="relative rounded-[1.65rem] overflow-hidden ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] rotate-[-3deg] hover:rotate-0 transition-transform duration-700 will-change-transform">
-            <img src={everywhereImg} alt="Écoute partout — Lomé" loading="lazy" width={1024} height={1024} className="block w-full h-auto object-cover" />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/10 mix-blend-overlay" />
-            <div className="pointer-events-none absolute -top-1/3 -left-1/3 w-2/3 h-2/3 bg-white/15 blur-3xl rotate-12" />
+    <section className="relative py-28 overflow-hidden bg-gradient-to-b from-[#fafaf7] via-white to-[#fafaf7] dark:from-background dark:via-background dark:to-background">
+      <div className="pointer-events-none absolute inset-0 -z-0">
+        <div className="absolute top-10 -left-32 w-[480px] h-[480px] rounded-full bg-[#ff6b35]/10 blur-[120px] animate-float-slow" />
+        <div className="absolute bottom-0 right-0 w-[520px] h-[520px] rounded-full bg-amber-200/40 dark:bg-amber-500/10 blur-[140px] animate-float-slow" style={{ animationDelay: "2s" }} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.04)_1px,transparent_0)] [background-size:32px_32px] opacity-60" />
+      </div>
+
+      <div className="relative mx-auto max-w-[1280px] px-6 grid lg:grid-cols-[1.05fr_1fr] gap-16 lg:gap-20 items-center">
+        <div
+          className="relative mx-auto lg:mx-0 w-full max-w-[560px]"
+          style={{ perspective: "1400px" }}
+          onMouseMove={onMove}
+          onMouseLeave={reset}
+        >
+          <div className="absolute -inset-10 bg-gradient-to-tr from-[#ff6b35]/30 via-amber-300/20 to-transparent blur-[80px] -z-10 animate-float-slow" />
+
+          <div
+            className="group relative rounded-[36px] p-[2px] bg-[conic-gradient(from_0deg,#ff6b35,#ffb088,#ffffff,#ff6b35)] shadow-[0_40px_100px_-30px_rgba(255,107,53,0.45),0_20px_50px_-20px_rgba(0,0,0,0.25)] transition-transform duration-500 ease-out will-change-transform"
+            style={{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
+          >
+            <div className="relative rounded-[34px] overflow-hidden bg-black">
+              <img
+                src={everywhereImg}
+                alt="Écoute partout — Lomé"
+                loading="lazy"
+                width={1024}
+                height={1024}
+                className="block w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent" />
+              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3 rounded-2xl backdrop-blur-xl bg-white/15 border border-white/25 px-4 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="grid place-items-center w-10 h-10 rounded-full bg-[#ff6b35] text-white shrink-0 shadow-lg shadow-[#ff6b35]/40">
+                    <Play className="w-4 h-4 fill-current ml-0.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[11px] uppercase tracking-widest text-white/70 font-bold">En cours</p>
+                    <p className="text-sm font-bold text-white truncate">Tess of The Road — 3030</p>
+                  </div>
+                </div>
+                <div className="flex items-end gap-[3px] h-5 shrink-0">
+                  {[0,1,2,3,4].map(i => (
+                    <span
+                      key={i}
+                      className="w-[3px] bg-[#ff6b35] rounded-full"
+                      style={{
+                        animation: `eq-bar 1.${2+i}s ease-in-out ${i*0.12}s infinite`,
+                        height: `${40 + i*12}%`,
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden md:flex absolute -right-4 top-8 items-center gap-2 rounded-2xl bg-white border border-black/5 px-4 py-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] animate-float-slow">
+            <Download className="w-4 h-4 text-[#ff6b35]" />
+            <span className="text-xs font-bold text-neutral-900">Hors ligne · 1.2 GB</span>
+          </div>
+          <div className="hidden md:flex absolute -left-6 bottom-12 items-center gap-2 rounded-2xl bg-white border border-black/5 px-4 py-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] animate-float-slow" style={{ animationDelay: "1.5s" }}>
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span className="text-xs font-bold text-neutral-900">Qualité Lossless</span>
           </div>
         </div>
-        <div>
-          <p className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Tess of The Road · 3030</p>
-          <h2 className="font-display text-4xl md:text-5xl font-extrabold leading-tight">
-            Écoute ta musique <span className="text-primary">partout</span>, à tout moment
+
+        <div className="relative">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#ff6b35]/20 bg-[#ff6b35]/5 backdrop-blur px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#ff6b35] mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-pulse" />
+            Multi-appareils · Cross-device
+          </span>
+
+          <h2 className="font-display text-[2.6rem] md:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground">
+            Écoute ta musique{" "}
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-[#ff6b35] via-[#ff8c42] to-[#ffb088] bg-clip-text text-transparent">partout</span>
+              <span aria-hidden className="absolute -bottom-1 left-0 right-0 h-[6px] bg-gradient-to-r from-[#ff6b35]/0 via-[#ff6b35]/60 to-[#ff6b35]/0 blur-[3px]" />
+            </span>
+            , à tout moment.
           </h2>
-          <p className="mt-6 text-muted-foreground leading-relaxed max-w-md">
-            Stream sur ton téléphone, ta tablette, ton ordinateur ou ta voiture — VinaSound suit ta playlist
-            partout, en haute qualité, même hors ligne.
+
+          <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl">
+            Stream sur ton téléphone, ta tablette, ton ordinateur ou ta voiture —
+            <span className="text-foreground font-semibold"> VinaSound</span> suit ta playlist partout,
+            en haute qualité, même hors ligne.
           </p>
 
+          <div className="mt-8 flex flex-wrap gap-3">
+            {devices.map(({ icon: Icon, label }) => (
+              <div
+                key={label}
+                className="group flex items-center gap-2.5 rounded-2xl border border-black/5 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl px-4 py-3 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 hover:border-[#ff6b35]/40 hover:shadow-[0_12px_28px_-10px_rgba(255,107,53,0.35)] transition-all duration-300"
+              >
+                <Icon className="w-4 h-4 text-[#ff6b35]" />
+                <span className="text-sm font-semibold text-foreground">{label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Link
+              to="/discover"
+              className="group relative inline-flex items-center gap-2 rounded-full bg-[#ff6b35] text-white font-bold px-7 py-3.5 text-sm shadow-[0_20px_40px_-12px_rgba(255,107,53,0.55)] hover:shadow-[0_24px_50px_-12px_rgba(255,107,53,0.7)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <Play className="w-4 h-4 fill-current relative" />
+              <span className="relative">Commencer l'écoute</span>
+            </Link>
+            <Link
+              to="/discover"
+              className="inline-flex items-center gap-2 text-sm font-bold text-foreground/80 hover:text-[#ff6b35] transition group"
+            >
+              Voir les fonctionnalités
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+            </Link>
+          </div>
+
+          <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
+            {[
+              { v: "120k+", l: "Auditeurs actifs" },
+              { v: "4.9★", l: "Note moyenne" },
+              { v: "99.9%", l: "Uptime stream" },
+            ].map((s) => (
+              <div key={s.l}>
+                <p className="font-display text-2xl font-extrabold text-foreground">{s.v}</p>
+                <p className="text-xs text-muted-foreground mt-1">{s.l}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="relative mt-20 mx-auto max-w-[1280px] px-6">
+        <div className="flex items-end gap-[3px] h-10 opacity-70">
+          {Array.from({ length: 120 }).map((_, i) => (
+            <span
+              key={i}
+              className="flex-1 rounded-full bg-gradient-to-t from-[#ff6b35]/40 to-[#ff6b35]"
+              style={{
+                animation: `eq-bar ${1 + (i % 5) * 0.2}s ease-in-out ${i * 0.02}s infinite`,
+                height: `${20 + Math.abs(Math.sin(i / 4)) * 80}%`,
+              }}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -82,15 +82,15 @@ function LoginPage() {
   const close = () => navigate({ to: "/" });
 
   return (
-    <div className="auth-page relative min-h-screen text-white">
-      <iframe
-        src="/"
+    <div className="auth-page relative min-h-screen text-white bg-black">
+      <div
         aria-hidden
-        tabIndex={-1}
-        title="Background"
-        className="fixed inset-0 w-full h-full border-0 pointer-events-none"
+        className="auth-page-backdrop fixed inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(1200px 600px at 20% 10%, rgba(255,107,53,0.18), transparent 60%), radial-gradient(900px 500px at 85% 90%, rgba(255,107,53,0.12), transparent 60%), #000",
+        }}
       />
-      <div aria-hidden className="auth-page-backdrop fixed inset-0 pointer-events-none bg-black/55 backdrop-blur-sm" />
 
 
 

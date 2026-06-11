@@ -347,6 +347,8 @@ function PayPage() {
               </div>
             </div>
 
+            {mode === "manual" && (
+            <>
             {/* USSD instructions */}
             <div>
               <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-2">

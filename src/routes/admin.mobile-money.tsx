@@ -79,6 +79,7 @@ function MobileMoneyAdminPage() {
 
   useEffect(() => {
     void getSettings().then(setSettings).catch(() => {});
+    void getPaygate().then(setPaygate).catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

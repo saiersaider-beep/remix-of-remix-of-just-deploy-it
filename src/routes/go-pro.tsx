@@ -103,12 +103,12 @@ const features = [
 ];
 
 const compare = [
-  { label: "Prix", free: "0 FCFA", starter: "10 000 / an", ambassadeur: "20 000 / an", legende: "30 000 / an" },
+  { label: "Prix", free: "0 FCFA", starter: "1 000 / mois", ambassadeur: "3 000 / mois", legende: "5 000 / mois" },
   { label: "Uploads morceaux", free: "10 / jour", starter: "Illimité", ambassadeur: "Illimité", legende: "Illimité" },
   { label: "Uploads albums", free: "1 / jour", starter: "5 / mois", ambassadeur: "Illimité", legende: "Illimité" },
   { label: "Qualité audio", free: "128 kbps", starter: "192 kbps", ambassadeur: "320 kbps", legende: "Lossless (FLAC)" },
   { label: "Publicités", free: "Oui", starter: "Aucune", ambassadeur: "Aucune", legende: "Aucune" },
-  { label: "Badge", free: "—", starter: "PRO vérifié", ambassadeur: "PRO vérifié", legende: "Légende doré" },
+  { label: "Badge", free: "—", starter: "PRO vérifié", ambassadeur: "PRO vérifié", legende: "VIP doré" },
   { label: "Statistiques", free: "Basiques", starter: "Basiques", ambassadeur: "Avancées", legende: "Avancées + revenus" },
   { label: "Mise en avant Découvrir", free: "—", starter: "—", ambassadeur: "2× / mois", legende: "Illimitée" },
   { label: "Spotlight mensuel", free: "—", starter: "—", ambassadeur: "—", legende: "Inclus" },

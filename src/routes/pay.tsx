@@ -12,6 +12,11 @@ import {
   submitMobileMoneyPayment,
 } from "@/lib/mobile-money.functions";
 import {
+  getPaygateStatus,
+  initPaygatePayment,
+  checkPaygateStatus,
+} from "@/lib/paygate.functions";
+import {
   Smartphone,
   Copy,
   Check,
@@ -19,6 +24,7 @@ import {
   Loader2,
   ArrowLeft,
   Upload as UploadIcon,
+  Zap,
 } from "lucide-react";
 
 const searchSchema = z.object({

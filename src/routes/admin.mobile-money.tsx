@@ -238,6 +238,51 @@ function MobileMoneyAdminPage() {
         </div>
       )}
 
+      {/* PayGate settings */}
+      {paygate && (
+        <div className="rounded-xl border border-border bg-card p-5 mb-6">
+          <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <div>
+              <h2 className="font-display text-lg font-bold">PayGate Global (automatique)</h2>
+              <p className="text-xs text-muted-foreground mt-1">
+                Active le paiement automatique Flooz / TMoney via PayGate. Le client reçoit
+                une notification sur son téléphone et valide avec son code secret. URL de
+                callback à configurer sur ton tableau PayGate :
+              </p>
+              <code className="block mt-1 text-[11px] bg-muted/30 px-2 py-1 rounded font-mono">
+                {typeof window !== "undefined" ? `${window.location.origin}/api/public/paygate-callback` : "/api/public/paygate-callback"}
+              </code>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={paygate.paygate_enabled}
+                onChange={(e) => setPaygate({ ...paygate, paygate_enabled: e.target.checked })}
+                className="w-4 h-4 accent-primary"
+              />
+              <span className="text-sm font-bold">
+                {paygate.paygate_enabled ? "Activé" : "Désactivé"}
+              </span>
+            </label>
+          </div>
+          <Field
+            label="Clé API PayGate (auth_token)"
+            value={paygate.paygate_api_key}
+            onChange={(v) => setPaygate({ ...paygate, paygate_api_key: v })}
+          />
+          <button
+            onClick={handleSavePaygate}
+            disabled={savingPaygate}
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-bold disabled:opacity-60"
+          >
+            {savingPaygate ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+            Sauvegarder PayGate
+          </button>
+        </div>
+      )}
+
+
+
       {/* Tabs */}
       <div className="flex flex-wrap gap-2 mb-4">
         {(["pending", "approved", "rejected", "all"] as const).map((t) => (

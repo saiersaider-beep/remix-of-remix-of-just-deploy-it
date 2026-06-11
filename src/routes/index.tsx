@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Play, Star, Upload, BarChart3, Heart, Plus, Headphones, Music2, Users, Sparkles, Mic2 } from "lucide-react";
+import { ArrowRight, Play, Star, Upload, BarChart3, Heart, Plus, Headphones, Music2, Users, Sparkles, Mic2, Smartphone, Tablet, Laptop, Car, Download, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTopArtists, fetchTracks, fetchTrendingTracks } from "@/lib/tracks-data";

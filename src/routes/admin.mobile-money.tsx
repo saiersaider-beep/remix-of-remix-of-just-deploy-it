@@ -57,6 +57,9 @@ function MobileMoneyAdminPage() {
   const [settings, setSettings] = useState<Awaited<ReturnType<typeof getSettings>> | null>(null);
   const [savingSettings, setSavingSettings] = useState(false);
 
+  const [paygate, setPaygate] = useState<{ paygate_api_key: string; paygate_enabled: boolean } | null>(null);
+  const [savingPaygate, setSavingPaygate] = useState(false);
+
   const refresh = async () => {
     setLoading(true);
     try {

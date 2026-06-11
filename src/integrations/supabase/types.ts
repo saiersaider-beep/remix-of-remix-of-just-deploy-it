@@ -740,6 +740,108 @@ export type Database = {
         }
         Relationships: []
       }
+      mm_payments: {
+        Row: {
+          admin_notes: string | null
+          amount_xof: number
+          applied: boolean
+          created_at: string
+          full_name: string
+          id: string
+          merchant_number: string
+          operator: string
+          phone: string
+          purpose: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          screenshot_url: string | null
+          status: string
+          target_id: string | null
+          transaction_ref: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          amount_xof: number
+          applied?: boolean
+          created_at?: string
+          full_name: string
+          id?: string
+          merchant_number: string
+          operator: string
+          phone: string
+          purpose: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          screenshot_url?: string | null
+          status?: string
+          target_id?: string | null
+          transaction_ref?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_notes?: string | null
+          amount_xof?: number
+          applied?: boolean
+          created_at?: string
+          full_name?: string
+          id?: string
+          merchant_number?: string
+          operator?: string
+          phone?: string
+          purpose?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          screenshot_url?: string | null
+          status?: string
+          target_id?: string | null
+          transaction_ref?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      mm_settings: {
+        Row: {
+          flooz_number: string
+          id: boolean
+          plan_basic_days: number
+          plan_basic_xof: number
+          plan_premium_days: number
+          plan_premium_xof: number
+          plan_vip_days: number
+          plan_vip_xof: number
+          updated_at: string
+          yas_number: string
+        }
+        Insert: {
+          flooz_number?: string
+          id?: boolean
+          plan_basic_days?: number
+          plan_basic_xof?: number
+          plan_premium_days?: number
+          plan_premium_xof?: number
+          plan_vip_days?: number
+          plan_vip_xof?: number
+          updated_at?: string
+          yas_number?: string
+        }
+        Update: {
+          flooz_number?: string
+          id?: boolean
+          plan_basic_days?: number
+          plan_basic_xof?: number
+          plan_premium_days?: number
+          plan_premium_xof?: number
+          plan_vip_days?: number
+          plan_vip_xof?: number
+          updated_at?: string
+          yas_number?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           actor_id: string | null
@@ -1802,6 +1904,11 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      mm_approve_payment: { Args: { _payment_id: string }; Returns: undefined }
+      mm_reject_payment: {
+        Args: { _payment_id: string; _reason?: string }
+        Returns: undefined
       }
       pay_artist_fee_with_wallet: {
         Args: { _user_id: string }

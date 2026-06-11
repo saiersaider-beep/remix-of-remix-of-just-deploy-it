@@ -103,6 +103,62 @@ function PayPage() {
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // PayGate (auto) flow state
+  const [autoPaymentId, setAutoPaymentId] = useState<string | null>(null);
+  const [autoStatus, setAutoStatus] = useState<"idle" | "pending" | "approved" | "rejected">("idle");
+
+  useEffect(() => {
+    if (!autoPaymentId || autoStatus !== "pending") return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await checkPaygate({ data: { payment_id: autoPaymentId } });
+        if (res.status === "approved") {
+          setAutoStatus("approved");
+          toast.success("Paiement confirmé !");
+          setTimeout(() => navigate({ to: "/dashboard" }), 1500);
+        } else if (res.status === "rejected") {
+          setAutoStatus("rejected");
+          toast.error("Paiement annulé ou expiré");
+        }
+      } catch {
+        // continue polling
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [autoPaymentId, autoStatus, checkPaygate, navigate]);
+
+  const handleAutoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!fullName.trim() || !phone.trim()) {
+      toast.error("Renseigne ton nom et ton numéro");
+      return;
+    }
+    if (computedAmount <= 0) {
+      toast.error("Montant invalide");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await initPaygate({
+        data: {
+          purpose,
+          target_id: target_id ?? null,
+          amount_xof: computedAmount,
+          network: operator === "flooz" ? "FLOOZ" : "TMONEY",
+          full_name: fullName.trim(),
+          phone: phone.trim(),
+        },
+      });
+      setAutoPaymentId(res.payment_id);
+      setAutoStatus("pending");
+      toast.success("Demande envoyée — valide sur ton téléphone");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Échec de la demande");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   useEffect(() => {
     if (user?.user_metadata) {
       const meta = user.user_metadata as Record<string, unknown>;

@@ -6,6 +6,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { nitro } from "nitro/vite";
+import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
 
 export default defineConfig(({ mode }) => {
   // Load .env (all vars, not only VITE_) into process.env so that
@@ -24,6 +25,7 @@ export default defineConfig(({ mode }) => {
     tanstackStart({
       server: { entry: "server" },
     }),
+    mcpPlugin(),
     nitro({ preset: "vercel" }),
     react(),
   ],

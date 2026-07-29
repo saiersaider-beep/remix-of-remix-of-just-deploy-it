@@ -35,6 +35,7 @@ import { Route as MySongsRouteImport } from './routes/my-songs'
 import { Route as MyAppsRouteImport } from './routes/my-apps'
 import { Route as MyAlbumsRouteImport } from './routes/my-albums'
 import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InterestRouteImport } from './routes/interest'
 import { Route as ImportRouteImport } from './routes/import'
@@ -84,9 +85,13 @@ import { Route as AdminBankReceiptsRouteImport } from './routes/admin.bank-recei
 import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
 import { Route as AdminArtistVerificationRouteImport } from './routes/admin.artist-verification'
 import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as ApiPublicSeedTestAccountsRouteImport } from './routes/api/public/seed-test-accounts'
 import { Route as ApiPublicPaygateCallbackRouteImport } from './routes/api/public/paygate-callback'
 import { Route as ApiPublicCinetpayWebhookRouteImport } from './routes/api/public/cinetpay-webhook'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
@@ -216,6 +221,11 @@ const MyAlbumsRoute = MyAlbumsRouteImport.update({
 const MessagesRoute = MessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -463,6 +473,18 @@ const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
   path: '/announcements',
   getParentRoute: () => AdminRoute,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicSeedTestAccountsRoute =
   ApiPublicSeedTestAccountsRouteImport.update({
     id: '/api/public/seed-test-accounts',
@@ -481,6 +503,17 @@ const ApiPublicCinetpayWebhookRoute =
     path: '/api/public/cinetpay-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -504,6 +537,7 @@ export interface FileRoutesByFullPath {
   '/import': typeof ImportRoute
   '/interest': typeof InterestRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/messages': typeof MessagesRoute
   '/my-albums': typeof MyAlbumsRoute
   '/my-apps': typeof MyAppsRoute
@@ -530,6 +564,8 @@ export interface FileRoutesByFullPath {
   '/upload-single': typeof UploadSingleRoute
   '/upload-song': typeof UploadSongRoute
   '/wallet': typeof WalletRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/artist-verification': typeof AdminArtistVerificationRoute
   '/admin/artists': typeof AdminArtistsRoute
@@ -558,6 +594,8 @@ export interface FileRoutesByFullPath {
   '/playlists/$slug': typeof PlaylistsSlugRoute
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
@@ -583,6 +621,7 @@ export interface FileRoutesByTo {
   '/import': typeof ImportRoute
   '/interest': typeof InterestRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/messages': typeof MessagesRoute
   '/my-albums': typeof MyAlbumsRoute
   '/my-apps': typeof MyAppsRoute
@@ -609,6 +648,8 @@ export interface FileRoutesByTo {
   '/upload-single': typeof UploadSingleRoute
   '/upload-song': typeof UploadSongRoute
   '/wallet': typeof WalletRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/artist-verification': typeof AdminArtistVerificationRoute
   '/admin/artists': typeof AdminArtistsRoute
@@ -637,6 +678,8 @@ export interface FileRoutesByTo {
   '/playlists/$slug': typeof PlaylistsSlugRoute
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
@@ -664,6 +707,7 @@ export interface FileRoutesById {
   '/import': typeof ImportRoute
   '/interest': typeof InterestRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/messages': typeof MessagesRoute
   '/my-albums': typeof MyAlbumsRoute
   '/my-apps': typeof MyAppsRoute
@@ -690,6 +734,8 @@ export interface FileRoutesById {
   '/upload-single': typeof UploadSingleRoute
   '/upload-song': typeof UploadSongRoute
   '/wallet': typeof WalletRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/artist-verification': typeof AdminArtistVerificationRoute
   '/admin/artists': typeof AdminArtistsRoute
@@ -718,6 +764,8 @@ export interface FileRoutesById {
   '/playlists/$slug': typeof PlaylistsSlugRoute
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
@@ -746,6 +794,7 @@ export interface FileRouteTypes {
     | '/import'
     | '/interest'
     | '/login'
+    | '/mcp'
     | '/messages'
     | '/my-albums'
     | '/my-apps'
@@ -772,6 +821,8 @@ export interface FileRouteTypes {
     | '/upload-single'
     | '/upload-song'
     | '/wallet'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/announcements'
     | '/admin/artist-verification'
     | '/admin/artists'
@@ -800,6 +851,8 @@ export interface FileRouteTypes {
     | '/playlists/$slug'
     | '/tracks/$slug'
     | '/admin/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/cinetpay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
@@ -825,6 +878,7 @@ export interface FileRouteTypes {
     | '/import'
     | '/interest'
     | '/login'
+    | '/mcp'
     | '/messages'
     | '/my-albums'
     | '/my-apps'
@@ -851,6 +905,8 @@ export interface FileRouteTypes {
     | '/upload-single'
     | '/upload-song'
     | '/wallet'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/announcements'
     | '/admin/artist-verification'
     | '/admin/artists'
@@ -879,6 +935,8 @@ export interface FileRouteTypes {
     | '/playlists/$slug'
     | '/tracks/$slug'
     | '/admin'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/cinetpay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
@@ -905,6 +963,7 @@ export interface FileRouteTypes {
     | '/import'
     | '/interest'
     | '/login'
+    | '/mcp'
     | '/messages'
     | '/my-albums'
     | '/my-apps'
@@ -931,6 +990,8 @@ export interface FileRouteTypes {
     | '/upload-single'
     | '/upload-song'
     | '/wallet'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/announcements'
     | '/admin/artist-verification'
     | '/admin/artists'
@@ -959,6 +1020,8 @@ export interface FileRouteTypes {
     | '/playlists/$slug'
     | '/tracks/$slug'
     | '/admin/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/api/public/cinetpay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
@@ -986,6 +1049,7 @@ export interface RootRouteChildren {
   ImportRoute: typeof ImportRoute
   InterestRoute: typeof InterestRoute
   LoginRoute: typeof LoginRoute
+  McpRoute: typeof McpRoute
   MessagesRoute: typeof MessagesRoute
   MyAlbumsRoute: typeof MyAlbumsRoute
   MyAppsRoute: typeof MyAppsRoute
@@ -1012,6 +1076,8 @@ export interface RootRouteChildren {
   UploadSingleRoute: typeof UploadSingleRoute
   UploadSongRoute: typeof UploadSongRoute
   WalletRoute: typeof WalletRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ArticlesSlugRoute: typeof ArticlesSlugRoute
   ArtistUpgradeRoute: typeof ArtistUpgradeRoute
   ArtistWithdrawRoute: typeof ArtistWithdrawRoute
@@ -1019,6 +1085,8 @@ export interface RootRouteChildren {
   PagesSlugRoute: typeof PagesSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
   TracksSlugRoute: typeof TracksSlugRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicCinetpayWebhookRoute: typeof ApiPublicCinetpayWebhookRoute
   ApiPublicPaygateCallbackRoute: typeof ApiPublicPaygateCallbackRoute
   ApiPublicSeedTestAccountsRoute: typeof ApiPublicSeedTestAccountsRoute
@@ -1206,6 +1274,13 @@ declare module '@tanstack/react-router' {
       path: '/messages'
       fullPath: '/messages'
       preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -1551,6 +1626,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAnnouncementsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/seed-test-accounts': {
       id: '/api/public/seed-test-accounts'
       path: '/api/public/seed-test-accounts'
@@ -1570,6 +1659,20 @@ declare module '@tanstack/react-router' {
       path: '/api/public/cinetpay-webhook'
       fullPath: '/api/public/cinetpay-webhook'
       preLoaderRoute: typeof ApiPublicCinetpayWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -1666,6 +1769,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImportRoute: ImportRoute,
   InterestRoute: InterestRoute,
   LoginRoute: LoginRoute,
+  McpRoute: McpRoute,
   MessagesRoute: MessagesRoute,
   MyAlbumsRoute: MyAlbumsRoute,
   MyAppsRoute: MyAppsRoute,
@@ -1692,6 +1796,9 @@ const rootRouteChildren: RootRouteChildren = {
   UploadSingleRoute: UploadSingleRoute,
   UploadSongRoute: UploadSongRoute,
   WalletRoute: WalletRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ArticlesSlugRoute: ArticlesSlugRoute,
   ArtistUpgradeRoute: ArtistUpgradeRoute,
   ArtistWithdrawRoute: ArtistWithdrawRoute,
@@ -1699,6 +1806,8 @@ const rootRouteChildren: RootRouteChildren = {
   PagesSlugRoute: PagesSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,
   TracksSlugRoute: TracksSlugRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicCinetpayWebhookRoute: ApiPublicCinetpayWebhookRoute,
   ApiPublicPaygateCallbackRoute: ApiPublicPaygateCallbackRoute,
   ApiPublicSeedTestAccountsRoute: ApiPublicSeedTestAccountsRoute,

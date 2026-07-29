@@ -9,318 +9,93 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WalletRouteImport } from './routes/wallet'
-import { Route as UploadSongRouteImport } from './routes/upload-song'
-import { Route as UploadSingleRouteImport } from './routes/upload-single'
-import { Route as UploadAlbumRouteImport } from './routes/upload-album'
-import { Route as Top_musicRouteImport } from './routes/top_music'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SubscriptionRouteImport } from './routes/subscription'
-import { Route as SpotlightRouteImport } from './routes/spotlight'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as SearchRouteImport } from './routes/search'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as Recently_playedRouteImport } from './routes/recently_played'
-import { Route as PurchasedRouteImport } from './routes/purchased'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PointSystemRouteImport } from './routes/point-system'
-import { Route as PlaylistsRouteImport } from './routes/playlists'
-import { Route as PayRouteImport } from './routes/pay'
-import { Route as NotificationsRouteImport } from './routes/notifications'
-import { Route as New_musicRouteImport } from './routes/new_music'
-import { Route as My_playlistsRouteImport } from './routes/my_playlists'
-import { Route as MySongsRouteImport } from './routes/my-songs'
-import { Route as MyAppsRouteImport } from './routes/my-apps'
-import { Route as MyAlbumsRouteImport } from './routes/my-albums'
-import { Route as MessagesRouteImport } from './routes/messages'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as InterestRouteImport } from './routes/interest'
-import { Route as ImportRouteImport } from './routes/import'
-import { Route as GoProRouteImport } from './routes/go-pro'
-import { Route as GenresRouteImport } from './routes/genres'
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as FollowingRouteImport } from './routes/following'
-import { Route as FeedRouteImport } from './routes/feed'
-import { Route as FavouritesRouteImport } from './routes/favourites'
-import { Route as FaqRouteImport } from './routes/faq'
-import { Route as FameRouteImport } from './routes/fame'
-import { Route as DiscoverRouteImport } from './routes/discover'
-import { Route as DevelopersRouteImport } from './routes/developers'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as BlogsRouteImport } from './routes/blogs'
-import { Route as BecomeRouteImport } from './routes/become'
-import { Route as AlbumsRouteImport } from './routes/albums'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as TracksSlugRouteImport } from './routes/tracks.$slug'
-import { Route as PlaylistsSlugRouteImport } from './routes/playlists.$slug'
-import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
-import { Route as PagesSlugRouteImport } from './routes/pages.$slug'
-import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
-import { Route as ArtistWithdrawRouteImport } from './routes/artist.withdraw'
-import { Route as ArtistUpgradeRouteImport } from './routes/artist.upgrade'
-import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
-import { Route as AlbumsSlugRouteImport } from './routes/albums.$slug'
-import { Route as AdminWithdrawalsRouteImport } from './routes/admin.withdrawals'
-import { Route as AdminUsersRouteImport } from './routes/admin.users'
-import { Route as AdminTracksRouteImport } from './routes/admin.tracks'
-import { Route as AdminTopupsRouteImport } from './routes/admin.topups'
-import { Route as AdminReportsRouteImport } from './routes/admin.reports'
-import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
-import { Route as AdminPagesRouteImport } from './routes/admin.pages'
-import { Route as AdminMobileMoneyRouteImport } from './routes/admin.mobile-money'
-import { Route as AdminFaqRouteImport } from './routes/admin.faq'
-import { Route as AdminCopyrightsRouteImport } from './routes/admin.copyrights'
-import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
-import { Route as AdminCinetpayRouteImport } from './routes/admin.cinetpay'
-import { Route as AdminBrandingRouteImport } from './routes/admin.branding'
-import { Route as AdminBannedIpsRouteImport } from './routes/admin.banned-ips'
-import { Route as AdminBankReceiptsRouteImport } from './routes/admin.bank-receipts'
-import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
-import { Route as AdminArtistVerificationRouteImport } from './routes/admin.artist-verification'
-import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AlbumsRouteImport } from './routes/albums'
+import { Route as BecomeRouteImport } from './routes/become'
+import { Route as BlogsRouteImport } from './routes/blogs'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DevelopersRouteImport } from './routes/developers'
+import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as FameRouteImport } from './routes/fame'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as FavouritesRouteImport } from './routes/favourites'
+import { Route as FeedRouteImport } from './routes/feed'
+import { Route as FollowingRouteImport } from './routes/following'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as GenresRouteImport } from './routes/genres'
+import { Route as GoProRouteImport } from './routes/go-pro'
+import { Route as ImportRouteImport } from './routes/import'
+import { Route as InterestRouteImport } from './routes/interest'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as MyAlbumsRouteImport } from './routes/my-albums'
+import { Route as MyAppsRouteImport } from './routes/my-apps'
+import { Route as MySongsRouteImport } from './routes/my-songs'
+import { Route as My_playlistsRouteImport } from './routes/my_playlists'
+import { Route as New_musicRouteImport } from './routes/new_music'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as PayRouteImport } from './routes/pay'
+import { Route as PlaylistsRouteImport } from './routes/playlists'
+import { Route as PointSystemRouteImport } from './routes/point-system'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PurchasedRouteImport } from './routes/purchased'
+import { Route as Recently_playedRouteImport } from './routes/recently_played'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SpotlightRouteImport } from './routes/spotlight'
+import { Route as SubscriptionRouteImport } from './routes/subscription'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as Top_musicRouteImport } from './routes/top_music'
+import { Route as UploadAlbumRouteImport } from './routes/upload-album'
+import { Route as UploadSingleRouteImport } from './routes/upload-single'
+import { Route as UploadSongRouteImport } from './routes/upload-song'
+import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as ApiPublicSeedTestAccountsRouteImport } from './routes/api/public/seed-test-accounts'
-import { Route as ApiPublicPaygateCallbackRouteImport } from './routes/api/public/paygate-callback'
-import { Route as ApiPublicCinetpayWebhookRouteImport } from './routes/api/public/cinetpay-webhook'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
+import { Route as AdminArtistVerificationRouteImport } from './routes/admin.artist-verification'
+import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
+import { Route as AdminBankReceiptsRouteImport } from './routes/admin.bank-receipts'
+import { Route as AdminBannedIpsRouteImport } from './routes/admin.banned-ips'
+import { Route as AdminBrandingRouteImport } from './routes/admin.branding'
+import { Route as AdminCinetpayRouteImport } from './routes/admin.cinetpay'
+import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
+import { Route as AdminCopyrightsRouteImport } from './routes/admin.copyrights'
+import { Route as AdminFaqRouteImport } from './routes/admin.faq'
+import { Route as AdminMobileMoneyRouteImport } from './routes/admin.mobile-money'
+import { Route as AdminPagesRouteImport } from './routes/admin.pages'
+import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
+import { Route as AdminTopupsRouteImport } from './routes/admin.topups'
+import { Route as AdminTracksRouteImport } from './routes/admin.tracks'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminWithdrawalsRouteImport } from './routes/admin.withdrawals'
+import { Route as AlbumsSlugRouteImport } from './routes/albums.$slug'
+import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
+import { Route as ArtistUpgradeRouteImport } from './routes/artist.upgrade'
+import { Route as ArtistWithdrawRouteImport } from './routes/artist.withdraw'
+import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
+import { Route as PagesSlugRouteImport } from './routes/pages.$slug'
+import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
+import { Route as PlaylistsSlugRouteImport } from './routes/playlists.$slug'
+import { Route as TracksSlugRouteImport } from './routes/tracks.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as ApiPublicCinetpayWebhookRouteImport } from './routes/api/public/cinetpay-webhook'
+import { Route as ApiPublicPaygateCallbackRouteImport } from './routes/api/public/paygate-callback'
+import { Route as ApiPublicSeedTestAccountsRouteImport } from './routes/api/public/seed-test-accounts'
 
-const WalletRoute = WalletRouteImport.update({
-  id: '/wallet',
-  path: '/wallet',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UploadSongRoute = UploadSongRouteImport.update({
-  id: '/upload-song',
-  path: '/upload-song',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UploadSingleRoute = UploadSingleRouteImport.update({
-  id: '/upload-single',
-  path: '/upload-single',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UploadAlbumRoute = UploadAlbumRouteImport.update({
-  id: '/upload-album',
-  path: '/upload-album',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Top_musicRoute = Top_musicRouteImport.update({
-  id: '/top_music',
-  path: '/top_music',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SubscriptionRoute = SubscriptionRouteImport.update({
-  id: '/subscription',
-  path: '/subscription',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SpotlightRoute = SpotlightRouteImport.update({
-  id: '/spotlight',
-  path: '/spotlight',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Recently_playedRoute = Recently_playedRouteImport.update({
-  id: '/recently_played',
-  path: '/recently_played',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PurchasedRoute = PurchasedRouteImport.update({
-  id: '/purchased',
-  path: '/purchased',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PointSystemRoute = PointSystemRouteImport.update({
-  id: '/point-system',
-  path: '/point-system',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlaylistsRoute = PlaylistsRouteImport.update({
-  id: '/playlists',
-  path: '/playlists',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PayRoute = PayRouteImport.update({
-  id: '/pay',
-  path: '/pay',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NotificationsRoute = NotificationsRouteImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const New_musicRoute = New_musicRouteImport.update({
-  id: '/new_music',
-  path: '/new_music',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const My_playlistsRoute = My_playlistsRouteImport.update({
-  id: '/my_playlists',
-  path: '/my_playlists',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MySongsRoute = MySongsRouteImport.update({
-  id: '/my-songs',
-  path: '/my-songs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MyAppsRoute = MyAppsRouteImport.update({
-  id: '/my-apps',
-  path: '/my-apps',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MyAlbumsRoute = MyAlbumsRouteImport.update({
-  id: '/my-albums',
-  path: '/my-albums',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MessagesRoute = MessagesRouteImport.update({
-  id: '/messages',
-  path: '/messages',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InterestRoute = InterestRouteImport.update({
-  id: '/interest',
-  path: '/interest',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ImportRoute = ImportRouteImport.update({
-  id: '/import',
-  path: '/import',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GoProRoute = GoProRouteImport.update({
-  id: '/go-pro',
-  path: '/go-pro',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GenresRoute = GenresRouteImport.update({
-  id: '/genres',
-  path: '/genres',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FollowingRoute = FollowingRouteImport.update({
-  id: '/following',
-  path: '/following',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeedRoute = FeedRouteImport.update({
-  id: '/feed',
-  path: '/feed',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FavouritesRoute = FavouritesRouteImport.update({
-  id: '/favourites',
-  path: '/favourites',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FaqRoute = FaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FameRoute = FameRouteImport.update({
-  id: '/fame',
-  path: '/fame',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiscoverRoute = DiscoverRouteImport.update({
-  id: '/discover',
-  path: '/discover',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DevelopersRoute = DevelopersRouteImport.update({
-  id: '/developers',
-  path: '/developers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogsRoute = BlogsRouteImport.update({
-  id: '/blogs',
-  path: '/blogs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BecomeRoute = BecomeRouteImport.update({
-  id: '/become',
-  path: '/become',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlbumsRoute = AlbumsRouteImport.update({
-  id: '/albums',
-  path: '/albums',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -328,144 +103,251 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AlbumsRoute = AlbumsRouteImport.update({
+  id: '/albums',
+  path: '/albums',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BecomeRoute = BecomeRouteImport.update({
+  id: '/become',
+  path: '/become',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogsRoute = BlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevelopersRoute = DevelopersRouteImport.update({
+  id: '/developers',
+  path: '/developers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FameRoute = FameRouteImport.update({
+  id: '/fame',
+  path: '/fame',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavouritesRoute = FavouritesRouteImport.update({
+  id: '/favourites',
+  path: '/favourites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedRoute = FeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FollowingRoute = FollowingRouteImport.update({
+  id: '/following',
+  path: '/following',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GenresRoute = GenresRouteImport.update({
+  id: '/genres',
+  path: '/genres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GoProRoute = GoProRouteImport.update({
+  id: '/go-pro',
+  path: '/go-pro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImportRoute = ImportRouteImport.update({
+  id: '/import',
+  path: '/import',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterestRoute = InterestRouteImport.update({
+  id: '/interest',
+  path: '/interest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyAlbumsRoute = MyAlbumsRouteImport.update({
+  id: '/my-albums',
+  path: '/my-albums',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyAppsRoute = MyAppsRouteImport.update({
+  id: '/my-apps',
+  path: '/my-apps',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MySongsRoute = MySongsRouteImport.update({
+  id: '/my-songs',
+  path: '/my-songs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const My_playlistsRoute = My_playlistsRouteImport.update({
+  id: '/my_playlists',
+  path: '/my_playlists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const New_musicRoute = New_musicRouteImport.update({
+  id: '/new_music',
+  path: '/new_music',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaylistsRoute = PlaylistsRouteImport.update({
+  id: '/playlists',
+  path: '/playlists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PointSystemRoute = PointSystemRouteImport.update({
+  id: '/point-system',
+  path: '/point-system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PurchasedRoute = PurchasedRouteImport.update({
+  id: '/purchased',
+  path: '/purchased',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Recently_playedRoute = Recently_playedRouteImport.update({
+  id: '/recently_played',
+  path: '/recently_played',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpotlightRoute = SpotlightRouteImport.update({
+  id: '/spotlight',
+  path: '/spotlight',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubscriptionRoute = SubscriptionRouteImport.update({
+  id: '/subscription',
+  path: '/subscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Top_musicRoute = Top_musicRouteImport.update({
+  id: '/top_music',
+  path: '/top_music',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UploadAlbumRoute = UploadAlbumRouteImport.update({
+  id: '/upload-album',
+  path: '/upload-album',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UploadSingleRoute = UploadSingleRouteImport.update({
+  id: '/upload-single',
+  path: '/upload-single',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UploadSongRoute = UploadSongRouteImport.update({
+  id: '/upload-song',
+  path: '/upload-song',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const TracksSlugRoute = TracksSlugRouteImport.update({
-  id: '/tracks/$slug',
-  path: '/tracks/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlaylistsSlugRoute = PlaylistsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => PlaylistsRoute,
-} as any)
-const PaymentCallbackRoute = PaymentCallbackRouteImport.update({
-  id: '/payment/callback',
-  path: '/payment/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagesSlugRoute = PagesSlugRouteImport.update({
-  id: '/pages/$slug',
-  path: '/pages/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
-  id: '/artists/$slug',
-  path: '/artists/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArtistWithdrawRoute = ArtistWithdrawRouteImport.update({
-  id: '/artist/withdraw',
-  path: '/artist/withdraw',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArtistUpgradeRoute = ArtistUpgradeRouteImport.update({
-  id: '/artist/upgrade',
-  path: '/artist/upgrade',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
-  id: '/articles/$slug',
-  path: '/articles/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlbumsSlugRoute = AlbumsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => AlbumsRoute,
-} as any)
-const AdminWithdrawalsRoute = AdminWithdrawalsRouteImport.update({
-  id: '/withdrawals',
-  path: '/withdrawals',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminTracksRoute = AdminTracksRouteImport.update({
-  id: '/tracks',
-  path: '/tracks',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminTopupsRoute = AdminTopupsRouteImport.update({
-  id: '/topups',
-  path: '/topups',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminReportsRoute = AdminReportsRouteImport.update({
-  id: '/reports',
-  path: '/reports',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminPaymentsRoute = AdminPaymentsRouteImport.update({
-  id: '/payments',
-  path: '/payments',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminPagesRoute = AdminPagesRouteImport.update({
-  id: '/pages',
-  path: '/pages',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminMobileMoneyRoute = AdminMobileMoneyRouteImport.update({
-  id: '/mobile-money',
-  path: '/mobile-money',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminFaqRoute = AdminFaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCopyrightsRoute = AdminCopyrightsRouteImport.update({
-  id: '/copyrights',
-  path: '/copyrights',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCommentsRoute = AdminCommentsRouteImport.update({
-  id: '/comments',
-  path: '/comments',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCinetpayRoute = AdminCinetpayRouteImport.update({
-  id: '/cinetpay',
-  path: '/cinetpay',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminBrandingRoute = AdminBrandingRouteImport.update({
-  id: '/branding',
-  path: '/branding',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminBannedIpsRoute = AdminBannedIpsRouteImport.update({
-  id: '/banned-ips',
-  path: '/banned-ips',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminBankReceiptsRoute = AdminBankReceiptsRouteImport.update({
-  id: '/bank-receipts',
-  path: '/bank-receipts',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminArtistsRoute = AdminArtistsRouteImport.update({
-  id: '/artists',
-  path: '/artists',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminArtistVerificationRoute = AdminArtistVerificationRouteImport.update({
-  id: '/artist-verification',
-  path: '/artist-verification',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
@@ -473,28 +355,145 @@ const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
   path: '/announcements',
   getParentRoute: () => AdminRoute,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicSeedTestAccountsRoute =
-  ApiPublicSeedTestAccountsRouteImport.update({
-    id: '/api/public/seed-test-accounts',
-    path: '/api/public/seed-test-accounts',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicPaygateCallbackRoute =
-  ApiPublicPaygateCallbackRouteImport.update({
-    id: '/api/public/paygate-callback',
-    path: '/api/public/paygate-callback',
+const AdminArtistVerificationRoute = AdminArtistVerificationRouteImport.update({
+  id: '/artist-verification',
+  path: '/artist-verification',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminArtistsRoute = AdminArtistsRouteImport.update({
+  id: '/artists',
+  path: '/artists',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBankReceiptsRoute = AdminBankReceiptsRouteImport.update({
+  id: '/bank-receipts',
+  path: '/bank-receipts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBannedIpsRoute = AdminBannedIpsRouteImport.update({
+  id: '/banned-ips',
+  path: '/banned-ips',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBrandingRoute = AdminBrandingRouteImport.update({
+  id: '/branding',
+  path: '/branding',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCinetpayRoute = AdminCinetpayRouteImport.update({
+  id: '/cinetpay',
+  path: '/cinetpay',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCommentsRoute = AdminCommentsRouteImport.update({
+  id: '/comments',
+  path: '/comments',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCopyrightsRoute = AdminCopyrightsRouteImport.update({
+  id: '/copyrights',
+  path: '/copyrights',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFaqRoute = AdminFaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMobileMoneyRoute = AdminMobileMoneyRouteImport.update({
+  id: '/mobile-money',
+  path: '/mobile-money',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPagesRoute = AdminPagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPaymentsRoute = AdminPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTopupsRoute = AdminTopupsRouteImport.update({
+  id: '/topups',
+  path: '/topups',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTracksRoute = AdminTracksRouteImport.update({
+  id: '/tracks',
+  path: '/tracks',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminWithdrawalsRoute = AdminWithdrawalsRouteImport.update({
+  id: '/withdrawals',
+  path: '/withdrawals',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AlbumsSlugRoute = AlbumsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => AlbumsRoute,
+} as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistUpgradeRoute = ArtistUpgradeRouteImport.update({
+  id: '/artist/upgrade',
+  path: '/artist/upgrade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistWithdrawRoute = ArtistWithdrawRouteImport.update({
+  id: '/artist/withdraw',
+  path: '/artist/withdraw',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
+  id: '/artists/$slug',
+  path: '/artists/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesSlugRoute = PagesSlugRouteImport.update({
+  id: '/pages/$slug',
+  path: '/pages/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentCallbackRoute = PaymentCallbackRouteImport.update({
+  id: '/payment/callback',
+  path: '/payment/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaylistsSlugRoute = PlaylistsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => PlaylistsRoute,
+} as any)
+const TracksSlugRoute = TracksSlugRouteImport.update({
+  id: '/tracks/$slug',
+  path: '/tracks/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicCinetpayWebhookRoute =
@@ -503,17 +502,18 @@ const ApiPublicCinetpayWebhookRoute =
     path: '/api/public/cinetpay-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
+const ApiPublicPaygateCallbackRoute =
+  ApiPublicPaygateCallbackRouteImport.update({
+    id: '/api/public/paygate-callback',
+    path: '/api/public/paygate-callback',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const ApiPublicSeedTestAccountsRoute =
+  ApiPublicSeedTestAccountsRouteImport.update({
+    id: '/api/public/seed-test-accounts',
+    path: '/api/public/seed-test-accounts',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -1094,326 +1094,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wallet': {
-      id: '/wallet'
-      path: '/wallet'
-      fullPath: '/wallet'
-      preLoaderRoute: typeof WalletRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/upload-song': {
-      id: '/upload-song'
-      path: '/upload-song'
-      fullPath: '/upload-song'
-      preLoaderRoute: typeof UploadSongRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/upload-single': {
-      id: '/upload-single'
-      path: '/upload-single'
-      fullPath: '/upload-single'
-      preLoaderRoute: typeof UploadSingleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/upload-album': {
-      id: '/upload-album'
-      path: '/upload-album'
-      fullPath: '/upload-album'
-      preLoaderRoute: typeof UploadAlbumRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/top_music': {
-      id: '/top_music'
-      path: '/top_music'
-      fullPath: '/top_music'
-      preLoaderRoute: typeof Top_musicRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/subscription': {
-      id: '/subscription'
-      path: '/subscription'
-      fullPath: '/subscription'
-      preLoaderRoute: typeof SubscriptionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/spotlight': {
-      id: '/spotlight'
-      path: '/spotlight'
-      fullPath: '/spotlight'
-      preLoaderRoute: typeof SpotlightRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/recently_played': {
-      id: '/recently_played'
-      path: '/recently_played'
-      fullPath: '/recently_played'
-      preLoaderRoute: typeof Recently_playedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/purchased': {
-      id: '/purchased'
-      path: '/purchased'
-      fullPath: '/purchased'
-      preLoaderRoute: typeof PurchasedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/point-system': {
-      id: '/point-system'
-      path: '/point-system'
-      fullPath: '/point-system'
-      preLoaderRoute: typeof PointSystemRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/playlists': {
-      id: '/playlists'
-      path: '/playlists'
-      fullPath: '/playlists'
-      preLoaderRoute: typeof PlaylistsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pay': {
-      id: '/pay'
-      path: '/pay'
-      fullPath: '/pay'
-      preLoaderRoute: typeof PayRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notifications': {
-      id: '/notifications'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof NotificationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/new_music': {
-      id: '/new_music'
-      path: '/new_music'
-      fullPath: '/new_music'
-      preLoaderRoute: typeof New_musicRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/my_playlists': {
-      id: '/my_playlists'
-      path: '/my_playlists'
-      fullPath: '/my_playlists'
-      preLoaderRoute: typeof My_playlistsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/my-songs': {
-      id: '/my-songs'
-      path: '/my-songs'
-      fullPath: '/my-songs'
-      preLoaderRoute: typeof MySongsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/my-apps': {
-      id: '/my-apps'
-      path: '/my-apps'
-      fullPath: '/my-apps'
-      preLoaderRoute: typeof MyAppsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/my-albums': {
-      id: '/my-albums'
-      path: '/my-albums'
-      fullPath: '/my-albums'
-      preLoaderRoute: typeof MyAlbumsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/messages': {
-      id: '/messages'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof MessagesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/interest': {
-      id: '/interest'
-      path: '/interest'
-      fullPath: '/interest'
-      preLoaderRoute: typeof InterestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/import': {
-      id: '/import'
-      path: '/import'
-      fullPath: '/import'
-      preLoaderRoute: typeof ImportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/go-pro': {
-      id: '/go-pro'
-      path: '/go-pro'
-      fullPath: '/go-pro'
-      preLoaderRoute: typeof GoProRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/genres': {
-      id: '/genres'
-      path: '/genres'
-      fullPath: '/genres'
-      preLoaderRoute: typeof GenresRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot-password': {
-      id: '/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/following': {
-      id: '/following'
-      path: '/following'
-      fullPath: '/following'
-      preLoaderRoute: typeof FollowingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/feed': {
-      id: '/feed'
-      path: '/feed'
-      fullPath: '/feed'
-      preLoaderRoute: typeof FeedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/favourites': {
-      id: '/favourites'
-      path: '/favourites'
-      fullPath: '/favourites'
-      preLoaderRoute: typeof FavouritesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fame': {
-      id: '/fame'
-      path: '/fame'
-      fullPath: '/fame'
-      preLoaderRoute: typeof FameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/discover': {
-      id: '/discover'
-      path: '/discover'
-      fullPath: '/discover'
-      preLoaderRoute: typeof DiscoverRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/developers': {
-      id: '/developers'
-      path: '/developers'
-      fullPath: '/developers'
-      preLoaderRoute: typeof DevelopersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blogs': {
-      id: '/blogs'
-      path: '/blogs'
-      fullPath: '/blogs'
-      preLoaderRoute: typeof BlogsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/become': {
-      id: '/become'
-      path: '/become'
-      fullPath: '/become'
-      preLoaderRoute: typeof BecomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/albums': {
-      id: '/albums'
-      path: '/albums'
-      fullPath: '/albums'
-      preLoaderRoute: typeof AlbumsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -1423,214 +1108,326 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/tracks/$slug': {
-      id: '/tracks/$slug'
-      path: '/tracks/$slug'
-      fullPath: '/tracks/$slug'
-      preLoaderRoute: typeof TracksSlugRouteImport
+    '/albums': {
+      id: '/albums'
+      path: '/albums'
+      fullPath: '/albums'
+      preLoaderRoute: typeof AlbumsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/playlists/$slug': {
-      id: '/playlists/$slug'
-      path: '/$slug'
-      fullPath: '/playlists/$slug'
-      preLoaderRoute: typeof PlaylistsSlugRouteImport
-      parentRoute: typeof PlaylistsRoute
-    }
-    '/payment/callback': {
-      id: '/payment/callback'
-      path: '/payment/callback'
-      fullPath: '/payment/callback'
-      preLoaderRoute: typeof PaymentCallbackRouteImport
+    '/become': {
+      id: '/become'
+      path: '/become'
+      fullPath: '/become'
+      preLoaderRoute: typeof BecomeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pages/$slug': {
-      id: '/pages/$slug'
-      path: '/pages/$slug'
-      fullPath: '/pages/$slug'
-      preLoaderRoute: typeof PagesSlugRouteImport
+    '/blogs': {
+      id: '/blogs'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof BlogsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/artists/$slug': {
-      id: '/artists/$slug'
-      path: '/artists/$slug'
-      fullPath: '/artists/$slug'
-      preLoaderRoute: typeof ArtistsSlugRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/artist/withdraw': {
-      id: '/artist/withdraw'
-      path: '/artist/withdraw'
-      fullPath: '/artist/withdraw'
-      preLoaderRoute: typeof ArtistWithdrawRouteImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/artist/upgrade': {
-      id: '/artist/upgrade'
-      path: '/artist/upgrade'
-      fullPath: '/artist/upgrade'
-      preLoaderRoute: typeof ArtistUpgradeRouteImport
+    '/developers': {
+      id: '/developers'
+      path: '/developers'
+      fullPath: '/developers'
+      preLoaderRoute: typeof DevelopersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/articles/$slug': {
-      id: '/articles/$slug'
-      path: '/articles/$slug'
-      fullPath: '/articles/$slug'
-      preLoaderRoute: typeof ArticlesSlugRouteImport
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/albums/$slug': {
-      id: '/albums/$slug'
-      path: '/$slug'
-      fullPath: '/albums/$slug'
-      preLoaderRoute: typeof AlbumsSlugRouteImport
-      parentRoute: typeof AlbumsRoute
+    '/fame': {
+      id: '/fame'
+      path: '/fame'
+      fullPath: '/fame'
+      preLoaderRoute: typeof FameRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/withdrawals': {
-      id: '/admin/withdrawals'
-      path: '/withdrawals'
-      fullPath: '/admin/withdrawals'
-      preLoaderRoute: typeof AdminWithdrawalsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/users': {
-      id: '/admin/users'
-      path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/tracks': {
-      id: '/admin/tracks'
-      path: '/tracks'
-      fullPath: '/admin/tracks'
-      preLoaderRoute: typeof AdminTracksRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/topups': {
-      id: '/admin/topups'
-      path: '/topups'
-      fullPath: '/admin/topups'
-      preLoaderRoute: typeof AdminTopupsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/reports': {
-      id: '/admin/reports'
-      path: '/reports'
-      fullPath: '/admin/reports'
-      preLoaderRoute: typeof AdminReportsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/payments': {
-      id: '/admin/payments'
-      path: '/payments'
-      fullPath: '/admin/payments'
-      preLoaderRoute: typeof AdminPaymentsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/pages': {
-      id: '/admin/pages'
-      path: '/pages'
-      fullPath: '/admin/pages'
-      preLoaderRoute: typeof AdminPagesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/mobile-money': {
-      id: '/admin/mobile-money'
-      path: '/mobile-money'
-      fullPath: '/admin/mobile-money'
-      preLoaderRoute: typeof AdminMobileMoneyRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/faq': {
-      id: '/admin/faq'
+    '/faq': {
+      id: '/faq'
       path: '/faq'
-      fullPath: '/admin/faq'
-      preLoaderRoute: typeof AdminFaqRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/copyrights': {
-      id: '/admin/copyrights'
-      path: '/copyrights'
-      fullPath: '/admin/copyrights'
-      preLoaderRoute: typeof AdminCopyrightsRouteImport
-      parentRoute: typeof AdminRoute
+    '/favourites': {
+      id: '/favourites'
+      path: '/favourites'
+      fullPath: '/favourites'
+      preLoaderRoute: typeof FavouritesRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/comments': {
-      id: '/admin/comments'
-      path: '/comments'
-      fullPath: '/admin/comments'
-      preLoaderRoute: typeof AdminCommentsRouteImport
-      parentRoute: typeof AdminRoute
+    '/feed': {
+      id: '/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof FeedRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/cinetpay': {
-      id: '/admin/cinetpay'
-      path: '/cinetpay'
-      fullPath: '/admin/cinetpay'
-      preLoaderRoute: typeof AdminCinetpayRouteImport
-      parentRoute: typeof AdminRoute
+    '/following': {
+      id: '/following'
+      path: '/following'
+      fullPath: '/following'
+      preLoaderRoute: typeof FollowingRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/branding': {
-      id: '/admin/branding'
-      path: '/branding'
-      fullPath: '/admin/branding'
-      preLoaderRoute: typeof AdminBrandingRouteImport
-      parentRoute: typeof AdminRoute
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/banned-ips': {
-      id: '/admin/banned-ips'
-      path: '/banned-ips'
-      fullPath: '/admin/banned-ips'
-      preLoaderRoute: typeof AdminBannedIpsRouteImport
-      parentRoute: typeof AdminRoute
+    '/genres': {
+      id: '/genres'
+      path: '/genres'
+      fullPath: '/genres'
+      preLoaderRoute: typeof GenresRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/bank-receipts': {
-      id: '/admin/bank-receipts'
-      path: '/bank-receipts'
-      fullPath: '/admin/bank-receipts'
-      preLoaderRoute: typeof AdminBankReceiptsRouteImport
-      parentRoute: typeof AdminRoute
+    '/go-pro': {
+      id: '/go-pro'
+      path: '/go-pro'
+      fullPath: '/go-pro'
+      preLoaderRoute: typeof GoProRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/artists': {
-      id: '/admin/artists'
-      path: '/artists'
-      fullPath: '/admin/artists'
-      preLoaderRoute: typeof AdminArtistsRouteImport
-      parentRoute: typeof AdminRoute
+    '/import': {
+      id: '/import'
+      path: '/import'
+      fullPath: '/import'
+      preLoaderRoute: typeof ImportRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/artist-verification': {
-      id: '/admin/artist-verification'
-      path: '/artist-verification'
-      fullPath: '/admin/artist-verification'
-      preLoaderRoute: typeof AdminArtistVerificationRouteImport
-      parentRoute: typeof AdminRoute
+    '/interest': {
+      id: '/interest'
+      path: '/interest'
+      fullPath: '/interest'
+      preLoaderRoute: typeof InterestRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/admin/announcements': {
-      id: '/admin/announcements'
-      path: '/announcements'
-      fullPath: '/admin/announcements'
-      preLoaderRoute: typeof AdminAnnouncementsRouteImport
-      parentRoute: typeof AdminRoute
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-albums': {
+      id: '/my-albums'
+      path: '/my-albums'
+      fullPath: '/my-albums'
+      preLoaderRoute: typeof MyAlbumsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-apps': {
+      id: '/my-apps'
+      path: '/my-apps'
+      fullPath: '/my-apps'
+      preLoaderRoute: typeof MyAppsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-songs': {
+      id: '/my-songs'
+      path: '/my-songs'
+      fullPath: '/my-songs'
+      preLoaderRoute: typeof MySongsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my_playlists': {
+      id: '/my_playlists'
+      path: '/my_playlists'
+      fullPath: '/my_playlists'
+      preLoaderRoute: typeof My_playlistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new_music': {
+      id: '/new_music'
+      path: '/new_music'
+      fullPath: '/new_music'
+      preLoaderRoute: typeof New_musicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pay': {
+      id: '/pay'
+      path: '/pay'
+      fullPath: '/pay'
+      preLoaderRoute: typeof PayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playlists': {
+      id: '/playlists'
+      path: '/playlists'
+      fullPath: '/playlists'
+      preLoaderRoute: typeof PlaylistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/point-system': {
+      id: '/point-system'
+      path: '/point-system'
+      fullPath: '/point-system'
+      preLoaderRoute: typeof PointSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/purchased': {
+      id: '/purchased'
+      path: '/purchased'
+      fullPath: '/purchased'
+      preLoaderRoute: typeof PurchasedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recently_played': {
+      id: '/recently_played'
+      path: '/recently_played'
+      fullPath: '/recently_played'
+      preLoaderRoute: typeof Recently_playedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spotlight': {
+      id: '/spotlight'
+      path: '/spotlight'
+      fullPath: '/spotlight'
+      preLoaderRoute: typeof SpotlightRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subscription': {
+      id: '/subscription'
+      path: '/subscription'
+      fullPath: '/subscription'
+      preLoaderRoute: typeof SubscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/top_music': {
+      id: '/top_music'
+      path: '/top_music'
+      fullPath: '/top_music'
+      preLoaderRoute: typeof Top_musicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upload-album': {
+      id: '/upload-album'
+      path: '/upload-album'
+      fullPath: '/upload-album'
+      preLoaderRoute: typeof UploadAlbumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upload-single': {
+      id: '/upload-single'
+      path: '/upload-single'
+      fullPath: '/upload-single'
+      preLoaderRoute: typeof UploadSingleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upload-song': {
+      id: '/upload-song'
+      path: '/upload-song'
+      fullPath: '/upload-song'
+      preLoaderRoute: typeof UploadSongRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -1640,25 +1437,214 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/seed-test-accounts': {
-      id: '/api/public/seed-test-accounts'
-      path: '/api/public/seed-test-accounts'
-      fullPath: '/api/public/seed-test-accounts'
-      preLoaderRoute: typeof ApiPublicSeedTestAccountsRouteImport
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/paygate-callback': {
-      id: '/api/public/paygate-callback'
-      path: '/api/public/paygate-callback'
-      fullPath: '/api/public/paygate-callback'
-      preLoaderRoute: typeof ApiPublicPaygateCallbackRouteImport
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/artist-verification': {
+      id: '/admin/artist-verification'
+      path: '/artist-verification'
+      fullPath: '/admin/artist-verification'
+      preLoaderRoute: typeof AdminArtistVerificationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/artists': {
+      id: '/admin/artists'
+      path: '/artists'
+      fullPath: '/admin/artists'
+      preLoaderRoute: typeof AdminArtistsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/bank-receipts': {
+      id: '/admin/bank-receipts'
+      path: '/bank-receipts'
+      fullPath: '/admin/bank-receipts'
+      preLoaderRoute: typeof AdminBankReceiptsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/banned-ips': {
+      id: '/admin/banned-ips'
+      path: '/banned-ips'
+      fullPath: '/admin/banned-ips'
+      preLoaderRoute: typeof AdminBannedIpsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/branding': {
+      id: '/admin/branding'
+      path: '/branding'
+      fullPath: '/admin/branding'
+      preLoaderRoute: typeof AdminBrandingRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/cinetpay': {
+      id: '/admin/cinetpay'
+      path: '/cinetpay'
+      fullPath: '/admin/cinetpay'
+      preLoaderRoute: typeof AdminCinetpayRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/comments': {
+      id: '/admin/comments'
+      path: '/comments'
+      fullPath: '/admin/comments'
+      preLoaderRoute: typeof AdminCommentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/copyrights': {
+      id: '/admin/copyrights'
+      path: '/copyrights'
+      fullPath: '/admin/copyrights'
+      preLoaderRoute: typeof AdminCopyrightsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/faq': {
+      id: '/admin/faq'
+      path: '/faq'
+      fullPath: '/admin/faq'
+      preLoaderRoute: typeof AdminFaqRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/mobile-money': {
+      id: '/admin/mobile-money'
+      path: '/mobile-money'
+      fullPath: '/admin/mobile-money'
+      preLoaderRoute: typeof AdminMobileMoneyRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pages': {
+      id: '/admin/pages'
+      path: '/pages'
+      fullPath: '/admin/pages'
+      preLoaderRoute: typeof AdminPagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/payments': {
+      id: '/admin/payments'
+      path: '/payments'
+      fullPath: '/admin/payments'
+      preLoaderRoute: typeof AdminPaymentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/topups': {
+      id: '/admin/topups'
+      path: '/topups'
+      fullPath: '/admin/topups'
+      preLoaderRoute: typeof AdminTopupsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/tracks': {
+      id: '/admin/tracks'
+      path: '/tracks'
+      fullPath: '/admin/tracks'
+      preLoaderRoute: typeof AdminTracksRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/withdrawals': {
+      id: '/admin/withdrawals'
+      path: '/withdrawals'
+      fullPath: '/admin/withdrawals'
+      preLoaderRoute: typeof AdminWithdrawalsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/albums/$slug': {
+      id: '/albums/$slug'
+      path: '/$slug'
+      fullPath: '/albums/$slug'
+      preLoaderRoute: typeof AlbumsSlugRouteImport
+      parentRoute: typeof AlbumsRoute
+    }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/cinetpay-webhook': {
-      id: '/api/public/cinetpay-webhook'
-      path: '/api/public/cinetpay-webhook'
-      fullPath: '/api/public/cinetpay-webhook'
-      preLoaderRoute: typeof ApiPublicCinetpayWebhookRouteImport
+    '/artist/upgrade': {
+      id: '/artist/upgrade'
+      path: '/artist/upgrade'
+      fullPath: '/artist/upgrade'
+      preLoaderRoute: typeof ArtistUpgradeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artist/withdraw': {
+      id: '/artist/withdraw'
+      path: '/artist/withdraw'
+      fullPath: '/artist/withdraw'
+      preLoaderRoute: typeof ArtistWithdrawRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artists/$slug': {
+      id: '/artists/$slug'
+      path: '/artists/$slug'
+      fullPath: '/artists/$slug'
+      preLoaderRoute: typeof ArtistsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/$slug': {
+      id: '/pages/$slug'
+      path: '/pages/$slug'
+      fullPath: '/pages/$slug'
+      preLoaderRoute: typeof PagesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment/callback': {
+      id: '/payment/callback'
+      path: '/payment/callback'
+      fullPath: '/payment/callback'
+      preLoaderRoute: typeof PaymentCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playlists/$slug': {
+      id: '/playlists/$slug'
+      path: '/$slug'
+      fullPath: '/playlists/$slug'
+      preLoaderRoute: typeof PlaylistsSlugRouteImport
+      parentRoute: typeof PlaylistsRoute
+    }
+    '/tracks/$slug': {
+      id: '/tracks/$slug'
+      path: '/tracks/$slug'
+      fullPath: '/tracks/$slug'
+      preLoaderRoute: typeof TracksSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
@@ -1668,11 +1654,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+    '/api/public/cinetpay-webhook': {
+      id: '/api/public/cinetpay-webhook'
+      path: '/api/public/cinetpay-webhook'
+      fullPath: '/api/public/cinetpay-webhook'
+      preLoaderRoute: typeof ApiPublicCinetpayWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/paygate-callback': {
+      id: '/api/public/paygate-callback'
+      path: '/api/public/paygate-callback'
+      fullPath: '/api/public/paygate-callback'
+      preLoaderRoute: typeof ApiPublicPaygateCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/seed-test-accounts': {
+      id: '/api/public/seed-test-accounts'
+      path: '/api/public/seed-test-accounts'
+      fullPath: '/api/public/seed-test-accounts'
+      preLoaderRoute: typeof ApiPublicSeedTestAccountsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

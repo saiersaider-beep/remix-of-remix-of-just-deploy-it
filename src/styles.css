@@ -1199,6 +1199,13 @@
   background: none !important;
 }
 
+/* ──────────────────────────────────────────────────────────────────
+   Motion polish — calm, editorial, human-crafted.
+   Kills noisy AI-signature loops (spins, pings, particle drifts,
+   heavy glows) and softens the rest so the site reads as designed,
+   not generated.
+   ────────────────────────────────────────────────────────────────── */
+
 /* Kill ambient / animated backgrounds */
 .ambient-blob,
 .bg-mesh,
@@ -1207,9 +1214,51 @@
   animation: none !important;
   background: none !important;
 }
-[class*="animate-float-slow"] {
+
+/* Silence the loud loops entirely */
+[class*="animate-float-slow"],
+[class*="animate-conic-spin"],
+[class*="animate-headphone-float"],
+[class*="animate-headphone-zoom"],
+[class*="animate-glow-pulse"],
+[class*="animate-float-card"] {
   animation: none !important;
+  transform: none !important;
 }
+
+/* Particles are the #1 "AI-made" tell — remove them */
+[style*="particle-drift"] { display: none !important; }
+
+/* Tone down attention-grabbing indicators. `animate-ping` and the
+   default `animate-pulse` on hero decorations feel like a demo, not
+   a product. Keep them only inside interactive controls. */
+main [class~="animate-ping"],
+main [class~="animate-pulse"]:not(button *):not(a *):not([role="status"] *) {
+  animation: none !important;
+  opacity: 0.7;
+}
+
+/* Refine the entrance animation: shorter distance, softer easing */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 520ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+
+/* Smooth every interactive transform globally */
+a, button, [role="button"], .group {
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
 
 /* ──────────────────────────────────────────────────────────────────
    BLUE → ORANGE remap. Catches every Tailwind blue/cyan/sky/indigo

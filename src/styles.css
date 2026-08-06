@@ -2127,3 +2127,141 @@ input[type="file"]::file-selector-button:hover { filter: brightness(1.05); trans
 .animate-brand-bob { animation: brand-bob 1.2s ease-in-out infinite; }
 .animate-brand-pulse { animation: brand-pulse 1.6s ease-in-out infinite; }
 .animate-brand-pulse-text { animation: brand-pulse-text 1.4s ease-in-out infinite; }
+
+/* ===========================================================================
+   SYSTÈME DE MOUVEMENT UNIFIÉ
+   Une seule courbe, une seule échelle de durées, une seule direction.
+   Placé en fin de fichier : sert de couche de normalisation finale.
+   =========================================================================== */
+:root {
+  /* Courbe unique du site (sortie douce, sans rebond) */
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-cinema: var(--ease-standard);
+  --ease-breath: var(--ease-standard);
+
+  /* Échelle de durées unique */
+  --motion-fast: 140ms;   /* micro-interactions : hover, focus */
+  --motion-base: 240ms;   /* transitions standard */
+  --motion-slow: 400ms;   /* entrées de page / révélations */
+
+  /* Direction unique : tout entre depuis le bas */
+  --motion-distance: 8px;
+}
+
+/* 1 — Easing et durée cohérents partout.
+   :where() garde une spécificité nulle : les réglages explicites
+   d'un composant restent prioritaires. */
+:where(*, *::before, *::after) {
+  transition-timing-function: var(--ease-standard);
+  transition-duration: var(--motion-base);
+  animation-timing-function: var(--ease-standard);
+}
+
+/* Micro-interactions : plus courtes, même courbe */
+:where(a, button, [role="button"], summary, [tabindex], input, select, textarea) {
+  transition-duration: var(--motion-fast);
+}
+
+/* Durées Tailwind extrêmes ramenées dans l'échelle */
+.duration-500, .duration-700, .duration-1000 { transition-duration: var(--motion-slow); }
+.duration-75, .duration-100 { transition-duration: var(--motion-fast); }
+
+/* 2 — Fluidité : n'animer que des propriétés composées par le GPU.
+   `transition-all` déclenche un recalcul de layout dès qu'une taille,
+   marge ou position change ; on restreint la liste. */
+.transition-all,
+[class*="transition-all"] {
+  transition-property: transform, opacity, color, background-color, border-color,
+    box-shadow, filter, backdrop-filter, fill, stroke;
+}
+
+/* Jamais de transition sur des propriétés qui reflowent */
+:where(*) {
+  transition-property: transform, opacity, color, background-color, border-color,
+    box-shadow, filter, backdrop-filter, fill, stroke;
+}
+
+/* Isolation des zones animées pour limiter la portée des repaints */
+.gs-reveal,
+.animate-fade-up,
+[class*="animate-"] {
+  backface-visibility: hidden;
+}
+.gs-reveal,
+.gs-page {
+  contain: layout paint style;
+}
+/* `will-change` uniquement pendant l'interaction, sinon il coûte de la mémoire */
+:where(.hover-scale, .card-3d, [data-tilt]):hover { will-change: transform; }
+:where(.hover-scale, .card-3d, [data-tilt]) { will-change: auto; }
+
+/* 3 — Direction unique : entrée verticale ascendante, jamais latérale */
+@keyframes fade-up {
+  from { opacity: 0; transform: translate3d(0, var(--motion-distance), 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes gsRevealUp {
+  from { opacity: 0; transform: translate3d(0, var(--motion-distance), 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.animate-fade-up { animation: fade-up var(--motion-slow) var(--ease-standard) both; }
+.animate-fade-in { animation: fade-up var(--motion-base) var(--ease-standard) both; }
+.animate-enter   { animation: fade-up var(--motion-base) var(--ease-standard) both; }
+.animate-scale-in { animation: fade-up var(--motion-base) var(--ease-standard) both; }
+.animate-slide-in-right { animation: fade-up var(--motion-base) var(--ease-standard) both; }
+
+/* 4 — Accessibilité : focus clavier lisible, jamais masqué */
+:where(a, button, [role="button"], [role="tab"], [role="menuitem"], [role="option"],
+  input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 26%, transparent);
+  transition: box-shadow var(--motion-fast) var(--ease-standard),
+              outline-color var(--motion-fast) var(--ease-standard);
+}
+/* Le focus ne doit jamais être rogné par un overflow décoratif */
+:focus-visible { z-index: 1; position: relative; }
+/* Neutralise les suppressions d'outline héritées de composants tiers */
+[class*="focus:outline-none"]:focus-visible,
+[class*="focus-visible:outline-none"]:focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 3px !important;
+}
+/* Lien d'évitement + contenus masqués visuellement mais focalisables */
+.sr-only:focus, .sr-only:focus-visible {
+  position: fixed; inset: auto auto 1rem 1rem;
+  width: auto; height: auto; padding: 0.6rem 1rem;
+  clip: auto; clip-path: none; white-space: normal;
+  background: var(--background); color: var(--foreground);
+  border: 1px solid var(--primary); border-radius: 9999px; z-index: 100;
+}
+
+/* 5 — prefers-reduced-motion : couverture complète (transitions, animations,
+   défilement, effets décoratifs) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  html, body { scroll-behavior: auto !important; }
+  .gs-reveal, .gs-reveal.gs-in, .gs-page,
+  .animate-fade-up, [class*="animate-"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Les indicateurs d'état restent perceptibles, mais sans clignotement */
+  .animate-brand-spin, .animate-brand-bob,
+  .animate-brand-pulse, .animate-brand-pulse-text,
+  .animate-live-dot, .animate-vinyl-spin, .animate-marquee, .animate-marquee-up {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  /* Le focus reste visible et instantané */
+  :focus-visible { transition: none !important; }
+}

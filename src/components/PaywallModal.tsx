@@ -62,6 +62,22 @@ export function PaywallModal() {
     });
   };
 
+  /** Solde wallet insuffisant → page de recharge, montant pré-rempli. */
+  const handleTopUp = () => {
+    close();
+    navigate({
+      to: "/pay",
+      search: { purpose: "wallet", amount: Math.max(price - walletBal, 500) },
+    });
+  };
+
+  /** Pas assez de points → page d'explication pour en gagner. */
+  const handleEarnPoints = () => {
+    close();
+    navigate({ to: "/point-system" });
+  };
+
+
   const handleMinute = async () => {
     setBusy("minute");
     try {

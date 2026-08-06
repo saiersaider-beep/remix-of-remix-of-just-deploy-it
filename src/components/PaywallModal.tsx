@@ -193,13 +193,17 @@ export function PaywallModal() {
         </div>
 
         <div className="flex flex-col gap-2">
-          {/* Option 1: buy via wallet */}
+          {/* Option 1: buy via wallet (ou recharger si solde insuffisant) */}
           <ChoiceButton
             icon={Wallet}
-            label={`Acheter avec mon wallet (${formatPrice(price, currency)})`}
-            sub={canWallet ? "Accès complet immédiat" : `Solde insuffisant — il manque ${price - walletBal} XOF`}
-            onClick={handleWalletBuy}
-            disabled={!canWallet || busy !== null}
+            label={
+              canWallet
+                ? `Acheter avec mon wallet (${formatPrice(price, currency)})`
+                : `Recharger mon wallet (${price - walletBal} XOF manquants)`
+            }
+            sub={canWallet ? "Accès complet immédiat" : "Aller à la recharge Mobile Money"}
+            onClick={canWallet ? handleWalletBuy : handleTopUp}
+            disabled={busy !== null}
             loading={busy === "wallet"}
           />
 
@@ -217,26 +221,35 @@ export function PaywallModal() {
           {/* Option 3: minute pass via points */}
           <ChoiceButton
             icon={Headphones}
-            label={`Écouter 1 minute (${MINUTE_PASS_COST} pts)`}
-            sub={canMinute ? "Une minute supplémentaire" : `Il te manque ${MINUTE_PASS_COST - ptsBal} points`}
-            onClick={handleMinute}
-            disabled={!canMinute || busy !== null}
+            label={
+              canMinute
+                ? `Écouter 1 minute (${MINUTE_PASS_COST} pts)`
+                : `Gagner des points (${MINUTE_PASS_COST - ptsBal} pts manquants)`
+            }
+            sub={canMinute ? "Une minute supplémentaire" : "Voir comment gagner des points"}
+            onClick={canMinute ? handleMinute : handleEarnPoints}
+            disabled={busy !== null}
             loading={busy === "minute"}
           />
 
           {/* Option 4: convert points → wallet and buy */}
           <ChoiceButton
             icon={ArrowRightLeft}
-            label={`Convertir ${ptsNeededForPrice} pts → ${formatPrice(price, currency)} et acheter`}
+            label={
+              canConvertAndBuy
+                ? `Convertir ${ptsNeededForPrice} pts → ${formatPrice(price, currency)} et acheter`
+                : `Gagner ${ptsNeededForPrice - ptsBal} pts pour convertir`
+            }
             sub={
               canConvertAndBuy
                 ? `Taux : ${POINTS_TO_XOF_RATIO} pts = ${POINTS_TO_XOF_VALUE} XOF`
-                : `Il te manque ${ptsNeededForPrice - ptsBal} points`
+                : "Voir comment gagner des points"
             }
-            onClick={handleConvertAndBuy}
-            disabled={!canConvertAndBuy || busy !== null}
+            onClick={canConvertAndBuy ? handleConvertAndBuy : handleEarnPoints}
+            disabled={busy !== null}
             loading={busy === "convert"}
           />
+
 
           {isAdmin && (
             <button

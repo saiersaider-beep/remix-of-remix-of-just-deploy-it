@@ -2265,3 +2265,65 @@ input[type="file"]::file-selector-button:hover { filter: brightness(1.05); trans
   /* Le focus reste visible et instantané */
   :focus-visible { transition: none !important; }
 }
+
+/* ==========================================================================
+   6 — Audit motion : normalisation des animations héritées
+   Toute animation/transition définie avant ce bloc est ramenée sur la même
+   courbe (--ease-standard) et la même échelle de durées. Les boucles
+   décoratives restantes sont alignées ou neutralisées.
+   ========================================================================== */
+
+/* 6.1 — Une seule courbe pour toutes les transitions utilitaires */
+[class*="duration-"],
+[class*="transition"] {
+  transition-timing-function: var(--ease-standard);
+}
+/* Les durées Tailwind hors échelle sont ramenées aux 3 paliers */
+.duration-75, .duration-100, .duration-150 { transition-duration: var(--motion-fast); }
+.duration-200, .duration-300 { transition-duration: var(--motion-base); }
+.duration-500, .duration-700, .duration-1000 { transition-duration: var(--motion-slow); }
+
+/* 6.2 — Animations d'entrée héritées : même durée, même courbe, même direction */
+.animate-fade-up,
+.animate-float-up,
+.msg-in,
+.gs-reveal.gs-in,
+.gs-page,
+.animate-viewer-pop {
+  animation-duration: var(--motion-slow);
+  animation-timing-function: var(--ease-standard);
+}
+
+/* 6.3 — Boucles décoratives : neutralisées (bruit visuel, reflows) */
+.animate-float-slow,
+.animate-float-card,
+.animate-conic-spin,
+.animate-headphone-float,
+.animate-headphone-zoom,
+.animate-glow-pulse,
+.animate-breathe-slow,
+.animate-breathe-glow,
+.live-stage-halo,
+.live-badge-aura,
+.pulse-live {
+  animation: none !important;
+}
+
+/* 6.4 — Boucles fonctionnelles conservées, mais sur la courbe commune
+   (elles signalent un état : lecture, direct, chargement) */
+.animate-live-dot,
+.animate-brand-bob,
+.eq-bar,
+.animate-marquee,
+.animate-marquee-up,
+.animate-vinyl-spin,
+.animate-brand-spin {
+  animation-timing-function: linear;
+  will-change: transform, opacity;
+}
+
+/* 6.5 — Aucune animation ne doit toucher aux propriétés de layout */
+:where(*) {
+  transition-property: transform, opacity, color, background-color, border-color,
+    box-shadow, filter, backdrop-filter;
+}

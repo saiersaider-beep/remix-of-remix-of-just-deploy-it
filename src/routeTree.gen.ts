@@ -90,6 +90,7 @@ import { Route as TracksSlugRouteImport } from './routes/tracks.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as ApiPublicCinetpayWebhookRouteImport } from './routes/api/public/cinetpay-webhook'
+import { Route as ApiPublicGeniuspayWebhookRouteImport } from './routes/api/public/geniuspay-webhook'
 import { Route as ApiPublicPaygateCallbackRouteImport } from './routes/api/public/paygate-callback'
 import { Route as ApiPublicSeedTestAccountsRouteImport } from './routes/api/public/seed-test-accounts'
 
@@ -502,6 +503,12 @@ const ApiPublicCinetpayWebhookRoute =
     path: '/api/public/cinetpay-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicGeniuspayWebhookRoute =
+  ApiPublicGeniuspayWebhookRouteImport.update({
+    id: '/api/public/geniuspay-webhook',
+    path: '/api/public/geniuspay-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicPaygateCallbackRoute =
   ApiPublicPaygateCallbackRouteImport.update({
     id: '/api/public/paygate-callback',
@@ -597,6 +604,7 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
+  '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
@@ -681,6 +689,7 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
+  '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
@@ -767,6 +776,7 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
+  '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
@@ -854,6 +864,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/cinetpay-webhook'
+    | '/api/public/geniuspay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   fileRoutesByTo: FileRoutesByTo
@@ -938,6 +949,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/cinetpay-webhook'
+    | '/api/public/geniuspay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   id:
@@ -1023,6 +1035,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/cinetpay-webhook'
+    | '/api/public/geniuspay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   fileRoutesById: FileRoutesById
@@ -1088,6 +1101,7 @@ export interface RootRouteChildren {
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicCinetpayWebhookRoute: typeof ApiPublicCinetpayWebhookRoute
+  ApiPublicGeniuspayWebhookRoute: typeof ApiPublicGeniuspayWebhookRoute
   ApiPublicPaygateCallbackRoute: typeof ApiPublicPaygateCallbackRoute
   ApiPublicSeedTestAccountsRoute: typeof ApiPublicSeedTestAccountsRoute
 }
@@ -1661,6 +1675,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicCinetpayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/geniuspay-webhook': {
+      id: '/api/public/geniuspay-webhook'
+      path: '/api/public/geniuspay-webhook'
+      fullPath: '/api/public/geniuspay-webhook'
+      preLoaderRoute: typeof ApiPublicGeniuspayWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/paygate-callback': {
       id: '/api/public/paygate-callback'
       path: '/api/public/paygate-callback'
@@ -1809,6 +1830,7 @@ const rootRouteChildren: RootRouteChildren = {
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicCinetpayWebhookRoute: ApiPublicCinetpayWebhookRoute,
+  ApiPublicGeniuspayWebhookRoute: ApiPublicGeniuspayWebhookRoute,
   ApiPublicPaygateCallbackRoute: ApiPublicPaygateCallbackRoute,
   ApiPublicSeedTestAccountsRoute: ApiPublicSeedTestAccountsRoute,
 }

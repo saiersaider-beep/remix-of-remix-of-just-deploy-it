@@ -70,6 +70,7 @@ import { Route as AdminCinetpayRouteImport } from './routes/admin.cinetpay'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminCopyrightsRouteImport } from './routes/admin.copyrights'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
+import { Route as AdminGeniuspayRouteImport } from './routes/admin.geniuspay'
 import { Route as AdminMobileMoneyRouteImport } from './routes/admin.mobile-money'
 import { Route as AdminPagesRouteImport } from './routes/admin.pages'
 import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
@@ -401,6 +402,11 @@ const AdminFaqRoute = AdminFaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminGeniuspayRoute = AdminGeniuspayRouteImport.update({
+  id: '/geniuspay',
+  path: '/geniuspay',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMobileMoneyRoute = AdminMobileMoneyRouteImport.update({
   id: '/mobile-money',
   path: '/mobile-money',
@@ -583,6 +589,7 @@ export interface FileRoutesByFullPath {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
+  '/admin/geniuspay': typeof AdminGeniuspayRoute
   '/admin/mobile-money': typeof AdminMobileMoneyRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
@@ -668,6 +675,7 @@ export interface FileRoutesByTo {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
+  '/admin/geniuspay': typeof AdminGeniuspayRoute
   '/admin/mobile-money': typeof AdminMobileMoneyRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
@@ -755,6 +763,7 @@ export interface FileRoutesById {
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
+  '/admin/geniuspay': typeof AdminGeniuspayRoute
   '/admin/mobile-money': typeof AdminMobileMoneyRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
@@ -843,6 +852,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
+    | '/admin/geniuspay'
     | '/admin/mobile-money'
     | '/admin/pages'
     | '/admin/payments'
@@ -928,6 +938,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
+    | '/admin/geniuspay'
     | '/admin/mobile-money'
     | '/admin/pages'
     | '/admin/payments'
@@ -1014,6 +1025,7 @@ export interface FileRouteTypes {
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
+    | '/admin/geniuspay'
     | '/admin/mobile-money'
     | '/admin/pages'
     | '/admin/payments'
@@ -1535,6 +1547,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFaqRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/geniuspay': {
+      id: '/admin/geniuspay'
+      path: '/geniuspay'
+      fullPath: '/admin/geniuspay'
+      preLoaderRoute: typeof AdminGeniuspayRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/mobile-money': {
       id: '/admin/mobile-money'
       path: '/mobile-money'
@@ -1710,6 +1729,7 @@ interface AdminRouteChildren {
   AdminCommentsRoute: typeof AdminCommentsRoute
   AdminCopyrightsRoute: typeof AdminCopyrightsRoute
   AdminFaqRoute: typeof AdminFaqRoute
+  AdminGeniuspayRoute: typeof AdminGeniuspayRoute
   AdminMobileMoneyRoute: typeof AdminMobileMoneyRoute
   AdminPagesRoute: typeof AdminPagesRoute
   AdminPaymentsRoute: typeof AdminPaymentsRoute
@@ -1732,6 +1752,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCommentsRoute: AdminCommentsRoute,
   AdminCopyrightsRoute: AdminCopyrightsRoute,
   AdminFaqRoute: AdminFaqRoute,
+  AdminGeniuspayRoute: AdminGeniuspayRoute,
   AdminMobileMoneyRoute: AdminMobileMoneyRoute,
   AdminPagesRoute: AdminPagesRoute,
   AdminPaymentsRoute: AdminPaymentsRoute,

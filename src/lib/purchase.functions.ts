@@ -4,7 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { getRequestHost } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { initCinetPayCheckout } from "@/lib/cinetpay.server";
+import { initGeniusPayCheckout } from "@/lib/geniuspay.server";
 
 const dbAdmin = supabaseAdmin as unknown as SupabaseClient<any, "public", any>;
 
@@ -129,12 +129,12 @@ export const createTrackPurchase = createServerFn({ method: "POST" })
     const host = `https://${getRequestHost()}`;
     const transaction_id = `track-${userId.slice(0, 8)}-${Date.now()}`;
 
-    const { payment_url } = await initCinetPayCheckout({
+    const { payment_url } = await initGeniusPayCheckout({
       amount: track.price_amount,
       description: `Achat: ${track.title}`,
       transaction_id,
       return_url: `${host}/payment/callback?transaction_id=${encodeURIComponent(transaction_id)}`,
-      notify_url: `${host}/api/public/cinetpay-webhook`,
+      notify_url: `${host}/api/public/geniuspay-webhook`,
       customer_email: email,
     });
 
@@ -145,7 +145,7 @@ export const createTrackPurchase = createServerFn({ method: "POST" })
       amount: track.price_amount,
       currency: track.price_currency || "XOF",
       status: "pending",
-      provider: "cinetpay",
+      provider: "geniuspay",
       transaction_id,
       payment_url,
     });

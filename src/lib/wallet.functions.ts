@@ -4,7 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { getRequestHost } from "@tanstack/react-start/server";
-import { initCinetPayCheckout } from "@/lib/cinetpay.server";
+import { initGeniusPayCheckout } from "@/lib/geniuspay.server";
 
 // Generated types lag the wallet migration; relax for these tables only.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,12 +72,12 @@ export const creditWallet = createServerFn({ method: "POST" })
       reference: transaction_id,
     });
 
-    const { payment_url } = await initCinetPayCheckout({
+    const { payment_url } = await initGeniusPayCheckout({
       amount: data.amountXof,
       description: `Recharge wallet ${data.amountXof} XOF`,
       transaction_id,
       return_url: `${host}/payment/callback?transaction_id=${encodeURIComponent(transaction_id)}`,
-      notify_url: `${host}/api/public/cinetpay-webhook`,
+      notify_url: `${host}/api/public/geniuspay-webhook`,
       customer_email: email,
     });
 

@@ -17,7 +17,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { usePlayerStore, currentTrack as currentTrackSelector } from "@/stores/player";
 import { formatPrice } from "@/lib/player";
 import { getTrackPurchaseInfo } from "@/lib/purchase.functions";
-import { initCinetPayPayment } from "@/lib/cinetpay.functions";
+import { initGeniusPayPayment } from "@/lib/geniuspay.functions";
 import {
   addTrackToPlaylist,
   createPlaylist,
@@ -79,7 +79,7 @@ function TrackDetail() {
     queryFn: () => getMyPlaylists(user!.id),
   });
 
-  const buyFn = useServerFn(initCinetPayPayment);
+  const buyFn = useServerFn(initGeniusPayPayment);
   const purchaseInfoFn = useServerFn(getTrackPurchaseInfo);
   const { data: purchaseInfo, refetch: refetchPurchaseInfo } = useQuery({
     queryKey: ["track-purchase-info", track?.id, user?.id],

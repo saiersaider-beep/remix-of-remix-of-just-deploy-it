@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { CheckCircle2, XCircle, Loader2, Crown, Music2 } from "lucide-react";
 import { AuthGate } from "@/components/PageScaffold";
-import { verifyCinetPayPayment } from "@/lib/cinetpay.functions";
+import { verifyGeniusPayPayment } from "@/lib/geniuspay.functions";
 
 type Search = { transaction_id?: string; status?: string };
 
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/payment/callback")({
 
 function CallbackPage() {
   const search = useSearch({ from: "/payment/callback" });
-  const verify = useServerFn(verifyCinetPayPayment);
+  const verify = useServerFn(verifyGeniusPayPayment);
   const [state, setState] = useState<"loading" | "success" | "failed">("loading");
   const [kind, setKind] = useState<
     "purchase" | "subscription" | "wallet" | "artist_fee" | null

@@ -394,7 +394,7 @@ function DashboardContent({ artist }: { artist: Artist }) {
           icon={DollarSign}
           label="Revenue"
           value="—"
-          hint="CinetPay bientôt"
+          hint="GeniusPay bientôt"
           muted
         />
       </div>

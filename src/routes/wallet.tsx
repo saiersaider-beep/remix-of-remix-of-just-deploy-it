@@ -276,7 +276,7 @@ function WalletPage() {
                     <Smartphone className="w-4 h-4" /> Mobile Money
                   </TabBtn>
                   <TabBtn active={creditTab === "card"} onClick={() => setCreditTab("card")}>
-                    <CreditCard className="w-4 h-4" /> Carte / CinetPay
+                    <CreditCard className="w-4 h-4" /> Carte / GeniusPay
                   </TabBtn>
                 </div>
 

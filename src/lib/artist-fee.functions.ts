@@ -3,7 +3,7 @@ import { getRequestHost } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { initCinetPayCheckout } from "@/lib/cinetpay.server";
+import { initGeniusPayCheckout } from "@/lib/geniuspay.server";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dbAdmin = supabaseAdmin as unknown as SupabaseClient<any, "public", any>;
@@ -64,12 +64,12 @@ export const createArtistFeePayment = createServerFn({ method: "POST" })
     // Prefix `artistfee-` is required: verifyAndApply routes by prefix.
     const transaction_id = `artistfee-${userId.slice(0, 8)}-${Date.now()}`;
 
-    const { payment_url } = await initCinetPayCheckout({
+    const { payment_url } = await initGeniusPayCheckout({
       amount: ARTIST_FEE_XOF,
       description: `Frais création profil artiste (${ARTIST_FEE_XOF} XOF)`,
       transaction_id,
       return_url: `${host}/payment/callback?transaction_id=${encodeURIComponent(transaction_id)}`,
-      notify_url: `${host}/api/public/cinetpay-webhook`,
+      notify_url: `${host}/api/public/geniuspay-webhook`,
       customer_email: email,
     });
 
@@ -80,7 +80,7 @@ export const createArtistFeePayment = createServerFn({ method: "POST" })
           user_id: userId,
           status: "pending",
           amount_xof: ARTIST_FEE_XOF,
-          method: "cinetpay",
+          method: "geniuspay",
           flw_tx_ref: transaction_id,
           flw_payment_link: payment_url,
           updated_at: new Date().toISOString(),
@@ -103,7 +103,7 @@ export const payArtistFeeWithWallet = createServerFn({ method: "POST" })
     });
     if (error) {
       if (error.message?.includes("INSUFFICIENT_WALLET")) {
-        throw new Error("Solde du wallet insuffisant. Recharge-le ou paie par CinetPay.");
+        throw new Error("Solde du wallet insuffisant. Recharge-le ou paie par GeniusPay.");
       }
       if (error.message?.includes("ALREADY_PAID")) {
         return { alreadyPaid: true };

@@ -27,7 +27,7 @@ function PrivacyPage() {
 
         <article className="space-y-8 text-muted-foreground leading-relaxed">
           <Section title="1. Données collectées">
-            Nous collectons : nom, email, mot de passe (chiffré), photo de profil, contenus que tu publies, statistiques d'écoute, informations de paiement (traitées par CinetPay, nous ne stockons jamais ton numéro de carte).
+            Nous collectons : nom, email, mot de passe (chiffré), photo de profil, contenus que tu publies, statistiques d'écoute, informations de paiement (traitées par GeniusPay, nous ne stockons jamais ton numéro de carte).
           </Section>
 
           <Section title="2. Pourquoi nous collectons ces données">

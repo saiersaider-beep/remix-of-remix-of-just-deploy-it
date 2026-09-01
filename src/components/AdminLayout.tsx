@@ -36,6 +36,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard }[] = [
   { to: "/admin/comments", label: "Commentaires", icon: MessageSquare },
   { to: "/admin/payments", label: "Paiements", icon: CreditCard },
   { to: "/admin/mobile-money", label: "Mobile Money", icon: Wallet },
+  { to: "/admin/geniuspay", label: "GeniusPay", icon: CreditCard },
   { to: "/admin/withdrawals", label: "Retraits", icon: Banknote },
   { to: "/admin/bank-receipts", label: "Reçus bancaires", icon: Receipt },
   { to: "/admin/artist-verification", label: "Vérifications", icon: ShieldCheck },

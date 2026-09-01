@@ -66,7 +66,6 @@ import { Route as AdminArtistsRouteImport } from './routes/admin.artists'
 import { Route as AdminBankReceiptsRouteImport } from './routes/admin.bank-receipts'
 import { Route as AdminBannedIpsRouteImport } from './routes/admin.banned-ips'
 import { Route as AdminBrandingRouteImport } from './routes/admin.branding'
-import { Route as AdminCinetpayRouteImport } from './routes/admin.cinetpay'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminCopyrightsRouteImport } from './routes/admin.copyrights'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
@@ -90,7 +89,6 @@ import { Route as PlaylistsSlugRouteImport } from './routes/playlists.$slug'
 import { Route as TracksSlugRouteImport } from './routes/tracks.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
-import { Route as ApiPublicCinetpayWebhookRouteImport } from './routes/api/public/cinetpay-webhook'
 import { Route as ApiPublicGeniuspayWebhookRouteImport } from './routes/api/public/geniuspay-webhook'
 import { Route as ApiPublicPaygateCallbackRouteImport } from './routes/api/public/paygate-callback'
 import { Route as ApiPublicSeedTestAccountsRouteImport } from './routes/api/public/seed-test-accounts'
@@ -382,11 +380,6 @@ const AdminBrandingRoute = AdminBrandingRouteImport.update({
   path: '/branding',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminCinetpayRoute = AdminCinetpayRouteImport.update({
-  id: '/cinetpay',
-  path: '/cinetpay',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminCommentsRoute = AdminCommentsRouteImport.update({
   id: '/comments',
   path: '/comments',
@@ -503,12 +496,6 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicCinetpayWebhookRoute =
-  ApiPublicCinetpayWebhookRouteImport.update({
-    id: '/api/public/cinetpay-webhook',
-    path: '/api/public/cinetpay-webhook',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ApiPublicGeniuspayWebhookRoute =
   ApiPublicGeniuspayWebhookRouteImport.update({
     id: '/api/public/geniuspay-webhook',
@@ -585,7 +572,6 @@ export interface FileRoutesByFullPath {
   '/admin/bank-receipts': typeof AdminBankReceiptsRoute
   '/admin/banned-ips': typeof AdminBannedIpsRoute
   '/admin/branding': typeof AdminBrandingRoute
-  '/admin/cinetpay': typeof AdminCinetpayRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
@@ -610,7 +596,6 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
-  '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
   '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
@@ -671,7 +656,6 @@ export interface FileRoutesByTo {
   '/admin/bank-receipts': typeof AdminBankReceiptsRoute
   '/admin/banned-ips': typeof AdminBannedIpsRoute
   '/admin/branding': typeof AdminBrandingRoute
-  '/admin/cinetpay': typeof AdminCinetpayRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
@@ -696,7 +680,6 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
-  '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
   '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
@@ -759,7 +742,6 @@ export interface FileRoutesById {
   '/admin/bank-receipts': typeof AdminBankReceiptsRoute
   '/admin/banned-ips': typeof AdminBannedIpsRoute
   '/admin/branding': typeof AdminBrandingRoute
-  '/admin/cinetpay': typeof AdminCinetpayRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
@@ -784,7 +766,6 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
-  '/api/public/cinetpay-webhook': typeof ApiPublicCinetpayWebhookRoute
   '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
   '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
@@ -848,7 +829,6 @@ export interface FileRouteTypes {
     | '/admin/bank-receipts'
     | '/admin/banned-ips'
     | '/admin/branding'
-    | '/admin/cinetpay'
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
@@ -873,7 +853,6 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
-    | '/api/public/cinetpay-webhook'
     | '/api/public/geniuspay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
@@ -934,7 +913,6 @@ export interface FileRouteTypes {
     | '/admin/bank-receipts'
     | '/admin/banned-ips'
     | '/admin/branding'
-    | '/admin/cinetpay'
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
@@ -959,7 +937,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
-    | '/api/public/cinetpay-webhook'
     | '/api/public/geniuspay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
@@ -1021,7 +998,6 @@ export interface FileRouteTypes {
     | '/admin/bank-receipts'
     | '/admin/banned-ips'
     | '/admin/branding'
-    | '/admin/cinetpay'
     | '/admin/comments'
     | '/admin/copyrights'
     | '/admin/faq'
@@ -1046,7 +1022,6 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
-    | '/api/public/cinetpay-webhook'
     | '/api/public/geniuspay-webhook'
     | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
@@ -1112,7 +1087,6 @@ export interface RootRouteChildren {
   TracksSlugRoute: typeof TracksSlugRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
-  ApiPublicCinetpayWebhookRoute: typeof ApiPublicCinetpayWebhookRoute
   ApiPublicGeniuspayWebhookRoute: typeof ApiPublicGeniuspayWebhookRoute
   ApiPublicPaygateCallbackRoute: typeof ApiPublicPaygateCallbackRoute
   ApiPublicSeedTestAccountsRoute: typeof ApiPublicSeedTestAccountsRoute
@@ -1519,13 +1493,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBrandingRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/cinetpay': {
-      id: '/admin/cinetpay'
-      path: '/cinetpay'
-      fullPath: '/admin/cinetpay'
-      preLoaderRoute: typeof AdminCinetpayRouteImport
-      parentRoute: typeof AdminRoute
-    }
     '/admin/comments': {
       id: '/admin/comments'
       path: '/comments'
@@ -1687,13 +1654,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/cinetpay-webhook': {
-      id: '/api/public/cinetpay-webhook'
-      path: '/api/public/cinetpay-webhook'
-      fullPath: '/api/public/cinetpay-webhook'
-      preLoaderRoute: typeof ApiPublicCinetpayWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/public/geniuspay-webhook': {
       id: '/api/public/geniuspay-webhook'
       path: '/api/public/geniuspay-webhook'
@@ -1725,7 +1685,6 @@ interface AdminRouteChildren {
   AdminBankReceiptsRoute: typeof AdminBankReceiptsRoute
   AdminBannedIpsRoute: typeof AdminBannedIpsRoute
   AdminBrandingRoute: typeof AdminBrandingRoute
-  AdminCinetpayRoute: typeof AdminCinetpayRoute
   AdminCommentsRoute: typeof AdminCommentsRoute
   AdminCopyrightsRoute: typeof AdminCopyrightsRoute
   AdminFaqRoute: typeof AdminFaqRoute
@@ -1748,7 +1707,6 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminBankReceiptsRoute: AdminBankReceiptsRoute,
   AdminBannedIpsRoute: AdminBannedIpsRoute,
   AdminBrandingRoute: AdminBrandingRoute,
-  AdminCinetpayRoute: AdminCinetpayRoute,
   AdminCommentsRoute: AdminCommentsRoute,
   AdminCopyrightsRoute: AdminCopyrightsRoute,
   AdminFaqRoute: AdminFaqRoute,
@@ -1850,7 +1808,6 @@ const rootRouteChildren: RootRouteChildren = {
   TracksSlugRoute: TracksSlugRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
-  ApiPublicCinetpayWebhookRoute: ApiPublicCinetpayWebhookRoute,
   ApiPublicGeniuspayWebhookRoute: ApiPublicGeniuspayWebhookRoute,
   ApiPublicPaygateCallbackRoute: ApiPublicPaygateCallbackRoute,
   ApiPublicSeedTestAccountsRoute: ApiPublicSeedTestAccountsRoute,

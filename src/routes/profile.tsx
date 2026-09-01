@@ -292,7 +292,7 @@ function ProfilePage() {
                 )}
               </div>
               <p className="text-[11px] text-muted-foreground mt-3">
-                Paiement sécurisé via CinetPay (Mobile Money, carte, etc.) ou via ton wallet VinaSound.
+                Paiement sécurisé via GeniusPay (Mobile Money, carte, etc.) ou via ton wallet VinaSound.
               </p>
             </div>
           </div>

@@ -39,7 +39,7 @@ function TermsPage() {
           </Section>
 
           <Section title="4. Monétisation & paiements">
-            Les revenus issus des écoutes, dons et achats sont versés selon les modalités décrites dans l'espace artiste. Les paiements sont traités via CinetPay. VinaSound prélève une commission de service annoncée publiquement.
+            Les revenus issus des écoutes, dons et achats sont versés selon les modalités décrites dans l'espace artiste. Les paiements sont traités via GeniusPay. VinaSound prélève une commission de service annoncée publiquement.
           </Section>
 
           <Section title="5. Comportements interdits">

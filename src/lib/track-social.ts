@@ -99,7 +99,7 @@ export async function getTrackBySlug(slug: string): Promise<TrackDetailData | nu
     user
       ? supabase
           .from("track_likes")
-          .select("id")
+          .select("track_id")
           .eq("track_id", track.id)
           .eq("user_id", user.id)
           .maybeSingle()

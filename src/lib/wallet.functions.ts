@@ -4,7 +4,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { getRequestHost } from "@tanstack/react-start/server";
-import { initGeniusPayCheckout } from "@/lib/geniuspay.server";
+import {
+  initGeniusPayCheckout,
+  recordGeniusPayTransaction,
+  updateGeniusPayTransaction,
+} from "@/lib/geniuspay.server";
 
 // Generated types lag the wallet migration; relax for these tables only.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,14 +76,31 @@ export const creditWallet = createServerFn({ method: "POST" })
       reference: transaction_id,
     });
 
-    const { payment_url } = await initGeniusPayCheckout({
+    await recordGeniusPayTransaction({
+      user_id: userId,
+      purpose: "wallet",
+      transaction_id,
+      amount: data.amountXof,
+      description: "Recharge du wallet",
+    });
+
+    const { payment_url, reference } = await initGeniusPayCheckout({
       amount: data.amountXof,
       description: `Recharge wallet ${data.amountXof} XOF`,
       transaction_id,
       return_url: `${host}/payment/callback?transaction_id=${encodeURIComponent(transaction_id)}`,
       notify_url: `${host}/api/public/geniuspay-webhook`,
       customer_email: email,
+      metadata: { user_id: userId, purpose: "wallet" },
     });
+
+    // La référence GeniusPay (MTX-…) sert à vérifier le paiement.
+    await dbAdmin
+      .from("wallet_transactions")
+      .update({ flw_tx_ref: reference })
+      .eq("reference", transaction_id);
+
+    await updateGeniusPayTransaction(transaction_id, { reference, payment_url });
 
     return { link: payment_url, tx_ref: transaction_id };
   });

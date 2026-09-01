@@ -4,7 +4,11 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { getRequestHost } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { initGeniusPayCheckout } from "@/lib/geniuspay.server";
+import {
+  initGeniusPayCheckout,
+  recordGeniusPayTransaction,
+  updateGeniusPayTransaction,
+} from "@/lib/geniuspay.server";
 
 const dbAdmin = supabaseAdmin as unknown as SupabaseClient<any, "public", any>;
 
@@ -127,15 +131,26 @@ export const createTrackPurchase = createServerFn({ method: "POST" })
     const email = userData.user?.email;
 
     const host = `https://${getRequestHost()}`;
-    const transaction_id = `track-${userId.slice(0, 8)}-${Date.now()}`;
+    const transaction_id = `track-${userId.slice(0, 8)}-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
 
-    const { payment_url } = await initGeniusPayCheckout({
+    await recordGeniusPayTransaction({
+      user_id: userId,
+      purpose: "track",
+      target_id: track.id,
+      transaction_id,
+      amount: track.price_amount,
+      currency: track.price_currency || "XOF",
+      description: `Achat: ${track.title}`,
+    });
+
+    const { payment_url, reference } = await initGeniusPayCheckout({
       amount: track.price_amount,
       description: `Achat: ${track.title}`,
       transaction_id,
-      return_url: `${host}/payment/callback?transaction_id=${encodeURIComponent(transaction_id)}`,
+      return_url: `${host}/purchase/success?transaction_id=${encodeURIComponent(transaction_id)}`,
       notify_url: `${host}/api/public/geniuspay-webhook`,
       customer_email: email,
+      metadata: { user_id: userId, purpose: "track" },
     });
 
     await supabaseAdmin.from("purchases").insert({
@@ -148,46 +163,11 @@ export const createTrackPurchase = createServerFn({ method: "POST" })
       provider: "geniuspay",
       transaction_id,
       payment_url,
+      flw_tx_id: reference,
+      flw_tx_ref: reference,
     });
+
+    await updateGeniusPayTransaction(transaction_id, { reference, payment_url });
 
     return { link: payment_url, tx_ref: transaction_id, alreadyOwned: false };
-  });
-
-/**
- * Admin-only: accorde l'accès à une piste sans paiement.
- * Utile en phase de tests, avant la configuration du PSP.
- */
-export const adminGrantTrackAccess = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { trackId: string }) =>
-    z.object({ trackId: z.string().uuid() }).parse(d)
-  )
-  .handler(async ({ data, context }) => {
-    const { userId } = context;
-
-    const { data: isAdmin } = await supabaseAdmin.rpc("has_role", {
-      _user_id: userId,
-      _role: "admin",
-    });
-    if (!isAdmin) throw new Error("Réservé aux administrateurs.");
-
-    const { data: track } = await supabaseAdmin
-      .from("tracks")
-      .select("id, artist_id")
-      .eq("id", data.trackId)
-      .maybeSingle();
-    if (!track) throw new Error("Piste introuvable.");
-
-    await supabaseAdmin
-      .from("track_access")
-      .upsert(
-        {
-          user_id: userId,
-          track_id: track.id,
-          source: "admin_grant",
-        },
-        { onConflict: "user_id,track_id" }
-      );
-
-    return { ok: true };
   });

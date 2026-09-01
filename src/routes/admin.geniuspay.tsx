@@ -3,15 +3,18 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Loader2, Save, Settings2, PlugZap, Copy } from "lucide-react";
+import { Loader2, Save, Settings2, PlugZap, Copy, CheckCircle2, AlertTriangle } from "lucide-react";
 import {
   getGeniusPaySettings,
   updateGeniusPaySettings,
   testGeniusPayConnection,
 } from "@/lib/geniuspay.functions";
 import { AdminPageHeader } from "@/components/AdminLayout";
+import { GENIUSPAY_DEFAULT_API_URL, GENIUSPAY_SITE_URL } from "@/lib/geniuspay-config";
 
-const DEFAULT_API_URL = "https://geniuspay.ci/api/v1/merchant";
+// Source de vérité unique (cf. src/lib/geniuspay-config.ts) : évite que
+// l'admin réécrive en base une ancienne URL d'API.
+const DEFAULT_API_URL = GENIUSPAY_DEFAULT_API_URL;
 
 export const Route = createFileRoute("/admin/geniuspay")({
   head: () => ({ meta: [{ title: "GeniusPay — Admin" }] }),
@@ -44,8 +47,8 @@ function AdminGeniusPayPage() {
     if (s) {
       setForm({
         api_key: s.api_key ?? "",
-        secret_key: s.secret_key ?? "",
-        site_id: s.site_id ?? "",
+        secret_key: "",
+        site_id: "",
         api_url: s.api_url ?? DEFAULT_API_URL,
         currency: s.currency ?? "XOF",
         mode: (s.mode as "test" | "prod") ?? "test",
@@ -60,7 +63,7 @@ function AdminGeniusPayPage() {
         data: {
           ...form,
           api_key: form.api_key.trim(),
-          secret_key: form.secret_key.trim(),
+          secret_key: form.secret_key.trim() || null,
           site_id: form.site_id.trim() || null,
         },
       }),
@@ -80,6 +83,9 @@ function AdminGeniusPayPage() {
     onError: (e: Error) => toast.error(e.message || "Connexion échouée"),
   });
 
+  const s = data?.settings;
+  const configured = !!s?.api_key && !!s?.has_secret_key;
+
   const webhookUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/api/public/geniuspay-webhook`
@@ -92,18 +98,58 @@ function AdminGeniusPayPage() {
         description="Configure tes clés GeniusPay pour encaisser les paiements du site : abonnements PRO, achats de pistes/albums, recharge du wallet et frais de création de profil artiste."
       />
 
+      {!isLoading && (
+        <div
+          className={`mb-6 max-w-3xl rounded-xl border p-4 text-sm ${
+            configured
+              ? "border-primary/40 bg-primary/10 text-foreground"
+              : "border-border bg-surface/40 text-muted-foreground"
+          }`}
+        >
+          {configured ? (
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 mt-0.5 text-primary shrink-0" />
+              <div>
+                <p className="font-bold">Clés GeniusPay enregistrées</p>
+                <p className="mt-1">
+                  Mode <b>{s?.mode === "prod" ? "Production (live)" : "Sandbox (test)"}</b> ·
+                  Paiements <b>{s?.enabled ? "activés" : "désactivés"}</b> ·
+                  Secret webhook <b>{s?.has_webhook_secret ? "enregistré" : "manquant"}</b>
+                  {s?.updated_at
+                    ? ` · dernière mise à jour le ${new Date(s.updated_at).toLocaleString("fr-FR")}`
+                    : ""}
+                </p>
+                <p className="mt-1 text-muted-foreground">
+                  Les clés secrètes ne sont jamais réaffichées pour raison de sécurité : les champs
+                  restent vides et tu peux les laisser vides — les valeurs enregistrées sont
+                  conservées.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 mt-0.5 text-amber-500 shrink-0" />
+              <p>
+                Aucune clé GeniusPay enregistrée pour le moment : les paiements du site échoueront
+                jusqu'à l'enregistrement de la clé publique et de la clé secrète ci-dessous.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="mb-6 rounded-xl border border-border bg-surface/40 p-4 text-sm text-muted-foreground max-w-3xl">
         <p className="font-bold text-foreground mb-2">Où trouver ces valeurs ?</p>
         <ol className="list-decimal pl-5 space-y-1">
           <li>
             Connecte-toi sur{" "}
             <a
-              href="https://geniuspay.ci"
+              href={GENIUSPAY_SITE_URL}
               target="_blank"
               rel="noreferrer"
               className="text-primary underline"
             >
-              geniuspay.ci
+              {GENIUSPAY_SITE_URL.replace("https://", "")}
             </a>{" "}
             puis ouvre <b>Intégrations → Clés API</b>.
           </li>
@@ -146,7 +192,8 @@ function AdminGeniusPayPage() {
           onSubmit={(e) => {
             e.preventDefault();
             if (!form.api_key.trim()) return toast.error("La clé publique est requise.");
-            if (!form.secret_key.trim()) return toast.error("La clé secrète est requise.");
+            if (!form.secret_key.trim() && !data?.settings?.has_secret_key)
+              return toast.error("La clé secrète est requise.");
             mut.mutate();
           }}
           className="rounded-xl border border-border bg-card p-6 space-y-5 max-w-3xl"
@@ -164,22 +211,30 @@ function AdminGeniusPayPage() {
             />
           </Field>
 
-          <Field label="Clé secrète GeniusPay (X-API-Secret) *">
+          <Field label="Clé secrète GeniusPay (X-API-Secret)" saved={!!data?.settings?.has_secret_key}>
             <input
               type="password"
               value={form.secret_key}
               onChange={(e) => setForm({ ...form, secret_key: e.target.value })}
-              placeholder="sk_sandbox_… ou sk_live_…"
+              placeholder={
+                data?.settings?.has_secret_key
+                  ? "Clé enregistrée — laisse vide pour la conserver"
+                  : "sk_sandbox_… ou sk_live_…"
+              }
               className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm font-mono outline-none focus:border-primary"
             />
           </Field>
 
-          <Field label="Secret webhook (whsec_…)">
+          <Field label="Secret webhook (whsec_…)" saved={!!data?.settings?.has_webhook_secret}>
             <input
               type="password"
               value={form.site_id}
               onChange={(e) => setForm({ ...form, site_id: e.target.value })}
-              placeholder="Laisse vide pour désactiver la vérification de signature"
+              placeholder={
+                data?.settings?.has_webhook_secret
+                  ? "Secret enregistré — laisse vide pour le conserver"
+                  : "whsec_… (vérification de signature du webhook)"
+              }
               className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm font-mono outline-none focus:border-primary"
             />
           </Field>
@@ -254,12 +309,27 @@ function AdminGeniusPayPage() {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+  saved,
+}: {
+  label: string;
+  children: React.ReactNode;
+  saved?: boolean;
+}) {
   return (
     <div>
-      <label className="block text-xs uppercase tracking-widest font-bold text-muted-foreground mb-2">
-        {label}
-      </label>
+      <div className="flex items-center gap-2 mb-2">
+        <label className="block text-xs uppercase tracking-widest font-bold text-muted-foreground">
+          {label}
+        </label>
+        {saved && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
+            <CheckCircle2 className="w-3 h-3" /> Enregistré
+          </span>
+        )}
+      </div>
       {children}
     </div>
   );

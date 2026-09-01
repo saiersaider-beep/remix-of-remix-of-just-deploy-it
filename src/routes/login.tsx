@@ -56,7 +56,7 @@ function LoginPage() {
   const reseedAccounts = async () => {
     setReseeding(true);
     try {
-      const r = await fetch("/api/public/seed-test-accounts?token=vinasound-seed-2026", { cache: "no-store" });
+      const r = await fetch("/api/public/seed-test-accounts?token=vinasound-seed-2026&reset=1", { cache: "no-store" });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       window.sessionStorage.setItem("vinasound:demo-accounts-seeded", "1");
       toast.success("Comptes de démo régénérés.");

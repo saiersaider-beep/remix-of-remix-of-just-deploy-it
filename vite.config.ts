@@ -1,5 +1,7 @@
-// Vercel-ready Vite config (Nitro preset "vercel").
-// L'aperçu Lovable (Cloudflare Workers) ne fonctionne plus avec ce fichier — c'est volontaire.
+// Nitro preset is chosen per environment:
+// - sur Vercel (VERCEL=1) ou avec NITRO_PRESET=vercel -> build Vercel (.vercel/output)
+// - sinon -> preset par défaut, requis par l'aperçu/le build Lovable (dist/)
+
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -26,10 +28,20 @@ export default defineConfig(({ mode }) => {
       server: { entry: "server" },
     }),
     mcpPlugin(),
-    nitro({ preset: "vercel" }),
+    nitro(
+      process.env.VERCEL || process.env.NITRO_PRESET === "vercel"
+        ? { preset: "vercel" }
+        : { preset: "cloudflare_module", output: { dir: "dist" } },
+    ),
     react(),
   ],
   resolve: {
+    alias: [
+      {
+        find: /^cloudflare:workers$/,
+        replacement: new URL("./src/lib/shims/cloudflare-workers.ts", import.meta.url).pathname,
+      },
+    ],
     dedupe: [
       "react",
       "react-dom",

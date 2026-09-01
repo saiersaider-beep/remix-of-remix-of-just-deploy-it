@@ -7,16 +7,28 @@ type AccountSpec = {
   email: string;
   password: string;
   display_name: string;
-  role?: "admin" | null;
+  roles?: Array<"admin" | "super_admin" | "user">;
   artist?: { name: string; slug: string; bio?: string } | null;
 };
 
 const ACCOUNTS: AccountSpec[] = [
   {
+    email: "superadmin.test@vinasound.app",
+    password: "VinaSuper#2026",
+    display_name: "Super Admin Test",
+    roles: ["admin", "super_admin"],
+  },
+  {
+    email: "client.test@vinasound.app",
+    password: "VinaClient#2026",
+    display_name: "Client Test",
+    roles: ["user"],
+  },
+  {
     email: "superadmin@globalsound.test",
     password: "superadmin@globalsound.test",
     display_name: "Super Admin",
-    role: "admin",
+    roles: ["admin"],
   },
   {
     email: "artist.kofi@globalsound.test",
@@ -54,7 +66,7 @@ async function findUserByEmail(email: string) {
   return null;
 }
 
-async function processAccount(acc: AccountSpec) {
+async function processAccount(acc: AccountSpec, resetPassword: boolean) {
   const trace: string[] = [];
   try {
     // 1) ensure auth user
@@ -72,15 +84,16 @@ async function processAccount(acc: AccountSpec) {
         return { email: acc.email, status: "error", error: `not-found-after-create: ${created.error.message}`, trace };
       }
       userId = existing.id;
+      // NOTE: resetting the password revokes every active session of that user.
+      // Only do it on an explicit request (?reset=1), never on the silent auto-seed,
+      // otherwise a user who just signed in gets logged out mid-navigation.
       const upd = await supabaseAdmin.auth.admin.updateUserById(existing.id, {
-        password: acc.password,
+        ...(resetPassword ? { password: acc.password } : {}),
         email_confirm: true,
         user_metadata: { display_name: acc.display_name },
       });
       if (upd.error) trace.push(`update-fail: ${upd.error.message}`);
-    } else {
-      userId = created.data.user?.id ?? null;
-      trace.push("created");
+      else trace.push(resetPassword ? "password-reset" : "kept-existing-password");
     }
     if (!userId) return { email: acc.email, status: "error", error: "no user id", trace };
 
@@ -91,13 +104,13 @@ async function processAccount(acc: AccountSpec) {
     if (profile.error) trace.push(`profile-fail: ${profile.error.message}`);
     else trace.push("profile-ready");
 
-    // 2) admin role
-    if (acc.role === "admin") {
+    // 2) roles
+    for (const role of acc.roles ?? []) {
       // delete then insert to avoid onConflict requirements
-      await supabaseAdmin.from("user_roles").delete().eq("user_id", userId).eq("role", "admin");
-      const ins = await supabaseAdmin.from("user_roles").insert({ user_id: userId, role: "admin" });
-      if (ins.error) trace.push(`role-fail: ${ins.error.message}`);
-      else trace.push("role-admin");
+      await supabaseAdmin.from("user_roles").delete().eq("user_id", userId).eq("role", role);
+      const ins = await supabaseAdmin.from("user_roles").insert({ user_id: userId, role });
+      if (ins.error) trace.push(`role-fail(${role}): ${ins.error.message}`);
+      else trace.push(`role-${role}`);
     }
 
     // 3) artist profile
@@ -132,7 +145,7 @@ async function processAccount(acc: AccountSpec) {
       email: acc.email,
       password: acc.password,
       user_id: userId,
-      role: acc.role ?? "user",
+      role: (acc.roles ?? ["user"]).join(","),
       artist: acc.artist?.slug ?? null,
       status: "ok",
       trace,
@@ -150,9 +163,10 @@ export const Route = createFileRoute("/api/public/seed-test-accounts")({
         if (url.searchParams.get("token") !== SEED_TOKEN) {
           return new Response("Forbidden", { status: 403 });
         }
+        const resetPassword = url.searchParams.get("reset") === "1";
         try {
           const results: any[] = [];
-          for (const acc of ACCOUNTS) results.push(await processAccount(acc));
+          for (const acc of ACCOUNTS) results.push(await processAccount(acc, resetPassword));
           return Response.json({ ok: true, results });
         } catch (e) {
           return Response.json(

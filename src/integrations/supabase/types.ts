@@ -589,6 +589,63 @@ export type Database = {
         }
         Relationships: []
       }
+      geniuspay_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          payment_url: string | null
+          provider_status: string | null
+          purpose: string
+          raw: Json | null
+          reference: string | null
+          settled_at: string | null
+          status: string
+          target_id: string | null
+          transaction_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          payment_url?: string | null
+          provider_status?: string | null
+          purpose: string
+          raw?: Json | null
+          reference?: string | null
+          settled_at?: string | null
+          status?: string
+          target_id?: string | null
+          transaction_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          payment_url?: string | null
+          provider_status?: string | null
+          purpose?: string
+          raw?: Json | null
+          reference?: string | null
+          settled_at?: string | null
+          status?: string
+          target_id?: string | null
+          transaction_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       listening_history: {
         Row: {
           id: string

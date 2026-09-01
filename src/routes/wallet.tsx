@@ -22,13 +22,7 @@ import {
   creditWallet,
   requestWithdrawal,
 } from "@/lib/wallet.functions";
-import {
-  createTopupRequest,
-  listMyTopups,
-  devCreditWallet,
-  amIAdmin,
-} from "@/lib/topup.functions";
-import { Smartphone, CreditCard, Copy, FlaskConical } from "lucide-react";
+
 
 export const Route = createFileRoute("/wallet")({
   head: () => ({ meta: [{ title: "Wallet — VinaSound" }] }),
@@ -65,61 +59,24 @@ type Tx = {
   settled_at: string | null;
 };
 
-type TopupRow = {
-  id: string;
-  amount_xof: number;
-  operator: "tmoney" | "flooz";
-  phone: string;
-  reference_code: string;
-  status: "pending" | "approved" | "rejected";
-  rejection_reason: string | null;
-  created_at: string;
-  processed_at: string | null;
-};
 
-// 👉 Numéros marchands à remplacer par les vrais
-const MERCHANT = {
-  tmoney: { ussd: "*155#", number: "+228 90 00 00 00", label: "TMoney (Togocom)" },
-  flooz: { ussd: "*144#", number: "+228 99 00 00 00", label: "Flooz (Moov Africa)" },
-} as const;
+
 
 function WalletPage() {
   const qc = useQueryClient();
   const fetchSummary = useServerFn(getWalletSummary);
   const creditFn = useServerFn(creditWallet);
   const withdrawFn = useServerFn(requestWithdrawal);
-  const createTopup = useServerFn(createTopupRequest);
-  const fetchMyTopups = useServerFn(listMyTopups);
-  const devCreditFn = useServerFn(devCreditWallet);
-  const checkAdmin = useServerFn(amIAdmin);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["wallet-summary"],
     queryFn: () => fetchSummary(),
   });
 
-  const { data: topups } = useQuery({
-    queryKey: ["my-topups"],
-    queryFn: () => fetchMyTopups() as Promise<TopupRow[]>,
-  });
-
-  const { data: adminCheck } = useQuery({
-    queryKey: ["am-i-admin"],
-    queryFn: () => checkAdmin(),
-  });
-  const isAdminUser = !!adminCheck?.isAdmin;
 
   const [creditOpen, setCreditOpen] = useState(false);
   const [withdrawOpen, setWithdrawOpen] = useState(false);
-  const [creditTab, setCreditTab] = useState<"mobile" | "card">("mobile");
   const [creditAmount, setCreditAmount] = useState<number>(2500);
-  const [operator, setOperator] = useState<"tmoney" | "flooz">("tmoney");
-  const [phone, setPhone] = useState("");
-  const [topupInstr, setTopupInstr] = useState<{
-    reference_code: string;
-    amount_xof: number;
-    operator: "tmoney" | "flooz";
-  } | null>(null);
 
   const [withdrawAmount, setWithdrawAmount] = useState<number>(5000);
   const [withdrawMethod, setWithdrawMethod] =
@@ -136,28 +93,6 @@ function WalletPage() {
     onError: (e: Error) => setErr(e.message),
   });
 
-  const topupMut = useMutation({
-    mutationFn: (input: { amountXof: number; operator: "tmoney" | "flooz"; phone: string }) =>
-      createTopup({ data: input }),
-    onSuccess: (row) => {
-      setTopupInstr({
-        reference_code: row.reference_code,
-        amount_xof: row.amount_xof,
-        operator: row.operator as "tmoney" | "flooz",
-      });
-      qc.invalidateQueries({ queryKey: ["my-topups"] });
-    },
-    onError: (e: Error) => setErr(e.message),
-  });
-
-  const devCreditMut = useMutation({
-    mutationFn: (amount: number) => devCreditFn({ data: { amountXof: amount } }),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["wallet-summary"] });
-      qc.invalidateQueries({ queryKey: ["points-balance"] });
-    },
-    onError: (e: Error) => setErr(e.message),
-  });
 
   const withdrawMut = useMutation({
     mutationFn: (input: {
@@ -197,7 +132,7 @@ function WalletPage() {
           </p>
           <div className="flex flex-wrap gap-3 mt-6">
             <button
-              onClick={() => { setErr(null); setTopupInstr(null); setCreditTab("mobile"); setCreditOpen(true); }}
+              onClick={() => { setErr(null); setCreditOpen(true); }}
               className="bg-white text-primary rounded-full px-4 py-2 text-sm font-bold inline-flex items-center gap-2 hover:opacity-90 transition"
             >
               <Plus className="w-4 h-4" /> Créditer
@@ -208,29 +143,12 @@ function WalletPage() {
             >
               <ArrowDownToLine className="w-4 h-4" /> Retirer
             </button>
-            {isAdminUser && (
-              <button
-                onClick={() => { setErr(null); devCreditMut.mutate(5000); }}
-                disabled={devCreditMut.isPending}
-                className="border border-white/30 bg-black/20 rounded-full px-4 py-2 text-sm font-bold inline-flex items-center gap-2 hover:bg-black/30 transition disabled:opacity-60"
-                title="Crédit instantané admin pour tester le système points"
-              >
-                {devCreditMut.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <FlaskConical className="w-4 h-4" />}
-                Crédit test +5 000
-              </button>
-            )}
           </div>
         </div>
       </div>
 
-      {isAdminUser && (
-        <Link
-          to="/admin/topups"
-          className="block mb-6 rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-200 hover:bg-amber-500/15 transition px-5 py-3 text-sm font-semibold"
-        >
-          ⚙️ Espace admin — valider les recharges TMoney / Flooz →
-        </Link>
-      )}
+
+
 
       {/* Points : crédités automatiquement à chaque recharge (100 FCFA = 10 pts) */}
       <Link
@@ -262,104 +180,48 @@ function WalletPage() {
 
       {/* Modals */}
       {creditOpen && (
-        <Modal title="Créditer mon wallet" onClose={() => { setCreditOpen(false); setTopupInstr(null); }}>
-            {topupInstr ? (
-              <TopupInstructions
-                instr={topupInstr}
-                onDone={() => { setCreditOpen(false); setTopupInstr(null); }}
-              />
-            ) : (
-              <>
-                {/* Tabs */}
-                <div className="flex gap-2 mb-5 border-b border-border">
-                  <TabBtn active={creditTab === "mobile"} onClick={() => setCreditTab("mobile")}>
-                    <Smartphone className="w-4 h-4" /> Mobile Money
-                  </TabBtn>
-                  <TabBtn active={creditTab === "card"} onClick={() => setCreditTab("card")}>
-                    <CreditCard className="w-4 h-4" /> Carte / GeniusPay
-                  </TabBtn>
-                </div>
-
-                {/* Amount selector (shared) */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  {PRESET_AMOUNTS.map((a) => (
-                    <button
-                      key={a}
-                      onClick={() => setCreditAmount(a)}
-                      className={`rounded-md border px-3 py-2 text-sm font-semibold transition ${
-                        creditAmount === a
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "border-border hover:border-primary"
-                      }`}
-                    >
-                      {fmtXof(a)}
-                    </button>
-                  ))}
-                </div>
-                <label className="block text-xs uppercase tracking-widest font-bold text-muted-foreground mb-2">
-                  Ou montant personnalisé
-                </label>
-                <input
-                  type="number"
-                  min={500}
-                  step={100}
-                  value={creditAmount}
-                  onChange={(e) => setCreditAmount(Number(e.target.value) || 0)}
-                  className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm outline-none focus:border-primary mb-4"
-                />
-
-                {creditTab === "mobile" ? (
-                  <>
-                    <label className="block text-xs uppercase tracking-widest font-bold text-muted-foreground mb-2">
-                      Opérateur
-                    </label>
-                    <div className="grid grid-cols-2 gap-2 mb-4">
-                      {(["tmoney", "flooz"] as const).map((op) => (
-                        <button
-                          key={op}
-                          onClick={() => setOperator(op)}
-                          className={`rounded-md border px-3 py-2 text-sm font-semibold transition ${
-                            operator === op
-                              ? "bg-primary text-primary-foreground border-primary"
-                              : "border-border hover:border-primary"
-                          }`}
-                        >
-                          {MERCHANT[op].label}
-                        </button>
-                      ))}
-                    </div>
-                    <label className="block text-xs uppercase tracking-widest font-bold text-muted-foreground mb-2">
-                      Ton numéro {operator === "tmoney" ? "TMoney" : "Flooz"}
-                    </label>
-                    <input
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+228 90 00 00 00"
-                      className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm outline-none focus:border-primary mb-4"
-                    />
-                    <button
-                      disabled={topupMut.isPending || creditAmount < 500 || phone.trim().length < 8}
-                      onClick={() => topupMut.mutate({ amountXof: creditAmount, operator, phone })}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-full px-6 py-3 font-bold disabled:opacity-60 hover:opacity-90"
-                    >
-                      {topupMut.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
-                      Obtenir les instructions de paiement
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    disabled={creditMut.isPending || creditAmount < 500}
-                    onClick={() => creditMut.mutate(creditAmount)}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-full px-6 py-3 font-bold disabled:opacity-60 hover:opacity-90"
-                  >
-                    {creditMut.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
-                    Payer {fmtXof(creditAmount)}
-                  </button>
-                )}
-              </>
-            )}
+        <Modal title="Créditer mon wallet" onClose={() => setCreditOpen(false)}>
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            {PRESET_AMOUNTS.map((a) => (
+              <button
+                key={a}
+                onClick={() => setCreditAmount(a)}
+                className={`rounded-md border px-3 py-2 text-sm font-semibold transition ${
+                  creditAmount === a
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "border-border hover:border-primary"
+                }`}
+              >
+                {fmtXof(a)}
+              </button>
+            ))}
+          </div>
+          <label className="block text-xs uppercase tracking-widest font-bold text-muted-foreground mb-2">
+            Ou montant personnalisé
+          </label>
+          <input
+            type="number"
+            min={500}
+            step={100}
+            value={creditAmount}
+            onChange={(e) => setCreditAmount(Number(e.target.value) || 0)}
+            className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm outline-none focus:border-primary mb-4"
+          />
+          <p className="text-xs text-muted-foreground mb-4">
+            Mobile Money (Flooz, Mixx by Yas, Wave, Orange, MTN) ou carte bancaire.
+            Ton solde est crédité automatiquement dès la confirmation du paiement.
+          </p>
+          <button
+            disabled={creditMut.isPending || creditAmount < 500}
+            onClick={() => creditMut.mutate(creditAmount)}
+            className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-full px-6 py-3 font-bold disabled:opacity-60 hover:opacity-90"
+          >
+            {creditMut.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+            Payer {fmtXof(creditAmount)}
+          </button>
         </Modal>
       )}
+
 
       {withdrawOpen && (
         <Modal title="Demander un retrait" onClose={() => setWithdrawOpen(false)}>
@@ -429,30 +291,8 @@ function WalletPage() {
         </Modal>
       )}
 
-      {/* Mes recharges TMoney/Flooz */}
-      {topups && topups.filter((t) => t.status === "pending").length > 0 && (
-        <div className="mb-8">
-          <h2 className="font-display text-xl font-extrabold uppercase mb-4">Recharges en attente</h2>
-          <ul className="divide-y divide-border rounded-md border border-border bg-surface/40">
-            {topups.filter((t) => t.status === "pending").map((t) => (
-              <li key={t.id} className="px-4 py-3 flex items-center gap-3">
-                <Smartphone className="w-4 h-4 text-amber-400 shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold">
-                    {fmtXof(t.amount_xof)} · {t.operator === "tmoney" ? "TMoney" : "Flooz"}
-                  </p>
-                  <p className="text-xs text-muted-foreground font-mono">
-                    Réf : {t.reference_code} · {fmtDate(t.created_at)}
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-400">
-                  <Clock className="w-3 h-3" /> En attente de validation
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
+
 
       {/* Historique */}
       <h2 className="font-display text-xl font-extrabold uppercase mb-4">Historique</h2>
@@ -573,74 +413,3 @@ function Modal({
   );
 }
 
-function TabBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold border-b-2 -mb-px transition ${
-        active ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
-function TopupInstructions({
-  instr,
-  onDone,
-}: {
-  instr: { reference_code: string; amount_xof: number; operator: "tmoney" | "flooz" };
-  onDone: () => void;
-}) {
-  const merchant = MERCHANT[instr.operator];
-  const [copied, setCopied] = useState<"ref" | "num" | null>(null);
-  const copy = (val: string, kind: "ref" | "num") => {
-    navigator.clipboard.writeText(val);
-    setCopied(kind);
-    setTimeout(() => setCopied(null), 1500);
-  };
-  return (
-    <div className="space-y-4">
-      <div className="rounded-lg border border-primary/40 bg-primary/10 p-4">
-        <p className="text-xs uppercase tracking-widest font-bold text-primary mb-2">
-          Étapes à suivre
-        </p>
-        <ol className="text-sm space-y-2 list-decimal list-inside">
-          <li>Compose <span className="font-mono font-bold">{merchant.ussd}</span> sur ton téléphone</li>
-          <li>Envoie <span className="font-bold">{fmtXof(instr.amount_xof)}</span> au numéro marchand</li>
-          <li>Indique le <span className="font-bold">code de référence</span> en motif</li>
-        </ol>
-      </div>
-
-      <Row label="Numéro marchand" value={merchant.number} onCopy={() => copy(merchant.number, "num")} copied={copied === "num"} />
-      <Row label="Code de référence" value={instr.reference_code} onCopy={() => copy(instr.reference_code, "ref")} copied={copied === "ref"} mono />
-
-      <p className="text-xs text-muted-foreground">
-        Ta recharge sera créditée après validation manuelle (généralement &lt; 1h en journée).
-        Tu peux suivre le statut dans la section « Recharges en attente ».
-      </p>
-
-      <button
-        onClick={onDone}
-        className="w-full bg-primary text-primary-foreground rounded-full px-6 py-3 font-bold hover:opacity-90"
-      >
-        J'ai effectué le paiement
-      </button>
-    </div>
-  );
-}
-
-function Row({ label, value, onCopy, copied, mono }: { label: string; value: string; onCopy: () => void; copied: boolean; mono?: boolean }) {
-  return (
-    <div>
-      <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mb-1">{label}</p>
-      <div className="flex items-center gap-2 bg-surface border border-border rounded-md px-3 py-2">
-        <span className={`flex-1 text-sm ${mono ? "font-mono font-bold" : ""}`}>{value}</span>
-        <button onClick={onCopy} className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1">
-          <Copy className="w-3 h-3" /> {copied ? "Copié !" : "Copier"}
-        </button>
-      </div>
-    </div>
-  );
-}

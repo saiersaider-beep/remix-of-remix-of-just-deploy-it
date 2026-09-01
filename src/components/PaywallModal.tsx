@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Lock, Loader2, ShoppingBag, X, ShieldCheck, Headphones, Wallet, Sparkles, ArrowRightLeft, Smartphone } from "lucide-react";
+import { Lock, Loader2, ShoppingBag, X, Headphones, Wallet, Sparkles, ArrowRightLeft, Smartphone } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { usePlayerStore } from "@/stores/player";
 import { formatPrice } from "@/lib/player";
-import { adminGrantTrackAccess } from "@/lib/purchase.functions";
 import { getWalletSummary } from "@/lib/wallet.functions";
 import {
   getPointsSummary,
@@ -17,7 +16,6 @@ import {
   POINTS_TO_XOF_RATIO,
   POINTS_TO_XOF_VALUE,
 } from "@/lib/points.functions";
-import { useIsAdmin } from "@/hooks/use-is-admin";
 
 export function PaywallModal() {
   const track = usePlayerStore((s) => s.paywallTrack);
@@ -29,14 +27,12 @@ export function PaywallModal() {
 
   const qc = useQueryClient();
   const navigate = useNavigate();
-  const adminFn = useServerFn(adminGrantTrackAccess);
   const minuteFn = useServerFn(buyMinutePass);
   const convertFn = useServerFn(convertPointsToWallet);
   const walletBuyFn = useServerFn(buyTrackWithWallet);
   const fetchPts = useServerFn(getPointsSummary);
   const fetchWallet = useServerFn(getWalletSummary);
 
-  const { isAdmin } = useIsAdmin();
   const [busy, setBusy] = useState<null | "buy" | "minute" | "wallet" | "convert" | "admin">(null);
 
   const pts = useQuery({ queryKey: ["points-summary"], queryFn: () => fetchPts(), enabled: !!track });
@@ -201,22 +197,23 @@ export function PaywallModal() {
                 ? `Acheter avec mon wallet (${formatPrice(price, currency)})`
                 : `Recharger mon wallet (${price - walletBal} XOF manquants)`
             }
-            sub={canWallet ? "Accès complet immédiat" : "Aller à la recharge Mobile Money"}
+            sub={canWallet ? "Accès complet immédiat" : "Recharge instantanée par paiement en ligne"}
             onClick={canWallet ? handleWalletBuy : handleTopUp}
             disabled={busy !== null}
             loading={busy === "wallet"}
           />
 
-          {/* Option 2: pay via Mobile Money (Flooz / Yas) */}
+          {/* Option 2: paiement en ligne (Mobile Money / carte), activation auto */}
           <ChoiceButton
             icon={Smartphone}
-            label={`Payer via Mobile Money (${formatPrice(price, currency)})`}
-            sub="Flooz (Moov) ou Yas — validation sous 24h"
+            label={`Payer maintenant (${formatPrice(price, currency)})`}
+            sub="Mobile Money ou carte — accès débloqué automatiquement"
             onClick={handleMobileMoney}
             disabled={busy !== null}
             loading={false}
             primary
           />
+
 
           {/* Option 3: minute pass via points */}
           <ChoiceButton
@@ -251,28 +248,6 @@ export function PaywallModal() {
           />
 
 
-          {isAdmin && (
-            <button
-              onClick={async () => {
-                setBusy("admin");
-                try {
-                  await adminFn({ data: { trackId: track.id } });
-                  toast.success("Accès accordé (admin)");
-                  setAccess(track.id, true);
-                  close();
-                } catch (e) {
-                  toast.error(e instanceof Error ? e.message : "Échec");
-                } finally {
-                  setBusy(null);
-                }
-              }}
-              disabled={busy !== null}
-              className="mt-1 inline-flex items-center justify-center gap-2 border border-border bg-surface/50 rounded-full px-5 py-2 text-xs font-semibold disabled:opacity-60 hover:bg-surface"
-            >
-              {busy === "admin" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ShieldCheck className="w-3.5 h-3.5" />}
-              Débloquer (admin, sans paiement)
-            </button>
-          )}
 
           <button onClick={close} className="text-xs text-muted-foreground hover:text-foreground py-1">
             Plus tard

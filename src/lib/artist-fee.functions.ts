@@ -3,7 +3,11 @@ import { getRequestHost } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { initGeniusPayCheckout } from "@/lib/geniuspay.server";
+import {
+  initGeniusPayCheckout,
+  recordGeniusPayTransaction,
+  updateGeniusPayTransaction,
+} from "@/lib/geniuspay.server";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dbAdmin = supabaseAdmin as unknown as SupabaseClient<any, "public", any>;
@@ -64,13 +68,22 @@ export const createArtistFeePayment = createServerFn({ method: "POST" })
     // Prefix `artistfee-` is required: verifyAndApply routes by prefix.
     const transaction_id = `artistfee-${userId.slice(0, 8)}-${Date.now()}`;
 
-    const { payment_url } = await initGeniusPayCheckout({
+    await recordGeniusPayTransaction({
+      user_id: userId,
+      purpose: "artist_fee",
+      transaction_id,
+      amount: ARTIST_FEE_XOF,
+      description: "Frais création profil artiste",
+    });
+
+    const { payment_url, reference } = await initGeniusPayCheckout({
       amount: ARTIST_FEE_XOF,
       description: `Frais création profil artiste (${ARTIST_FEE_XOF} XOF)`,
       transaction_id,
       return_url: `${host}/payment/callback?transaction_id=${encodeURIComponent(transaction_id)}`,
       notify_url: `${host}/api/public/geniuspay-webhook`,
       customer_email: email,
+      metadata: { user_id: userId, purpose: "artist_fee" },
     });
 
     await dbAdmin
@@ -82,11 +95,14 @@ export const createArtistFeePayment = createServerFn({ method: "POST" })
           amount_xof: ARTIST_FEE_XOF,
           method: "geniuspay",
           flw_tx_ref: transaction_id,
+          flw_tx_id: reference,
           flw_payment_link: payment_url,
           updated_at: new Date().toISOString(),
         },
         { onConflict: "user_id" },
       );
+
+    await updateGeniusPayTransaction(transaction_id, { reference, payment_url });
 
     return { alreadyPaid: false, link: payment_url, tx_ref: transaction_id };
   });

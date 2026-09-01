@@ -22,6 +22,7 @@ import {
   HelpCircle,
   Wallet,
   Image as ImageIcon,
+  Crown,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsAdmin } from "@/hooks/use-is-admin";
@@ -35,8 +36,10 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard }[] = [
   { to: "/admin/tracks", label: "Pistes", icon: Music2 },
   { to: "/admin/comments", label: "Commentaires", icon: MessageSquare },
   { to: "/admin/payments", label: "Paiements", icon: CreditCard },
-  { to: "/admin/mobile-money", label: "Mobile Money", icon: Wallet },
   { to: "/admin/geniuspay", label: "GeniusPay", icon: CreditCard },
+  { to: "/admin/geniuspay-purchases", label: "Achats GeniusPay", icon: Receipt },
+  { to: "/admin/geniuspay-transactions", label: "Transactions GeniusPay", icon: Receipt },
+  { to: "/admin/geniuspay-pro", label: "Paiements PRO", icon: Crown },
   { to: "/admin/withdrawals", label: "Retraits", icon: Banknote },
   { to: "/admin/bank-receipts", label: "Reçus bancaires", icon: Receipt },
   { to: "/admin/artist-verification", label: "Vérifications", icon: ShieldCheck },

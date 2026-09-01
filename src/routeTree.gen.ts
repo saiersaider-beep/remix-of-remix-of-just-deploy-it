@@ -15,6 +15,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AlbumsRouteImport } from './routes/albums'
 import { Route as BecomeRouteImport } from './routes/become'
 import { Route as BlogsRouteImport } from './routes/blogs'
+import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DevelopersRouteImport } from './routes/developers'
@@ -70,11 +71,12 @@ import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminCopyrightsRouteImport } from './routes/admin.copyrights'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
 import { Route as AdminGeniuspayRouteImport } from './routes/admin.geniuspay'
-import { Route as AdminMobileMoneyRouteImport } from './routes/admin.mobile-money'
+import { Route as AdminGeniuspayProRouteImport } from './routes/admin.geniuspay-pro'
+import { Route as AdminGeniuspayPurchasesRouteImport } from './routes/admin.geniuspay-purchases'
+import { Route as AdminGeniuspayTransactionsRouteImport } from './routes/admin.geniuspay-transactions'
 import { Route as AdminPagesRouteImport } from './routes/admin.pages'
 import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
-import { Route as AdminTopupsRouteImport } from './routes/admin.topups'
 import { Route as AdminTracksRouteImport } from './routes/admin.tracks'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminWithdrawalsRouteImport } from './routes/admin.withdrawals'
@@ -86,11 +88,12 @@ import { Route as ArtistsSlugRouteImport } from './routes/artists.$slug'
 import { Route as PagesSlugRouteImport } from './routes/pages.$slug'
 import { Route as PaymentCallbackRouteImport } from './routes/payment.callback'
 import { Route as PlaylistsSlugRouteImport } from './routes/playlists.$slug'
+import { Route as PurchaseSuccessRouteImport } from './routes/purchase.success'
+import { Route as SubscriptionConfirmationRouteImport } from './routes/subscription.confirmation'
 import { Route as TracksSlugRouteImport } from './routes/tracks.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as ApiPublicGeniuspayWebhookRouteImport } from './routes/api/public/geniuspay-webhook'
-import { Route as ApiPublicPaygateCallbackRouteImport } from './routes/api/public/paygate-callback'
 import { Route as ApiPublicSeedTestAccountsRouteImport } from './routes/api/public/seed-test-accounts'
 
 const IndexRoute = IndexRouteImport.update({
@@ -121,6 +124,11 @@ const BecomeRoute = BecomeRouteImport.update({
 const BlogsRoute = BlogsRouteImport.update({
   id: '/blogs',
   path: '/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientsRoute = ClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -400,11 +408,22 @@ const AdminGeniuspayRoute = AdminGeniuspayRouteImport.update({
   path: '/geniuspay',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminMobileMoneyRoute = AdminMobileMoneyRouteImport.update({
-  id: '/mobile-money',
-  path: '/mobile-money',
+const AdminGeniuspayProRoute = AdminGeniuspayProRouteImport.update({
+  id: '/geniuspay-pro',
+  path: '/geniuspay-pro',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminGeniuspayPurchasesRoute = AdminGeniuspayPurchasesRouteImport.update({
+  id: '/geniuspay-purchases',
+  path: '/geniuspay-purchases',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminGeniuspayTransactionsRoute =
+  AdminGeniuspayTransactionsRouteImport.update({
+    id: '/geniuspay-transactions',
+    path: '/geniuspay-transactions',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminPagesRoute = AdminPagesRouteImport.update({
   id: '/pages',
   path: '/pages',
@@ -418,11 +437,6 @@ const AdminPaymentsRoute = AdminPaymentsRouteImport.update({
 const AdminReportsRoute = AdminReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminTopupsRoute = AdminTopupsRouteImport.update({
-  id: '/topups',
-  path: '/topups',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminTracksRoute = AdminTracksRouteImport.update({
@@ -480,6 +494,17 @@ const PlaylistsSlugRoute = PlaylistsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => PlaylistsRoute,
 } as any)
+const PurchaseSuccessRoute = PurchaseSuccessRouteImport.update({
+  id: '/purchase/success',
+  path: '/purchase/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubscriptionConfirmationRoute =
+  SubscriptionConfirmationRouteImport.update({
+    id: '/confirmation',
+    path: '/confirmation',
+    getParentRoute: () => SubscriptionRoute,
+  } as any)
 const TracksSlugRoute = TracksSlugRouteImport.update({
   id: '/tracks/$slug',
   path: '/tracks/$slug',
@@ -502,12 +527,6 @@ const ApiPublicGeniuspayWebhookRoute =
     path: '/api/public/geniuspay-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicPaygateCallbackRoute =
-  ApiPublicPaygateCallbackRouteImport.update({
-    id: '/api/public/paygate-callback',
-    path: '/api/public/paygate-callback',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ApiPublicSeedTestAccountsRoute =
   ApiPublicSeedTestAccountsRouteImport.update({
     id: '/api/public/seed-test-accounts',
@@ -522,6 +541,7 @@ export interface FileRoutesByFullPath {
   '/albums': typeof AlbumsRouteWithChildren
   '/become': typeof BecomeRoute
   '/blogs': typeof BlogsRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
@@ -557,7 +577,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/spotlight': typeof SpotlightRoute
-  '/subscription': typeof SubscriptionRoute
+  '/subscription': typeof SubscriptionRouteWithChildren
   '/terms': typeof TermsRoute
   '/top_music': typeof Top_musicRoute
   '/upload-album': typeof UploadAlbumRoute
@@ -576,11 +596,12 @@ export interface FileRoutesByFullPath {
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/geniuspay': typeof AdminGeniuspayRoute
-  '/admin/mobile-money': typeof AdminMobileMoneyRoute
+  '/admin/geniuspay-pro': typeof AdminGeniuspayProRoute
+  '/admin/geniuspay-purchases': typeof AdminGeniuspayPurchasesRoute
+  '/admin/geniuspay-transactions': typeof AdminGeniuspayTransactionsRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
-  '/admin/topups': typeof AdminTopupsRoute
   '/admin/tracks': typeof AdminTracksRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/withdrawals': typeof AdminWithdrawalsRoute
@@ -592,12 +613,13 @@ export interface FileRoutesByFullPath {
   '/pages/$slug': typeof PagesSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/playlists/$slug': typeof PlaylistsSlugRoute
+  '/purchase/success': typeof PurchaseSuccessRoute
+  '/subscription/confirmation': typeof SubscriptionConfirmationRoute
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
-  '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
 export interface FileRoutesByTo {
@@ -606,6 +628,7 @@ export interface FileRoutesByTo {
   '/albums': typeof AlbumsRouteWithChildren
   '/become': typeof BecomeRoute
   '/blogs': typeof BlogsRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
@@ -641,7 +664,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/spotlight': typeof SpotlightRoute
-  '/subscription': typeof SubscriptionRoute
+  '/subscription': typeof SubscriptionRouteWithChildren
   '/terms': typeof TermsRoute
   '/top_music': typeof Top_musicRoute
   '/upload-album': typeof UploadAlbumRoute
@@ -660,11 +683,12 @@ export interface FileRoutesByTo {
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/geniuspay': typeof AdminGeniuspayRoute
-  '/admin/mobile-money': typeof AdminMobileMoneyRoute
+  '/admin/geniuspay-pro': typeof AdminGeniuspayProRoute
+  '/admin/geniuspay-purchases': typeof AdminGeniuspayPurchasesRoute
+  '/admin/geniuspay-transactions': typeof AdminGeniuspayTransactionsRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
-  '/admin/topups': typeof AdminTopupsRoute
   '/admin/tracks': typeof AdminTracksRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/withdrawals': typeof AdminWithdrawalsRoute
@@ -676,12 +700,13 @@ export interface FileRoutesByTo {
   '/pages/$slug': typeof PagesSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/playlists/$slug': typeof PlaylistsSlugRoute
+  '/purchase/success': typeof PurchaseSuccessRoute
+  '/subscription/confirmation': typeof SubscriptionConfirmationRoute
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
-  '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
 export interface FileRoutesById {
@@ -692,6 +717,7 @@ export interface FileRoutesById {
   '/albums': typeof AlbumsRouteWithChildren
   '/become': typeof BecomeRoute
   '/blogs': typeof BlogsRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
@@ -727,7 +753,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/spotlight': typeof SpotlightRoute
-  '/subscription': typeof SubscriptionRoute
+  '/subscription': typeof SubscriptionRouteWithChildren
   '/terms': typeof TermsRoute
   '/top_music': typeof Top_musicRoute
   '/upload-album': typeof UploadAlbumRoute
@@ -746,11 +772,12 @@ export interface FileRoutesById {
   '/admin/copyrights': typeof AdminCopyrightsRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/geniuspay': typeof AdminGeniuspayRoute
-  '/admin/mobile-money': typeof AdminMobileMoneyRoute
+  '/admin/geniuspay-pro': typeof AdminGeniuspayProRoute
+  '/admin/geniuspay-purchases': typeof AdminGeniuspayPurchasesRoute
+  '/admin/geniuspay-transactions': typeof AdminGeniuspayTransactionsRoute
   '/admin/pages': typeof AdminPagesRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/reports': typeof AdminReportsRoute
-  '/admin/topups': typeof AdminTopupsRoute
   '/admin/tracks': typeof AdminTracksRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/withdrawals': typeof AdminWithdrawalsRoute
@@ -762,12 +789,13 @@ export interface FileRoutesById {
   '/pages/$slug': typeof PagesSlugRoute
   '/payment/callback': typeof PaymentCallbackRoute
   '/playlists/$slug': typeof PlaylistsSlugRoute
+  '/purchase/success': typeof PurchaseSuccessRoute
+  '/subscription/confirmation': typeof SubscriptionConfirmationRoute
   '/tracks/$slug': typeof TracksSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/geniuspay-webhook': typeof ApiPublicGeniuspayWebhookRoute
-  '/api/public/paygate-callback': typeof ApiPublicPaygateCallbackRoute
   '/api/public/seed-test-accounts': typeof ApiPublicSeedTestAccountsRoute
 }
 export interface FileRouteTypes {
@@ -779,6 +807,7 @@ export interface FileRouteTypes {
     | '/albums'
     | '/become'
     | '/blogs'
+    | '/clients'
     | '/contact'
     | '/dashboard'
     | '/developers'
@@ -833,11 +862,12 @@ export interface FileRouteTypes {
     | '/admin/copyrights'
     | '/admin/faq'
     | '/admin/geniuspay'
-    | '/admin/mobile-money'
+    | '/admin/geniuspay-pro'
+    | '/admin/geniuspay-purchases'
+    | '/admin/geniuspay-transactions'
     | '/admin/pages'
     | '/admin/payments'
     | '/admin/reports'
-    | '/admin/topups'
     | '/admin/tracks'
     | '/admin/users'
     | '/admin/withdrawals'
@@ -849,12 +879,13 @@ export interface FileRouteTypes {
     | '/pages/$slug'
     | '/payment/callback'
     | '/playlists/$slug'
+    | '/purchase/success'
+    | '/subscription/confirmation'
     | '/tracks/$slug'
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/geniuspay-webhook'
-    | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -863,6 +894,7 @@ export interface FileRouteTypes {
     | '/albums'
     | '/become'
     | '/blogs'
+    | '/clients'
     | '/contact'
     | '/dashboard'
     | '/developers'
@@ -917,11 +949,12 @@ export interface FileRouteTypes {
     | '/admin/copyrights'
     | '/admin/faq'
     | '/admin/geniuspay'
-    | '/admin/mobile-money'
+    | '/admin/geniuspay-pro'
+    | '/admin/geniuspay-purchases'
+    | '/admin/geniuspay-transactions'
     | '/admin/pages'
     | '/admin/payments'
     | '/admin/reports'
-    | '/admin/topups'
     | '/admin/tracks'
     | '/admin/users'
     | '/admin/withdrawals'
@@ -933,12 +966,13 @@ export interface FileRouteTypes {
     | '/pages/$slug'
     | '/payment/callback'
     | '/playlists/$slug'
+    | '/purchase/success'
+    | '/subscription/confirmation'
     | '/tracks/$slug'
     | '/admin'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/geniuspay-webhook'
-    | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   id:
     | '__root__'
@@ -948,6 +982,7 @@ export interface FileRouteTypes {
     | '/albums'
     | '/become'
     | '/blogs'
+    | '/clients'
     | '/contact'
     | '/dashboard'
     | '/developers'
@@ -1002,11 +1037,12 @@ export interface FileRouteTypes {
     | '/admin/copyrights'
     | '/admin/faq'
     | '/admin/geniuspay'
-    | '/admin/mobile-money'
+    | '/admin/geniuspay-pro'
+    | '/admin/geniuspay-purchases'
+    | '/admin/geniuspay-transactions'
     | '/admin/pages'
     | '/admin/payments'
     | '/admin/reports'
-    | '/admin/topups'
     | '/admin/tracks'
     | '/admin/users'
     | '/admin/withdrawals'
@@ -1018,12 +1054,13 @@ export interface FileRouteTypes {
     | '/pages/$slug'
     | '/payment/callback'
     | '/playlists/$slug'
+    | '/purchase/success'
+    | '/subscription/confirmation'
     | '/tracks/$slug'
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/geniuspay-webhook'
-    | '/api/public/paygate-callback'
     | '/api/public/seed-test-accounts'
   fileRoutesById: FileRoutesById
 }
@@ -1034,6 +1071,7 @@ export interface RootRouteChildren {
   AlbumsRoute: typeof AlbumsRouteWithChildren
   BecomeRoute: typeof BecomeRoute
   BlogsRoute: typeof BlogsRoute
+  ClientsRoute: typeof ClientsRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   DevelopersRoute: typeof DevelopersRoute
@@ -1069,7 +1107,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
   SpotlightRoute: typeof SpotlightRoute
-  SubscriptionRoute: typeof SubscriptionRoute
+  SubscriptionRoute: typeof SubscriptionRouteWithChildren
   TermsRoute: typeof TermsRoute
   Top_musicRoute: typeof Top_musicRoute
   UploadAlbumRoute: typeof UploadAlbumRoute
@@ -1084,11 +1122,11 @@ export interface RootRouteChildren {
   ArtistsSlugRoute: typeof ArtistsSlugRoute
   PagesSlugRoute: typeof PagesSlugRoute
   PaymentCallbackRoute: typeof PaymentCallbackRoute
+  PurchaseSuccessRoute: typeof PurchaseSuccessRoute
   TracksSlugRoute: typeof TracksSlugRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicGeniuspayWebhookRoute: typeof ApiPublicGeniuspayWebhookRoute
-  ApiPublicPaygateCallbackRoute: typeof ApiPublicPaygateCallbackRoute
   ApiPublicSeedTestAccountsRoute: typeof ApiPublicSeedTestAccountsRoute
 }
 
@@ -1134,6 +1172,13 @@ declare module '@tanstack/react-router' {
       path: '/blogs'
       fullPath: '/blogs'
       preLoaderRoute: typeof BlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clients': {
+      id: '/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof ClientsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -1521,11 +1566,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminGeniuspayRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/mobile-money': {
-      id: '/admin/mobile-money'
-      path: '/mobile-money'
-      fullPath: '/admin/mobile-money'
-      preLoaderRoute: typeof AdminMobileMoneyRouteImport
+    '/admin/geniuspay-pro': {
+      id: '/admin/geniuspay-pro'
+      path: '/geniuspay-pro'
+      fullPath: '/admin/geniuspay-pro'
+      preLoaderRoute: typeof AdminGeniuspayProRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/geniuspay-purchases': {
+      id: '/admin/geniuspay-purchases'
+      path: '/geniuspay-purchases'
+      fullPath: '/admin/geniuspay-purchases'
+      preLoaderRoute: typeof AdminGeniuspayPurchasesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/geniuspay-transactions': {
+      id: '/admin/geniuspay-transactions'
+      path: '/geniuspay-transactions'
+      fullPath: '/admin/geniuspay-transactions'
+      preLoaderRoute: typeof AdminGeniuspayTransactionsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/pages': {
@@ -1547,13 +1606,6 @@ declare module '@tanstack/react-router' {
       path: '/reports'
       fullPath: '/admin/reports'
       preLoaderRoute: typeof AdminReportsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/topups': {
-      id: '/admin/topups'
-      path: '/topups'
-      fullPath: '/admin/topups'
-      preLoaderRoute: typeof AdminTopupsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/tracks': {
@@ -1633,6 +1685,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaylistsSlugRouteImport
       parentRoute: typeof PlaylistsRoute
     }
+    '/purchase/success': {
+      id: '/purchase/success'
+      path: '/purchase/success'
+      fullPath: '/purchase/success'
+      preLoaderRoute: typeof PurchaseSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subscription/confirmation': {
+      id: '/subscription/confirmation'
+      path: '/confirmation'
+      fullPath: '/subscription/confirmation'
+      preLoaderRoute: typeof SubscriptionConfirmationRouteImport
+      parentRoute: typeof SubscriptionRoute
+    }
     '/tracks/$slug': {
       id: '/tracks/$slug'
       path: '/tracks/$slug'
@@ -1661,13 +1727,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicGeniuspayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/paygate-callback': {
-      id: '/api/public/paygate-callback'
-      path: '/api/public/paygate-callback'
-      fullPath: '/api/public/paygate-callback'
-      preLoaderRoute: typeof ApiPublicPaygateCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/public/seed-test-accounts': {
       id: '/api/public/seed-test-accounts'
       path: '/api/public/seed-test-accounts'
@@ -1689,11 +1748,12 @@ interface AdminRouteChildren {
   AdminCopyrightsRoute: typeof AdminCopyrightsRoute
   AdminFaqRoute: typeof AdminFaqRoute
   AdminGeniuspayRoute: typeof AdminGeniuspayRoute
-  AdminMobileMoneyRoute: typeof AdminMobileMoneyRoute
+  AdminGeniuspayProRoute: typeof AdminGeniuspayProRoute
+  AdminGeniuspayPurchasesRoute: typeof AdminGeniuspayPurchasesRoute
+  AdminGeniuspayTransactionsRoute: typeof AdminGeniuspayTransactionsRoute
   AdminPagesRoute: typeof AdminPagesRoute
   AdminPaymentsRoute: typeof AdminPaymentsRoute
   AdminReportsRoute: typeof AdminReportsRoute
-  AdminTopupsRoute: typeof AdminTopupsRoute
   AdminTracksRoute: typeof AdminTracksRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminWithdrawalsRoute: typeof AdminWithdrawalsRoute
@@ -1711,11 +1771,12 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCopyrightsRoute: AdminCopyrightsRoute,
   AdminFaqRoute: AdminFaqRoute,
   AdminGeniuspayRoute: AdminGeniuspayRoute,
-  AdminMobileMoneyRoute: AdminMobileMoneyRoute,
+  AdminGeniuspayProRoute: AdminGeniuspayProRoute,
+  AdminGeniuspayPurchasesRoute: AdminGeniuspayPurchasesRoute,
+  AdminGeniuspayTransactionsRoute: AdminGeniuspayTransactionsRoute,
   AdminPagesRoute: AdminPagesRoute,
   AdminPaymentsRoute: AdminPaymentsRoute,
   AdminReportsRoute: AdminReportsRoute,
-  AdminTopupsRoute: AdminTopupsRoute,
   AdminTracksRoute: AdminTracksRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminWithdrawalsRoute: AdminWithdrawalsRoute,
@@ -1747,6 +1808,18 @@ const PlaylistsRouteWithChildren = PlaylistsRoute._addFileChildren(
   PlaylistsRouteChildren,
 )
 
+interface SubscriptionRouteChildren {
+  SubscriptionConfirmationRoute: typeof SubscriptionConfirmationRoute
+}
+
+const SubscriptionRouteChildren: SubscriptionRouteChildren = {
+  SubscriptionConfirmationRoute: SubscriptionConfirmationRoute,
+}
+
+const SubscriptionRouteWithChildren = SubscriptionRoute._addFileChildren(
+  SubscriptionRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -1754,6 +1827,7 @@ const rootRouteChildren: RootRouteChildren = {
   AlbumsRoute: AlbumsRouteWithChildren,
   BecomeRoute: BecomeRoute,
   BlogsRoute: BlogsRoute,
+  ClientsRoute: ClientsRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   DevelopersRoute: DevelopersRoute,
@@ -1789,7 +1863,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
   SpotlightRoute: SpotlightRoute,
-  SubscriptionRoute: SubscriptionRoute,
+  SubscriptionRoute: SubscriptionRouteWithChildren,
   TermsRoute: TermsRoute,
   Top_musicRoute: Top_musicRoute,
   UploadAlbumRoute: UploadAlbumRoute,
@@ -1805,11 +1879,11 @@ const rootRouteChildren: RootRouteChildren = {
   ArtistsSlugRoute: ArtistsSlugRoute,
   PagesSlugRoute: PagesSlugRoute,
   PaymentCallbackRoute: PaymentCallbackRoute,
+  PurchaseSuccessRoute: PurchaseSuccessRoute,
   TracksSlugRoute: TracksSlugRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicGeniuspayWebhookRoute: ApiPublicGeniuspayWebhookRoute,
-  ApiPublicPaygateCallbackRoute: ApiPublicPaygateCallbackRoute,
   ApiPublicSeedTestAccountsRoute: ApiPublicSeedTestAccountsRoute,
 }
 export const routeTree = rootRouteImport

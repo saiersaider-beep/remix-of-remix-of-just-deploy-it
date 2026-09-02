@@ -221,6 +221,23 @@ function PayPage() {
                 </>
               )}
             </button>
+
+            {checkoutUrl && (
+              <div className="rounded-lg border border-border bg-muted/20 p-3 text-xs text-muted-foreground space-y-2">
+                <p>
+                  La page de paiement s'ouvre dans un nouvel onglet. Si rien ne s'affiche
+                  (bloqueur de fenêtres ou aperçu intégré), utilise ce lien :
+                </p>
+                <a
+                  href={checkoutUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-primary px-4 py-2 font-bold text-primary hover:bg-primary/10"
+                >
+                  Ouvrir la page de paiement GeniusPay
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -74,6 +74,7 @@ function PayPage() {
   const initPayment = useServerFn(initGeniusPayPayment);
 
   const [submitting, setSubmitting] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
 
   // Prix de la piste (affichage) — le montant réel est recalculé côté serveur.
   const { data: trackPrice, isLoading: priceLoading } = useQuery({
@@ -109,9 +110,23 @@ function PayPage() {
           ...(purpose === "wallet" ? { amount_xof: computedAmount } : {}),
         },
       });
-      // Une navigation directe remplace correctement la page, y compris hors aperçu.
-      // Dans l'aperçu intégré, l'accès à window.top peut être bloqué par le navigateur.
-      window.location.assign(res.payment_url);
+      // La page de paiement GeniusPay refuse d'être affichée dans une iframe
+      // (X-Frame-Options: DENY). On l'ouvre donc dans un nouvel onglet ; si le
+      // navigateur bloque la popup, on tente la fenêtre parente puis la page.
+      setCheckoutUrl(res.payment_url);
+      const win = window.open(res.payment_url, "_blank", "noopener,noreferrer");
+      if (!win) {
+        try {
+          if (window.top && window.top !== window.self) {
+            window.top.location.href = res.payment_url;
+          } else {
+            window.location.assign(res.payment_url);
+          }
+        } catch {
+          toast.error("Ouvre le lien de paiement affiché ci-dessous.");
+        }
+      }
+      setSubmitting(false);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Échec de l'initialisation du paiement");
       setSubmitting(false);
@@ -206,6 +221,23 @@ function PayPage() {
                 </>
               )}
             </button>
+
+            {checkoutUrl && (
+              <div className="rounded-lg border border-border bg-muted/20 p-3 text-xs text-muted-foreground space-y-2">
+                <p>
+                  La page de paiement s'ouvre dans un nouvel onglet. Si rien ne s'affiche
+                  (bloqueur de fenêtres ou aperçu intégré), utilise ce lien :
+                </p>
+                <a
+                  href={checkoutUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-primary px-4 py-2 font-bold text-primary hover:bg-primary/10"
+                >
+                  Ouvrir la page de paiement GeniusPay
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

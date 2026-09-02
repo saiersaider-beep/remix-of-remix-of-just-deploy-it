@@ -74,6 +74,7 @@ function PayPage() {
   const initPayment = useServerFn(initGeniusPayPayment);
 
   const [submitting, setSubmitting] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
 
   // Prix de la piste (affichage) — le montant réel est recalculé côté serveur.
   const { data: trackPrice, isLoading: priceLoading } = useQuery({

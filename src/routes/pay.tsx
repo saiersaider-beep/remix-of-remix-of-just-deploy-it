@@ -225,9 +225,10 @@ function PayPage() {
             {checkoutUrl && (
               <div className="rounded-lg border border-border bg-muted/20 p-3 text-xs text-muted-foreground space-y-2">
                 <p>
-                  La page de paiement s'ouvre dans un nouvel onglet. Si rien ne s'affiche
-                  (bloqueur de fenêtres ou aperçu intégré), utilise ce lien :
+                  Redirection vers la page de paiement sécurisée GeniusPay… Si elle ne
+                  s'ouvre pas automatiquement :
                 </p>
+
                 <a
                   href={checkoutUrl}
                   target="_blank"
